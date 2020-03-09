@@ -3,7 +3,7 @@
   <entry>
     <title>评论系统Valine的使用</title>
     <url>/2020/03/07/%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9FValine%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="评论系统Valine的使用"><a href="#评论系统Valine的使用" class="headerlink" title="评论系统Valine的使用"></a>评论系统Valine的使用</h1><p><a href="https://ioliu.cn/2017/add-valine-comments-to-your-blog/" target="_blank" rel="noopener">@云淡风轻</a> 开发了一款轻量级的Blog评论应用,这里记录下Valine的使用和自定义过程</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="评论系统Valine的使用"><a href="#评论系统Valine的使用" class="headerlink" title="评论系统Valine的使用"></a>评论系统Valine的使用</h1><p><a href="https://ioliu.cn/2017/add-valine-comments-to-your-blog/" target="_blank" rel="noopener">@云淡风轻</a> 开发了一款轻量级的Blog评论应用,这里记录下Valine的使用和自定义过程</p>
 <a id="more"></a>
 
 <h2 id="获取App-ID和App-Key"><a href="#获取App-ID和App-Key" class="headerlink" title="获取App ID和App Key"></a>获取App ID和App Key</h2><p>在<a href="https://leancloud.cn/dashboard/applist.html#/apps" target="_blank" rel="noopener">LeanCloud的官网</a>上注册一个帐号,实名并邮箱验证通过之后可以<a href="https://leancloud.cn/dashboard/applist.html#/apps" target="_blank" rel="noopener">这里</a>创建一个应用.应用名可以随便取.</p>
@@ -82,7 +82,7 @@
   <entry>
     <title>Test</title>
     <url>/2020/03/02/OS/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Operating-System"><a href="#Operating-System" class="headerlink" title="Operating System"></a>Operating System</h1><p>操作系统原理课程学习笔记</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Operating-System"><a href="#Operating-System" class="headerlink" title="Operating System"></a>Operating System</h1><p>操作系统原理课程学习笔记</p>
 <a id="more"></a>
 <ul>
 <li>没有安装操作系统,计算机<strong>依然可以运行程序</strong></li>
