@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hexo博客导航栏美化与自定义</title>
+    <url>/2020/03/13/Hexo%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%BE%8E%E5%8C%96%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>最近几天闲来无事逛<a href="https://bestzuo.cn/" target="_blank" rel="noopener">别人的博客</a>的时候发现增加一个留言板的功能好像还蛮有意思的.于是就想自己也整一个.再把导航栏的图标换他一换</p>
+<a id="more"></a>
+<p>自己自定义导航栏其实还蛮简单的,相比之前在网页里面插入播放器而言.🤣🤣</p>
+<h3 id="打开主题配置文件"><a href="#打开主题配置文件" class="headerlink" title="打开主题配置文件"></a>打开主题配置文件</h3><p>我们首先打开位于<code>themes/next</code>文件夹下面的<code>_config.yml</code>配置文件.然后在其中搜索一下<code>menu</code>.定位到下图这个地方.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/menu.png" alt=""></p>
+<p>可以看到注释很详细的解释了<code>menu</code>自定义项的用法.前面的<font color="red">红字</font>部分就是导航栏的<strong>标题</strong>了.注释后面还提到<code>if the translation for this item is available, the translated text will be loaded, otherwise the Key name will be used.</code>这句话的意思就是如果红字部分有对应的翻译,那么对应的翻译就会在网页上自动加载,否则红字就是你的导航栏的名字.那么这个所谓的<code>translation</code>在什么地方呢.</p>
+<h3 id="添加对应的翻译"><a href="#添加对应的翻译" class="headerlink" title="添加对应的翻译"></a>添加对应的翻译</h3><p>打开<code>themes/next/language</code>文件夹.可以看到一排以语言名命名的文件夹.然后打开<code>zh-CN.yml</code><br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%AF%AD%E8%A8%80.png" alt=""></p>
+<p>添加对应的<code>Key</code>值和其翻译.注意翻译和冒号之间有一个空格.</p>
+<h3 id="选择好康的图标"><a href="#选择好康的图标" class="headerlink" title="选择好康的图标"></a>选择好康的图标</h3><p>再研读一下主题配置文件的注释.发现<code>next</code>主题的图标来自于一个叫做<code>Font Awesome icon</code>的东西.再观察一下原本<code>next</code>主题的icon名.<a href="https://fontawesome.dashgame.com/" target="_blank" rel="noopener"><code>Font Awesome icon</code></a>的官方网站在这里.里面有许多的图标以及使用他们对应的铭恒.我们直选哟调换一个好康的然后在<code>||</code>后面换上我们自己喜欢的icon就好了.同理,导航栏其他的图标如果看的不顺眼了我们也可以用相同的方法进行替换.修改名字的事而已.</p>
+<p>更多<code>Font Awesome icon</code>字体的使用可以参考<a href="http://masikkk.com/article/hexo-17-FontAwesome/" target="_blank" rel="noopener">这篇Blog</a></p>
+<h3 id="编写对应页面的Markdown"><a href="#编写对应页面的Markdown" class="headerlink" title="编写对应页面的Markdown"></a>编写对应页面的Markdown</h3><p>最后一步来辣.打开我们的git bash.在博客目录下面输入<code>hexo new pages title</code>.title是你的导航栏的名字.然后hexo会自动在<code>source/title</code>文件夹下生成一个名字为<code>index</code>的Markdown.注意这里生成的并不是以title名字命名的Markdown.然后<code>hexo clean&amp;&amp;hexo g&amp;&amp;hexo d</code>部署到我们的博客就大功告成了.最后的效果就像这样ヾ(•ω•`)o 完结撒花</p>
+<p><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C.png" alt=""></p>
+<p>如果觉得还不错的话就去留言板灌灌水吧(☞ﾟヮﾟ)☞</p>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://fontawesome.dashgame.com/" target="_blank" rel="noopener">Font Awesome</a><br><a href="http://masikkk.com/article/hexo-17-FontAwesome/" target="_blank" rel="noopener">Hexo博客使用FontAwesome字体图标</a><br><a href="https://www.dazhuanlan.com/2019/09/25/5d8b46019b218/?__cf_chl_jschl_tk__=766d3742af7c818f0336dfb67556abd3ea6e50ff-1584062596-0-AY5m5ilRK1fYdcrAawA_l54dqDIhhP1dJHNcFosS71ijE--n-5QJ1VVcv7wvvaRT3M_ixcHQDBj4zmsN4gk9ChzJesRzwm9ioZY7z0XDHkDb2u2T4IGQm0u2_RQU2YonIzoS6h8bzQ2hCm0-YsdU-rI_8LlqeyFe9ll0_x_JROHHGA-5fRkkPlUo9e-a5eVxOMrAeZyQXMrt1Cou4Xd9T_gMwPYbW7evNirisX4FeOLuMDGFFflyGBcUpih1A5jRsONFHY58UFFrF2IPDfbU3GJKZtvsL7dZNqDWEBXERwLJsYfVnxbzBBH4_FYcRatYkQ" target="_blank" rel="noopener">hexo菜单栏添加留言板-Valine</a><br><a href="https://bestzuo.cn/messageboard/" target="_blank" rel="noopener">Sanarous的Blog</a></p>
+]]></content>
+      <tags>
+        <tag>hexo</tag>
+        <tag>valine</tag>
+        <tag>Blog</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>在自己的博客中插入BGM</title>
     <url>/2020/03/09/%E5%9C%A8%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%8F%92%E5%85%A5BGM/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>前几天心血来潮,觉得自己的博客应该加一点背景音乐.<del>于是程序员他说”要有music”,便有了music</del> 事情怎么可能这么美好!.不出意外的在插入背景音乐的过程中又遇到了许多问题,最后的解决方式也是和之前一样的<strong>玄学</strong>,不过还是开个帖子记录一下🤔</p>

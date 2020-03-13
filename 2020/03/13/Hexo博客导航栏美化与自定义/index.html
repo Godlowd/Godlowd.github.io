@@ -22,19 +22,26 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="JavaScript 3D library for NexT  Installation  If you want to use the CDN instead of clone this repo, please jump to the Step 3.  Step 1 &amp;rarr; Go to NexT dir  Change dir to NexT directory. There must">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Island">
-<meta property="og:url" content="http://yoursite.com/lib/three/README.html">
+  <meta name="description" content="最近几天闲来无事逛别人的博客的时候发现增加一个留言板的功能好像还蛮有意思的.于是就想自己也整一个.再把导航栏的图标换他一换">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo博客导航栏美化与自定义">
+<meta property="og:url" content="http://yoursite.com/2020/03/13/Hexo%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%BE%8E%E5%8C%96%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89/index.html">
 <meta property="og:site_name" content="Island">
-<meta property="og:description" content="JavaScript 3D library for NexT  Installation  If you want to use the CDN instead of clone this repo, please jump to the Step 3.  Step 1 &amp;rarr; Go to NexT dir  Change dir to NexT directory. There must">
+<meta property="og:description" content="最近几天闲来无事逛别人的博客的时候发现增加一个留言板的功能好像还蛮有意思的.于是就想自己也整一个.再把导航栏的图标换他一换">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-03-11T11:47:39.378Z">
-<meta property="article:modified_time" content="2020-03-07T00:09:04.452Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/menu.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%AF%AD%E8%A8%80.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C.png">
+<meta property="article:published_time" content="2020-03-13T00:01:29.000Z">
+<meta property="article:modified_time" content="2020-03-13T01:54:18.573Z">
 <meta property="article:author" content="nullptr">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="valine">
+<meta property="article:tag" content="Blog">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/menu.png">
 
-<link rel="canonical" href="http://yoursite.com/lib/three/README">
+<link rel="canonical" href="http://yoursite.com/2020/03/13/Hexo%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%BE%8E%E5%8C%96%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89/">
 
 
 <script id="page-configurations">
@@ -42,12 +49,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false
+    isPost : true
   };
 </script>
 
-  <title> | Island
-  </title>
+  <title>Hexo博客导航栏美化与自定义 | Island</title>
   
 
 
@@ -195,85 +201,140 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
           <div class="content">
             
 
   <div class="posts-expand">
-    
-    
-    
-    <div class="post-block" lang="zh-CN">
-      <header class="post-header">
-
-<h1 class="post-title" itemprop="name headline">
-</h1>
-
-<div class="post-meta">
+      
   
-  <ul class="breadcrumb">
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/13/Hexo%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%BE%8E%E5%8C%96%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nullptr">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Island">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo博客导航栏美化与自定义
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-13 08:01:29" itemprop="dateCreated datePublished" datetime="2020-03-13T08:01:29+08:00">2020-03-13</time>
+            </span>
+
           
-            <li><a href="/lib/">LIB</a></li>
-            <li><a href="/lib/three/">THREE</a></li>
-            <li>README</li>
-          
-  </ul>
+            <span id="/2020/03/13/Hexo%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%BE%8E%E5%8C%96%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89/" class="post-meta-item leancloud_visitors" data-flag-title="Hexo博客导航栏美化与自定义" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/03/13/Hexo%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%BE%8E%E5%8C%96%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/13/Hexo%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%BE%8E%E5%8C%96%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
 
-</div>
+        </div>
+      </header>
 
-</header>
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-      
-      
-      <div class="post-body">
-          <h1 align="center"><a href="https://github.com/mrdoob/three.js" target="_blank" rel="noopener">JavaScript 3D library</a> for <a href="https://github.com/theme-next" target="_blank" rel="noopener">NexT</a></h1>
+        <p>最近几天闲来无事逛<a href="https://bestzuo.cn/" target="_blank" rel="noopener">别人的博客</a>的时候发现增加一个留言板的功能好像还蛮有意思的.于是就想自己也整一个.再把导航栏的图标换他一换</p>
+<a id="more"></a>
+<p>自己自定义导航栏其实还蛮简单的,相比之前在网页里面插入播放器而言.🤣🤣</p>
+<h3 id="打开主题配置文件"><a href="#打开主题配置文件" class="headerlink" title="打开主题配置文件"></a>打开主题配置文件</h3><p>我们首先打开位于<code>themes/next</code>文件夹下面的<code>_config.yml</code>配置文件.然后在其中搜索一下<code>menu</code>.定位到下图这个地方.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/menu.png" alt=""></p>
+<p>可以看到注释很详细的解释了<code>menu</code>自定义项的用法.前面的<font color="red">红字</font>部分就是导航栏的<strong>标题</strong>了.注释后面还提到<code>if the translation for this item is available, the translated text will be loaded, otherwise the Key name will be used.</code>这句话的意思就是如果红字部分有对应的翻译,那么对应的翻译就会在网页上自动加载,否则红字就是你的导航栏的名字.那么这个所谓的<code>translation</code>在什么地方呢.</p>
+<h3 id="添加对应的翻译"><a href="#添加对应的翻译" class="headerlink" title="添加对应的翻译"></a>添加对应的翻译</h3><p>打开<code>themes/next/language</code>文件夹.可以看到一排以语言名命名的文件夹.然后打开<code>zh-CN.yml</code><br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%AF%AD%E8%A8%80.png" alt=""></p>
+<p>添加对应的<code>Key</code>值和其翻译.注意翻译和冒号之间有一个空格.</p>
+<h3 id="选择好康的图标"><a href="#选择好康的图标" class="headerlink" title="选择好康的图标"></a>选择好康的图标</h3><p>再研读一下主题配置文件的注释.发现<code>next</code>主题的图标来自于一个叫做<code>Font Awesome icon</code>的东西.再观察一下原本<code>next</code>主题的icon名.<a href="https://fontawesome.dashgame.com/" target="_blank" rel="noopener"><code>Font Awesome icon</code></a>的官方网站在这里.里面有许多的图标以及使用他们对应的铭恒.我们直选哟调换一个好康的然后在<code>||</code>后面换上我们自己喜欢的icon就好了.同理,导航栏其他的图标如果看的不顺眼了我们也可以用相同的方法进行替换.修改名字的事而已.</p>
+<p>更多<code>Font Awesome icon</code>字体的使用可以参考<a href="http://masikkk.com/article/hexo-17-FontAwesome/" target="_blank" rel="noopener">这篇Blog</a></p>
+<h3 id="编写对应页面的Markdown"><a href="#编写对应页面的Markdown" class="headerlink" title="编写对应页面的Markdown"></a>编写对应页面的Markdown</h3><p>最后一步来辣.打开我们的git bash.在博客目录下面输入<code>hexo new pages title</code>.title是你的导航栏的名字.然后hexo会自动在<code>source/title</code>文件夹下生成一个名字为<code>index</code>的Markdown.注意这里生成的并不是以title名字命名的Markdown.然后<code>hexo clean&amp;&amp;hexo g&amp;&amp;hexo d</code>部署到我们的博客就大功告成了.最后的效果就像这样ヾ(•ω•`)o 完结撒花</p>
+<p><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C.png" alt=""></p>
+<p>如果觉得还不错的话就去留言板灌灌水吧(☞ﾟヮﾟ)☞</p>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://fontawesome.dashgame.com/" target="_blank" rel="noopener">Font Awesome</a><br><a href="http://masikkk.com/article/hexo-17-FontAwesome/" target="_blank" rel="noopener">Hexo博客使用FontAwesome字体图标</a><br><a href="https://www.dazhuanlan.com/2019/09/25/5d8b46019b218/?__cf_chl_jschl_tk__=766d3742af7c818f0336dfb67556abd3ea6e50ff-1584062596-0-AY5m5ilRK1fYdcrAawA_l54dqDIhhP1dJHNcFosS71ijE--n-5QJ1VVcv7wvvaRT3M_ixcHQDBj4zmsN4gk9ChzJesRzwm9ioZY7z0XDHkDb2u2T4IGQm0u2_RQU2YonIzoS6h8bzQ2hCm0-YsdU-rI_8LlqeyFe9ll0_x_JROHHGA-5fRkkPlUo9e-a5eVxOMrAeZyQXMrt1Cou4Xd9T_gMwPYbW7evNirisX4FeOLuMDGFFflyGBcUpih1A5jRsONFHY58UFFrF2IPDfbU3GJKZtvsL7dZNqDWEBXERwLJsYfVnxbzBBH4_FYcRatYkQ" target="_blank" rel="noopener">hexo菜单栏添加留言板-Valine</a><br><a href="https://bestzuo.cn/messageboard/" target="_blank" rel="noopener">Sanarous的Blog</a></p>
 
-<h1 align="center">Installation</h1>
-
-<h2>If you want to use the CDN instead of clone this repo, please jump to the Step 3.</h2>
-
-<h2 align="center">Step 1 &rarr; Go to NexT dir</h2>
-
-<p>Change dir to <strong>NexT</strong> directory. There must be <code>layout</code>, <code>source</code>, <code>languages</code> and other directories:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> themes/next</span><br><span class="line">$ ls</span><br><span class="line">_config.yml  crowdin.yml  docs  gulpfile.js  languages  layout  LICENSE.md  package.json  README.md  scripts  <span class="built_in">source</span></span><br></pre></td></tr></table></figure>
-
-<h2 align="center">Step 2 &rarr; Get module</h2>
-
-<p>Install module to <code>source/lib</code> directory:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/theme-next/theme-next-three <span class="built_in">source</span>/lib/three</span><br></pre></td></tr></table></figure>
-
-<h2 align="center">Step 3 &rarr; Set it up</h2>
-
-<p>Enable module in <strong>NexT</strong> <code>_config.yml</code> file:</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">three_waves:</span> <span class="literal">true</span></span><br><span class="line"><span class="string">OR</span></span><br><span class="line"><span class="attr">canvas_lines:</span> <span class="literal">true</span></span><br><span class="line"><span class="string">OR</span></span><br><span class="line"><span class="attr">canvas_sphere:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>And, if you wants to use the CDN, then need to set:</strong></p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">vendors:</span></span><br><span class="line">  <span class="string">...</span></span><br><span class="line">  <span class="attr">three:</span> <span class="string">//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js</span></span><br><span class="line">  <span class="attr">three_waves:</span> <span class="string">//cdn.jsdelivr.net/gh/theme-next/theme-next-three@latest/three-waves.min.js</span></span><br><span class="line">  <span class="attr">canvas_lines:</span> <span class="string">//cdn.jsdelivr.net/gh/theme-next/theme-next-three@latest/canvas_lines.min.js</span></span><br><span class="line">  <span class="attr">canvas_sphere:</span> <span class="string">//cdn.jsdelivr.net/gh/theme-next/theme-next-three@latest/canvas_sphere.min.js</span></span><br></pre></td></tr></table></figure>
-
-<h1 align="center">Update</h1>
-
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> themes/next/<span class="built_in">source</span>/lib/three</span><br><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
-
-      </div>
-      
-      
-      
     </div>
-    
-  <ul class="breadcrumb">
-          
-            <li><a href="/lib/">LIB</a></li>
-            <li><a href="/lib/three/">THREE</a></li>
-            <li>README</li>
-          
-  </ul>
 
     
     
     
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/hexo/" rel="tag"><i class="fa fa-tag"></i> hexo</a>
+              <a href="/tags/valine/" rel="tag"><i class="fa fa-tag"></i> valine</a>
+              <a href="/tags/Blog/" rel="tag"><i class="fa fa-tag"></i> Blog</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/09/%E5%9C%A8%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%8F%92%E5%85%A5BGM/" rel="prev" title="在自己的博客中插入BGM">
+      <i class="fa fa-chevron-left"></i> 在自己的博客中插入BGM
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
 
 
@@ -326,7 +387,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">JavaScript 3D library for NexT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">2.</span> <span class="nav-text">Installation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.1.</span> <span class="nav-text">If you want to use the CDN instead of clone this repo, please jump to the Step 3.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.2.</span> <span class="nav-text">Step 1 &amp;rarr; Go to NexT dir</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.3.</span> <span class="nav-text">Step 2 &amp;rarr; Get module</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">2.4.</span> <span class="nav-text">Step 3 &amp;rarr; Set it up</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">3.</span> <span class="nav-text">Update</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开主题配置文件"><span class="nav-number">1.</span> <span class="nav-text">打开主题配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加对应的翻译"><span class="nav-number">2.</span> <span class="nav-text">添加对应的翻译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择好康的图标"><span class="nav-number">3.</span> <span class="nav-text">选择好康的图标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写对应页面的Markdown"><span class="nav-number">4.</span> <span class="nav-text">编写对应页面的Markdown</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
