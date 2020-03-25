@@ -19,7 +19,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="评论系统Valine的使用@云淡风轻 开发了一款轻量级的Blog评论应用,这里记录下Valine的使用和自定义过程">
@@ -145,14 +145,9 @@
     <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">4</span></a>
 
   </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">0</span></a>
-
-  </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">4</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">5</span></a>
 
   </li>
         <li class="menu-item menu-item-messages">
@@ -295,18 +290,16 @@
       
         <h1 id="评论系统Valine的使用"><a href="#评论系统Valine的使用" class="headerlink" title="评论系统Valine的使用"></a>评论系统Valine的使用</h1><p><a href="https://ioliu.cn/2017/add-valine-comments-to-your-blog/" target="_blank" rel="noopener">@云淡风轻</a> 开发了一款轻量级的Blog评论应用,这里记录下Valine的使用和自定义过程</p>
 <a id="more"></a>
-
 <h2 id="获取App-ID和App-Key"><a href="#获取App-ID和App-Key" class="headerlink" title="获取App ID和App Key"></a>获取App ID和App Key</h2><p>在<a href="https://leancloud.cn/dashboard/applist.html#/apps" target="_blank" rel="noopener">LeanCloud的官网</a>上注册一个帐号,实名并邮箱验证通过之后可以<a href="https://leancloud.cn/dashboard/applist.html#/apps" target="_blank" rel="noopener">这里</a>创建一个应用.应用名可以随便取.</p>
 <p>在刚刚创建的应用的设置中选择<strong>应用Key</strong>,就可以看到这个应用的App ID和App Key了.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/TIM%E6%88%AA%E5%9B%BE20200307120352.png" alt="TIM截图20200307120352"></p>
 <h2 id="设置安全域名"><a href="#设置安全域名" class="headerlink" title="设置安全域名"></a>设置安全域名</h2><p>然后打开设置中的<strong>安全中心</strong>,在下面的<strong>Web安全域名</strong>中填入我们网站的域名,如下图<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E5%A1%AB%E5%86%99Web%E5%AE%89%E5%85%A8%E5%9F%9F%E5%90%8D.png" alt="填写Web安全域名"></p>
 <h2 id="在主题配置文件中填入相应字段"><a href="#在主题配置文件中填入相应字段" class="headerlink" title="在主题配置文件中填入相应字段"></a>在主题配置文件中填入相应字段</h2><p>打开博客所在目录,找到<strong>主题</strong>的配置文件,不是整个博客的.在文本中搜索”valine”,把刚才获取到的App ID和App Key填入进去.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png" alt="修改配置文件"><br>这里提一个坑,在复制App ID和App Key的时候注意不要<strong>激活了后面的注释</strong>,如果注释被视为了代码的一部分就会报一个</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Code : undefined [410 GET https:&#x2F;&#x2F;avoscloud.com&#x2F;1.1&#x2F;classes&#x2F;Comment]</span><br></pre></td></tr></table></figure>
-<p>的错误,这个时候就应该检查一下是否配置文件中的注释出现了问题<br>另外在这个过程中还可能出现其他的问题,比如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Code 403: 访问被api域名白名单拒绝，请检查你的安全域名设置</span><br></pre></td></tr></table></figure>
-<p>就要检查在第二步<strong>设置安全域名</strong>的过程中是否漏掉了网址最后的”/“,比如原来的网址是<code>https://godlowd.github.io/</code>,但是填写进去的时候是<code>https://godlowd.github.io</code>.建议还是直接复制浏览器地址栏中的地址,再粘贴进去,就可以避免类似问题<br>重新部署我们的Blog之后打开就可以看到评论功能了.不过这个时候还处于一个比较基本的状态.要进行更深层次的定制还需要进一步优化.</p>
+<p>的错误,这个时候就应该检查一下是否配置文件中的注释出现了问题<br>另外在这个过程中还可能出现其他的问题,比如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Code 403: 访问被api域名白名单拒绝，请检查你的安全域名设置</span><br></pre></td></tr></table></figure><br>就要检查在第二步<strong>设置安全域名</strong>的过程中是否漏掉了网址最后的”/“,比如原来的网址是<code>https://godlowd.github.io/</code>,但是填写进去的时候是<code>https://godlowd.github.io</code>.建议还是直接复制浏览器地址栏中的地址,再粘贴进去,就可以避免类似问题<br>重新部署我们的Blog之后打开就可以看到评论功能了.不过这个时候还处于一个比较基本的状态.要进行更深层次的定制还需要进一步优化.</p>
 <h2 id="打开评论邮件提醒系统"><a href="#打开评论邮件提醒系统" class="headerlink" title="打开评论邮件提醒系统"></a>打开评论邮件提醒系统</h2><p>首先贴一下<a href="https://github.com/zhaojun1998/Valine-Admin" target="_blank" rel="noopener">大佬的GitHub项目地址</a>,这是一个Valine的拓展应用,可以用来通知站长新评论,而且支持自定义邮件主题(有一说一,彩虹色的还蛮好康的嗷).下面就让我来康康这个玩意是怎么整的</p>
 <h3 id="设置代码库"><a href="#设置代码库" class="headerlink" title="设置代码库"></a>设置代码库</h3><p>首先我们需要在Lean Cloud的<strong>云引擎</strong>的<strong>设置</strong>中把上面大佬的项目地址添加进去并保存<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%A0%81%E5%BA%93.png" alt="设置代码库"></p>
 <h3 id="自定义环境变量"><a href="#自定义环境变量" class="headerlink" title="自定义环境变量"></a>自定义环境变量</h3><p>光有了大佬的代码还不够,我们还需要知道有了新评论如何登录一个邮箱并且把通知发送到站长的邮箱不是?,所以我们需要在<strong>环境变量</strong>这个地方设置好这些东西</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -314,13 +307,14 @@
 <th>解释</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>SITE_NAME</td>
 <td>网站名称,就是在博客的配置文件中的<strong>title</strong>项</td>
 </tr>
 <tr>
 <td>SITE_URL</td>
-<td>网站的地址,*<em>最后不要加 / *</em>,和上面的安全域名略有不同</td>
+<td>网站的地址,<strong>最后不要加 / </strong>,和上面的安全域名略有不同</td>
 </tr>
 <tr>
 <td>SMTP_USER</td>
@@ -338,9 +332,12 @@
 <td>SENDER_NAME</td>
 <td>寄件人名称</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png" alt="SENDER_NAME"></p>
 <p>另外还有一些环境变量是这样子的:</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -348,7 +345,8 @@
 <th>解释</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>TO_EMAIL</td>
 <td>指定<strong>收信信箱</strong>,默认为SITE_USER.用于SITE_USER发件人和收件人不一致的情况下使用</td>
 </tr>
@@ -356,7 +354,9 @@
 <td>TEMPLATE_NAME</td>
 <td>提醒邮件的模板,默认为default,目前支持rainbow</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>切换到<strong>部署</strong>页面,选择中间的Git源码部署,下面的分支或版本号填写<strong>master</strong>,,然后等待大概7-8分钟.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E9%83%A8%E7%BD%B2.png" alt="部署"><br>部署完成之后的页面应该是这个样子<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E9%83%A8%E7%BD%B22.png" alt="部署2"></p>
 <p>不过很奇怪的是部署完成之后我的web组栏下面并没有和<a href="https://11.tt/posts/2018/add-valine-to-your-blog/" target="_blank" rel="noopener">其他博主一样</a>出现实例的字样.这也导致了他们的重启实例我不知道在哪里运行.如果有知道的兄弟萌欢迎在评论区指出.</p>
 <p>不过困难总是可以克服的嘛.既然不能在实例里面重启,那我就在部署的生产环境里重启.反正都是重启不是?(此处手动贴吧滑稽).</p>
@@ -466,7 +466,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -510,12 +510,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">16k</span>
+    <span title="站点总字数">20k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">14 分钟</span>
+    <span title="站点阅读时长">18 分钟</span>
 </div>
 
 <link rel="stylesheet" href="/dist/APlayer.min.css">
@@ -595,6 +595,8 @@
 
 
 
+
+  
 
   
 

@@ -1,11 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>聚类</title>
+    <url>/2020/03/24/%E8%81%9A%E7%B1%BB/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h1><h2 id="聚类试图完成的任务"><a href="#聚类试图完成的任务" class="headerlink" title="聚类试图完成的任务"></a>聚类试图完成的任务</h2><p>面对一个样本集<strong>D</strong> = {x<sub>1</sub>,x<sub>2</sub>, x<sub>3</sub>, … , x<sub>m</sub>},聚类试图将D中的样本划分成若干个<strong>不相交的子集</strong>,每一个子集成为之一个<strong>簇</strong>(cluster).通过这样的划分,也许可以找出每个簇对应的一些潜在规律,例如第一个簇里面的样本都是”浅色瓜”,第二个簇里面的样本都是”深色瓜”,诸如此类.但是这些概念对于聚类算法而言是<strong>事先未知的</strong>.</p>
+<a id="more"></a>
+<h2 id="聚类用到的概念"><a href="#聚类用到的概念" class="headerlink" title="聚类用到的概念"></a>聚类用到的概念</h2><p>假定样本集<strong>D</strong>中包含m个无标记样本.每一个样本<strong>x<sub>i</sub></strong> = {x<sub>i1</sub>,x<sub>i2</sub>,x<sub>i3</sub>, … x<sub>in</sub>}都是一个<strong>n维特征向量</strong>,</p>
+<p>算法划分成的簇用<strong>C<sub>l</sub></strong>表示.假定划分成了k个簇,那么这k个簇两两之间的交集为空集,k个簇的并集为样本集<strong>D</strong>.</p>
+<p>用&lambda;<sub>j</sub> &isin; { 1, 2, 3, … k } 表示D中的样本x<sub>j</sub>的簇标记.即x<sub>j</sub> &isin; $C_{\lambda_j}$  </p>
+<h2 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h2><p>我们希望聚类结果的<strong>簇内相似度高</strong>,<strong>簇间相似度低</strong>.这一点其实很好理解,如果簇内的相似度太低则可能将无关样本也划分进来,如果簇间相似度高了则有可能将原本是一个簇的样本强行划分成了两个簇.</p>
+<p>评价一个聚类的性能度量大概有两类.</p>
+<ol>
+<li>将结果与某个参考模型进行比较,称为<strong>外部指标</strong></li>
+<li>直接考察聚类结果而不利用任何参考模型,称为<strong>内部指标</strong></li>
+</ol>
+<p>下面我们来考虑用外部指标进行性能度量的情况</p>
+<h3 id="外部指标"><a href="#外部指标" class="headerlink" title="外部指标"></a>外部指标</h3><p>假定对于上述给定的数据集<strong>D</strong>,通过<strong>聚类</strong>划分出的簇一共有k个,<strong>参考模型</strong>给出的簇一共有s个.将D中的样本两两配对考虑,且有如下定义:</p>
+<p>a = |SS|,|SS| = {(x<sub>i</sub>,x<sub>j</sub>) | &lambda;<sub>i</sub> = &lambda;<sub>j</sub>, &lambda;<sup>‘</sup> <sub>i</sub>= &lambda;<sup>‘</sup> <sub>j</sub>}<br>b = |SD|,|SD| = {(x<sub>i</sub>,x<sub>j</sub>) | &lambda;<sub>i</sub> = &lambda;<sub>j</sub>, &lambda;<sup>‘</sup> <sub>i</sub> &ne; &lambda;<sup>‘</sup> <sub>j</sub>}<br>c = |DS|,|DS| = {(x<sub>i</sub>,x<sub>j</sub>) | &lambda;<sub>i</sub> &ne; &lambda;<sub>j</sub>, &lambda;<sup>‘</sup> <sub>i</sub>= &lambda;<sup>‘</sup> <sub>j</sub>}<br>d = |DD|,|DD| = {(x<sub>i</sub>,x<sub>j</sub>) | &lambda;<sub>i</sub> &ne; &lambda;<sub>j</sub>, &lambda;<sup>‘</sup> <sub>i</sub>&ne; &lambda;<sup>‘</sup> <sub>j</sub>}</p>
+<p>基于上述定义我们导出如下的一些指标(虽然我并没有看懂它到底是怎么推出来的)</p>
+<ul>
+<li>Jaccard系数: JC = $ \frac{a}{a+b+c}$</li>
+<li>FM指数: FMI = $ \sqrt{\frac{a}{a+b}  \times \frac{a}{a+c} }$</li>
+<li>Rand指数: RI =  $ \frac {2(a+d)}{m(m-1)}$</li>
+</ul>
+<p>上述性能度量的结果在区间[0,1]内,越接近1越好,下面我们考虑聚类结果的簇划分$C$ = {C<sub>1</sub>, C<sub>2</sub>,C<sub>3</sub>…C<sub>k</sub>},定义如下概念:</p>
+<ul>
+<li>avg(C) = $ \frac{2}{|C|(|C| - 1)} \sum _{1 \leq i \le j \leq |C|} dist(x_i,x_j)$</li>
+<li>diam (C) = $max_{1 \leq i \le j \leq |C|} dist(x_i,x_j)$</li>
+<li>d$_{min}$($C_i,C_j$) = $min_{x_i \in C_i, x_j \in C_j} dist(x_i,x_j)$</li>
+<li>$d_{cen}{(C_i,C_j)} = dist( \mu_i, \mu_j)$</li>
+</ul>
+<p>其中dist用于计算两个样本之间的距离, $ \mu$ 代表簇$C$的中心点$ \mu = \frac{1}{|C|} \sum_{1 \leq i \leq |C|} x_i$.显然可以知道avg(C)对应的含义是簇C内样本的平均距离(当然我们希望avg的值越小越好).$d_{min}(C_i,C_j)$ 对应于簇$C_i$和簇$C_j$<strong>最近样本</strong>间的距离,$d_{cen}(C_i,C_j)$对应于簇$C_i$和簇$C_j$ <strong>中心点之间</strong>的距离.<br>同样的,根据以上定义我们可以导出下面常用的性能度量的内部指标</p>
+<ul>
+<li>DB指数: DBI = $ \frac{1}{k} \sum_{i = 1}^{k} max_{j \neq i}( \frac{avg(C_i) + avg(C_j)}{d_{cen}(\mu_i\mu_j)} $</li>
+<li>Dunn指数: DI = $min_{1 \leq i \leq k}{ min_{i \neq j}(\frac {d_{min}(C_i,C_j)}{max_{1 \leq l \leq k}diam(C_l)})}$</li>
+</ul>
+<p>显然DBI的值越小越好(对应簇内部样本距离越小,簇之间的中心距离越大),DI的值越大越好,这里就不再赘述</p>
+<h2 id="原型聚类"><a href="#原型聚类" class="headerlink" title="原型聚类"></a>原型聚类</h2><h3 id="k均值算法"><a href="#k均值算法" class="headerlink" title="k均值算法"></a>k均值算法</h3><p>给定样本集D=$ \left\{ x_1, x_2, x_3…x_m \right\}$,k均值算法针对聚类算法所得到的簇划分C = $ \left\{C_1,C_2,C_3..C_k \right\}$最小化平方误差</p>
+<script type="math/tex; mode=display">
+E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$是簇$C_i$的均值向量,从直观上来看E刻画的是簇内样本对簇$C_i$的围绕紧密程度.E值越小说明簇内样本相似度越高.最小化这个式子我们现在采用的是贪心策略,通过迭代优化来近似求解.</p>
+<p><img src="https://s1.ax1x.com/2020/03/25/8XkUEj.png" alt="8XkUEj.png"></p>
+<p>不过需要注意的是,在最开始初始化的过程中是<strong>随机选取</strong>样本作为初始的均值向量.</p>
+<ul>
+<li><p>对于每一个样本$x_j$,其中$j = 1, 2, 3, …m$</p>
+<ul>
+<li>计算样本与各个簇之间的距离</li>
+<li>根据距离最近的均值确定样本$x_j$的簇标记</li>
+<li>将样本$x_j$划入对应的簇:$C_{\lambda_j} = C_{\lambda_j} \cup \left\{x_j \right\}$</li>
+</ul>
+</li>
+<li><p>对于每一个簇$\mu_i$,其中$i = 1,2,3, … k$</p>
+<ul>
+<li>计算每一个簇内<strong>新的均值向量$\mu’$</strong></li>
+<li>如果新的均值向量$\mu’$和原有的均值向量$\mu$不相等,则将均值向量更新为新的均值向量$\mu’$.否则均值向量不更新</li>
+</ul>
+<p>重复上述操作,直到当前均值向量都未更新或者到达了最大运行轮次</p>
+</li>
+</ul>
+<h3 id="学习向量化-Learning-Vector-Quantization"><a href="#学习向量化-Learning-Vector-Quantization" class="headerlink" title="学习向量化(Learning Vector Quantization)"></a>学习向量化(Learning Vector Quantization)</h3><ul>
+<li>LVQ假设数据样本带有标记,学习过程利用这些监督信息辅助聚类</li>
+</ul>
+<p>给定样本集$D = \left\{(x_1,y_1),(x_2,y_2),…,(x_m,y_m)\right\}$.每个样本$x_j$是由n个属性描述的特征向量$(x_{j1} ;x_{j2};x_{j3}…x_{jn})$.LVQ的目标是<strong>$学习到一组n维原型向量\left\{p_1,p_2,p_3…p_n\right\}$</strong> ,每一个原型向量代表一个聚类簇.</p>
+<h4 id="学习向量化算法"><a href="#学习向量化算法" class="headerlink" title="学习向量化算法"></a>学习向量化算法</h4><ul>
+<li>初始化一组原型向量(这个西瓜书上并没有写的很清楚具体的初始化过程,只有很简单的一句话)</li>
+<li>从D中随机选取一个有标记的样本$(x_j,y_j)$,计算样本与每一个聚类簇$p_j$的距离.</li>
+<li>找出与样本最近的聚类簇$ p_{i’} $ ,如果样本的标记和聚类簇相等,则令原型向量向$x_j$的方向靠拢,$p’ = p_{i’} + \eta (x_j - p_{i’})$</li>
+<li>如果标记和聚类簇不相等,则令原型向量远离$x_j$,$p’ = p_{i’} + \eta (x_j - p_{i’})$</li>
+<li>将原型向量$p_{i’}$更新为$p’$,不断迭代,直到达到停止条件</li>
+</ul>
+<p>新的原型向量$p’$与原来样本$x_j$的距离为$||p’ - x_j|| = (1- \eta ) || p_{i’} - x_j||_2$ .令学习率 $\eta \in (0,1)$ .在更新为$p’$之后将更接近$x_j$.<br>当标记不同的时候也是类似.</p>
+<h2 id="密度聚类"><a href="#密度聚类" class="headerlink" title="密度聚类"></a>密度聚类</h2><p>假定聚类结构能够通过样本分布的紧密程度决定.基于<strong>可连接样本</strong>不断扩展聚类簇获得最终结果.</p>
+<ul>
+<li>$\epsilon$-邻域,对$x_j \in D$,其$\epsilon$-邻域包含样本集D中与$x_j$距离不大于$\epsilon$的样本,即 $N_{\epsilon}(x_j) = \left\{x_i \in D |dist(x_i,x_j) \leq \epsilon \right\}$</li>
+<li>核心对象,若$x_i$的$\epsilon$-邻域至少包含 MinPts个样本(具体数值由我们手动设置),则$x_i$是一个核心对象</li>
+<li>密度直达: 若$x_j$位于$x_i$的$\epsilon$-邻域中,且$x_i$是核心对象,则称$x_j$由$x_i$密度直达</li>
+<li>密度可达: 对$x_j$和$x_i$,如果存在样本序列$p_1$,$p_2$,$p_3$,…$p_n$,其中p=$p_1 = x_i,p_n = x_j,$,且$p_{i+1}$由$p_i$密度直达,则称$x_j$由$x_i$密度可达</li>
+<li>密度相连: 对$x_j$和$x_i$,如果存在$x_k$,使得$x_i$和$x_j$均由$x_k$密度可达,则称$x_i$与$x_j$密度相连</li>
+</ul>
+<p><a href="https://imgchr.com/i/8XUHOS" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/25/8XUHOS.png" alt="8XUHOS.png"></a></p>
+<p>基于以上概念,DBSCAN将<strong>簇</strong>定义为由密度可达关系导出的最大密度相连样本集合.</p>
+<h4 id="DBSCAN算法"><a href="#DBSCAN算法" class="headerlink" title="DBSCAN算法"></a>DBSCAN算法</h4><ul>
+<li>初始化核心对象集合$\Omega$为空集</li>
+<li>对于样本集D中的每一个样本$x_j$,确定它是否满足<strong>核心对象</strong>的条件如果满足,将该样本加入核心对象集合$\Omega$中</li>
+<li>记录当前未访问样本集合$\Gamma_{old} = \Gamma$ .</li>
+<li>初始化聚类簇数为0,未访问样本数集合$\Gamma$ = D</li>
+<li>当$\Omega$不为空集时,随机选取一个$\Omega$中的元素o,初始化队列Q = &lt; o &gt;</li>
+<li>将未访问样本集合$\Gamma$更新为$\Gamma$ \ { o }</li>
+<li>当Q不为空时,提出Q中的首个样本$q$,如果$q$是核心对象,令$\Delta$为$q$的$\epsilon$-邻域中的样本和未访问集合$\Gamma$中的交集</li>
+<li>将$\Delta$中的元素加入队列Q中.更新$\Gamma$为 $\Gamma = \Gamma \backslash \Delta$</li>
+<li>当Q中所有元素都被取出来之后, k自增一,生成聚类簇$C_k$     = $\Gamma_{old} \backslash \Gamma$, 更新核心对象集合$\Omega = \Omega \backslash C_k$</li>
+</ul>
+<h2 id="层次聚类"><a href="#层次聚类" class="headerlink" title="层次聚类"></a>层次聚类</h2><ul>
+<li>在不同层次对数据集进行划分,形成<strong>树形</strong>的聚类结构.可以采用自底向上的聚合策略,也可以采用自顶向下的分拆策略.<h3 id="AGNES"><a href="#AGNES" class="headerlink" title="AGNES"></a>AGNES</h3>将数据集中的每一个样本看作一个<strong>初始聚类簇</strong>,在算法运行的每一步找出距离最近的两个聚类簇进行合并.重复过程直到达到预设的簇的个数.</li>
+<li>簇之间距离的计算:</li>
+</ul>
+<ol>
+<li>最小距离: $d_{min}(C_i,C_j) = min_{x \in C_i, y \in C_j}dist(x,y)$</li>
+<li>最大距离: $d_{max}(C_i,C_j) = max_{x \in C_i, y \in C_j}dist(x,y)$</li>
+<li><p>平均距离: $d_{avg}(C_i,C_j) = \frac {1}{|C_i||C_j|} \sum_{x \in C_i} \sum_{y \in C_j}dist(x,y)$</p>
+<p><img src="https://s1.ax1x.com/2020/03/25/8vEA7F.png" alt="8vEA7F.png"></p>
+</li>
+</ol>
+<p>算法的1-9行对仅含一个样本的<strong>初始聚类簇</strong>和<strong>距离矩阵</strong>进行初始化.所以这也是为什么第七行会有$M(j,i) = M(i,j)$ .<br>第11-23行则是对这个矩阵不断进行更新操作.矩阵合并之后相应的距离矩阵也需要更新.</p>
+]]></content>
+  </entry>
+  <entry>
     <title>Hexo博客导航栏美化与自定义</title>
     <url>/2020/03/13/Hexo%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%BE%8E%E5%8C%96%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>最近几天闲来无事逛<a href="https://bestzuo.cn/" target="_blank" rel="noopener">别人的博客</a>的时候发现增加一个留言板的功能好像还蛮有意思的.于是就想自己也整一个.再把导航栏的图标换他一换</p>
-<a id="more"></a>
-<p>自己自定义导航栏其实还蛮简单的,相比之前在网页里面插入播放器而言.🤣🤣</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>最近几天闲来无事逛<a href="https://bestzuo.cn/" target="_blank" rel="noopener">别人的博客</a>的时候发现增加一个留言板的功能好像还蛮有意思的.于是就想自己也整一个.再把导航栏的图标换他一换<br><a id="more"></a><br>自己自定义导航栏其实还蛮简单的,相比之前在网页里面插入播放器而言.🤣🤣</p>
 <h3 id="打开主题配置文件"><a href="#打开主题配置文件" class="headerlink" title="打开主题配置文件"></a>打开主题配置文件</h3><p>我们首先打开位于<code>themes/next</code>文件夹下面的<code>_config.yml</code>配置文件.然后在其中搜索一下<code>menu</code>.定位到下图这个地方.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/menu.png" alt=""></p>
 <p>可以看到注释很详细的解释了<code>menu</code>自定义项的用法.前面的<font color="red">红字</font>部分就是导航栏的<strong>标题</strong>了.注释后面还提到<code>if the translation for this item is available, the translated text will be loaded, otherwise the Key name will be used.</code>这句话的意思就是如果红字部分有对应的翻译,那么对应的翻译就会在网页上自动加载,否则红字就是你的导航栏的名字.那么这个所谓的<code>translation</code>在什么地方呢.</p>
 <h3 id="添加对应的翻译"><a href="#添加对应的翻译" class="headerlink" title="添加对应的翻译"></a>添加对应的翻译</h3><p>打开<code>themes/next/language</code>文件夹.可以看到一排以语言名命名的文件夹.然后打开<code>zh-CN.yml</code><br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%AF%AD%E8%A8%80.png" alt=""></p>
@@ -19,25 +121,22 @@
 ]]></content>
       <tags>
         <tag>hexo</tag>
-        <tag>valine</tag>
         <tag>Blog</tag>
+        <tag>valine</tag>
       </tags>
   </entry>
   <entry>
     <title>在自己的博客中插入BGM</title>
     <url>/2020/03/09/%E5%9C%A8%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%8F%92%E5%85%A5BGM/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>前几天心血来潮,觉得自己的博客应该加一点背景音乐.<del>于是程序员他说”要有music”,便有了music</del> 事情怎么可能这么美好!.不出意外的在插入背景音乐的过程中又遇到了许多问题,最后的解决方式也是和之前一样的<strong>玄学</strong>,不过还是开个帖子记录一下🤔</p>
-<a id="more"></a>
-<p>从这几天在网络上找到的资料来看插入背景音乐的方法大概分三类</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>前几天心血来潮,觉得自己的博客应该加一点背景音乐.<del>于是程序员他说”要有music”,便有了music</del> 事情怎么可能这么美好!.不出意外的在插入背景音乐的过程中又遇到了许多问题,最后的解决方式也是和之前一样的<strong>玄学</strong>,不过还是开个帖子记录一下🤔<br><a id="more"></a><br>从这几天在网络上找到的资料来看插入背景音乐的方法大概分三类</p>
 <ol>
 <li>利用音乐平台的”外链生成器”,然后插入到网页当中</li>
 <li>利用<code>hexo-tag-aplayer</code>插件,在写博客的时候把歌曲插入到对应的博文之中</li>
 <li>使用<code>Aplayer</code>,全局的生成背景音乐播放器.</li>
 </ol>
 <h2 id="外链生成器"><a href="#外链生成器" class="headerlink" title="外链生成器"></a>外链生成器</h2><p>这个方法的优点是<strong>简单,高效</strong>,不像其他的两种方法又是安装插件又是自己设置音乐的<code>url</code>,<code>歌词</code>等等,但是很致命的问题是并不是音乐平台上所有的歌曲都支持外链生成.比如:<br>更不要提啥时候这首歌在网易云就会变灰….所以这种依赖音乐平台自身的插入BGM的方法在这里并不适合我<br>所以接下来我们考虑第二种</p>
-<h2 id="hexo-tag-player插件"><a href="#hexo-tag-player插件" class="headerlink" title="hexo-tag-player插件"></a>hexo-tag-player插件</h2><p><code>hexo-tag-player</code>本质上就是我们第三种方法的一个插件,<a href="https://github.com/MoePlayer/hexo-tag-aplayer" target="_blank" rel="noopener">GitHub项目地址</a>送上.<br>首先我们要在博客的目录下面打开<code>git bash</code>,输入<code>npm install --save hexo-tag-aplayer</code>指令来安装这款插件,如果是在Linux系统下面就应该是要打开终端了.不过使用这个功能的前提是<code>Aplayer.js</code>的版本要高于<code>1.8.0</code>,<code>Meting.js</code>的版本要高于<code>1.1.1</code>.(Meting属于后面的扩展内容.不是必须项).然后就可以在<strong>博客的正文的markdown里面</strong>,插入下面的神奇代码,来实现背景音乐播放</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% aplayer title author url [picture_url, narrow, autoplay, width:xxx, lrc:xxx] %&#125;</span><br></pre></td></tr></table></figure>
-<p>这里稍稍解释下标签参数,GitHub文档中都有很详细的描述.</p>
+<h2 id="hexo-tag-player插件"><a href="#hexo-tag-player插件" class="headerlink" title="hexo-tag-player插件"></a>hexo-tag-player插件</h2><p><code>hexo-tag-player</code>本质上就是我们第三种方法的一个插件,<a href="https://github.com/MoePlayer/hexo-tag-aplayer" target="_blank" rel="noopener">GitHub项目地址</a>送上.<br>首先我们要在博客的目录下面打开<code>git bash</code>,输入<code>npm install --save hexo-tag-aplayer</code>指令来安装这款插件,如果是在Linux系统下面就应该是要打开终端了.不过使用这个功能的前提是<code>Aplayer.js</code>的版本要高于<code>1.8.0</code>,<code>Meting.js</code>的版本要高于<code>1.1.1</code>.(Meting属于后面的扩展内容.不是必须项).然后就可以在<strong>博客的正文的markdown里面</strong>,插入下面的神奇代码,来实现背景音乐播放<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% aplayer title author url [picture_url, narrow, autoplay, width:xxx, lrc:xxx] %&#125;</span><br></pre></td></tr></table></figure><br>这里稍稍解释下标签参数,GitHub文档中都有很详细的描述.</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -45,7 +144,8 @@
 <th>解释</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><code>title</code></td>
 <td>曲目标题</td>
 </tr>
@@ -77,12 +177,13 @@
 <td><code>lrc:xxx</code></td>
 <td>(可选)歌词文件 URL 地址</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>同样,歌词标签和播放列表GitHub的<a href="https://github.com/MoePlayer/hexo-tag-aplayer/blob/master/docs/README-zh_cn.md" target="_blank" rel="noopener">文档</a>里都有写.不过这个地方我真的要吐槽一下.文档虽然写的很翔实各种参数都给你标注出来了但是你<sup>TM</sup> 都不告诉我在那里插入这段神奇代码的吗?不说谁知道是插入在布局的swig文件还是markdown还是别的啥地方啊.(来自一个一点都不会前端的菜鸡深深的怨念).<br>不过这种方法也有缺点,就是必须在写文章的时候插入.这就不符合我的全局的要求.所以我们转向它的本尊-Aplayer</p>
-<h2 id="APlayer"><a href="#APlayer" class="headerlink" title="APlayer"></a>APlayer</h2><p>同样,还是先贴<a href="https://github.com/MoePlayer/APlayer" target="_blank" rel="noopener">GitHub项目地址</a>.要使用Aplayer首先需要<code>npm install aplayer --save</code>安装.<a href="https://aplayer.js.org/#/zh-Hans/" target="_blank" rel="noopener">中文文档</a>在这里.然后从它的仓库clone下来它的代码,把其中的<code>dist</code>文件夹拷贝到<code>themes\next\source</code> 下面,再在<code>dist</code>文件夹中新建一个<code>music.js</code>.然后把这段代码拷贝进去</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> ap = <span class="keyword">new</span> APlayer(&#123;</span><br><span class="line">    container: <span class="built_in">document</span>.getElementById(<span class="string">'aplayer'</span>),</span><br><span class="line">    audio: [&#123;</span><br><span class="line">        name: <span class="string">'name'</span>,</span><br><span class="line">        artist: <span class="string">'artist'</span>,</span><br><span class="line">        url: <span class="string">'url.mp3'</span>,</span><br><span class="line">        cover: <span class="string">'cover.jpg'</span></span><br><span class="line">    &#125;]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
+<h2 id="APlayer"><a href="#APlayer" class="headerlink" title="APlayer"></a>APlayer</h2><p>同样,还是先贴<a href="https://github.com/MoePlayer/APlayer" target="_blank" rel="noopener">GitHub项目地址</a>.要使用Aplayer首先需要<code>npm install aplayer --save</code>安装.<a href="https://aplayer.js.org/#/zh-Hans/" target="_blank" rel="noopener">中文文档</a>在这里.然后从它的仓库clone下来它的代码,把其中的<code>dist</code>文件夹拷贝到<code>themes\next\source</code> 下面,再在<code>dist</code>文件夹中新建一个<code>music.js</code>.然后把这段代码拷贝进去<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> ap = <span class="keyword">new</span> APlayer(&#123;</span><br><span class="line">    container: <span class="built_in">document</span>.getElementById(<span class="string">'aplayer'</span>),</span><br><span class="line">    audio: [&#123;</span><br><span class="line">        name: <span class="string">'name'</span>,</span><br><span class="line">        artist: <span class="string">'artist'</span>,</span><br><span class="line">        url: <span class="string">'url.mp3'</span>,</span><br><span class="line">        cover: <span class="string">'cover.jpg'</span></span><br><span class="line">    &#125;]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>这里就不一一列举参数了,就捡几个主要的说</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -91,7 +192,8 @@
 <th>解释</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><code>container</code></td>
 <td>document.querySelector(‘.aplayer’)</td>
 <td>播放器容器元素</td>
@@ -131,7 +233,9 @@
 <td>‘auto’</td>
 <td>预加载，可选值: ‘none’, ‘metadata’, ‘auto’</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>一段成熟的代码应该像下面这个亚子</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> ap = <span class="keyword">new</span> APlayer(&#123;</span><br><span class="line">    container: <span class="built_in">document</span>.getElementById(<span class="string">'player'</span>),</span><br><span class="line">    mini: <span class="literal">false</span>,</span><br><span class="line">    autoplay: <span class="literal">false</span>,</span><br><span class="line">    theme: <span class="string">'#FADFA3'</span>,</span><br><span class="line">    loop: <span class="string">'all'</span>,</span><br><span class="line">    order: <span class="string">'random'</span>,</span><br><span class="line">    preload: <span class="string">'auto'</span>,</span><br><span class="line">    volume: <span class="number">0.7</span>,</span><br><span class="line">    mutex: <span class="literal">true</span>,</span><br><span class="line">    listFolded: <span class="literal">false</span>,</span><br><span class="line">    listMaxHeight: <span class="number">90</span>,</span><br><span class="line">    lrcType: <span class="number">3</span>,</span><br><span class="line">    audio: [</span><br><span class="line">        &#123;</span><br><span class="line">            name: <span class="string">'name1'</span>,</span><br><span class="line">            artist: <span class="string">'artist1'</span>,</span><br><span class="line">            url: <span class="string">'url1.mp3'</span>,</span><br><span class="line">            cover: <span class="string">'cover1.jpg'</span>,</span><br><span class="line">            lrc: <span class="string">'lrc1.lrc'</span>,</span><br><span class="line">            theme: <span class="string">'#ebd0c2'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            name: <span class="string">'name2'</span>,</span><br><span class="line">            artist: <span class="string">'artist2'</span>,</span><br><span class="line">            url: <span class="string">'url2.mp3'</span>,</span><br><span class="line">            cover: <span class="string">'cover2.jpg'</span>,</span><br><span class="line">            lrc: <span class="string">'lrc2.lrc'</span>,</span><br><span class="line">            theme: <span class="string">'#46718b'</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>将上面这段完整的代码写进<code>music.js</code>,其他的选项可以自己设定.提一下,在Aplayer的官方文档中似乎没有提到可以利用资源文件夹的操作,所以在填写url链接的时候需要注意.有兴趣的小伙伴可以试一试利用本地资源的方法.在我自己的代码我是采用外链的方法.虽然我觉得这个外链的获取方式堪称奇技淫巧,但它偏偏就是有效(摊手).<br>还是到网易云,找到想听的歌.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/InsertBGM/%E7%BD%91%E6%98%93%E4%BA%91%E6%89%BE%E6%AD%8C.png" alt=""></p>
@@ -153,18 +257,16 @@
     <url>/2020/03/07/%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9FValine%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="评论系统Valine的使用"><a href="#评论系统Valine的使用" class="headerlink" title="评论系统Valine的使用"></a>评论系统Valine的使用</h1><p><a href="https://ioliu.cn/2017/add-valine-comments-to-your-blog/" target="_blank" rel="noopener">@云淡风轻</a> 开发了一款轻量级的Blog评论应用,这里记录下Valine的使用和自定义过程</p>
 <a id="more"></a>
-
 <h2 id="获取App-ID和App-Key"><a href="#获取App-ID和App-Key" class="headerlink" title="获取App ID和App Key"></a>获取App ID和App Key</h2><p>在<a href="https://leancloud.cn/dashboard/applist.html#/apps" target="_blank" rel="noopener">LeanCloud的官网</a>上注册一个帐号,实名并邮箱验证通过之后可以<a href="https://leancloud.cn/dashboard/applist.html#/apps" target="_blank" rel="noopener">这里</a>创建一个应用.应用名可以随便取.</p>
 <p>在刚刚创建的应用的设置中选择<strong>应用Key</strong>,就可以看到这个应用的App ID和App Key了.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/TIM%E6%88%AA%E5%9B%BE20200307120352.png" alt="TIM截图20200307120352"></p>
 <h2 id="设置安全域名"><a href="#设置安全域名" class="headerlink" title="设置安全域名"></a>设置安全域名</h2><p>然后打开设置中的<strong>安全中心</strong>,在下面的<strong>Web安全域名</strong>中填入我们网站的域名,如下图<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E5%A1%AB%E5%86%99Web%E5%AE%89%E5%85%A8%E5%9F%9F%E5%90%8D.png" alt="填写Web安全域名"></p>
 <h2 id="在主题配置文件中填入相应字段"><a href="#在主题配置文件中填入相应字段" class="headerlink" title="在主题配置文件中填入相应字段"></a>在主题配置文件中填入相应字段</h2><p>打开博客所在目录,找到<strong>主题</strong>的配置文件,不是整个博客的.在文本中搜索”valine”,把刚才获取到的App ID和App Key填入进去.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png" alt="修改配置文件"><br>这里提一个坑,在复制App ID和App Key的时候注意不要<strong>激活了后面的注释</strong>,如果注释被视为了代码的一部分就会报一个</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Code : undefined [410 GET https:&#x2F;&#x2F;avoscloud.com&#x2F;1.1&#x2F;classes&#x2F;Comment]</span><br></pre></td></tr></table></figure>
-<p>的错误,这个时候就应该检查一下是否配置文件中的注释出现了问题<br>另外在这个过程中还可能出现其他的问题,比如</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Code 403: 访问被api域名白名单拒绝，请检查你的安全域名设置</span><br></pre></td></tr></table></figure>
-<p>就要检查在第二步<strong>设置安全域名</strong>的过程中是否漏掉了网址最后的”/“,比如原来的网址是<code>https://godlowd.github.io/</code>,但是填写进去的时候是<code>https://godlowd.github.io</code>.建议还是直接复制浏览器地址栏中的地址,再粘贴进去,就可以避免类似问题<br>重新部署我们的Blog之后打开就可以看到评论功能了.不过这个时候还处于一个比较基本的状态.要进行更深层次的定制还需要进一步优化.</p>
+<p>的错误,这个时候就应该检查一下是否配置文件中的注释出现了问题<br>另外在这个过程中还可能出现其他的问题,比如<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Code 403: 访问被api域名白名单拒绝，请检查你的安全域名设置</span><br></pre></td></tr></table></figure><br>就要检查在第二步<strong>设置安全域名</strong>的过程中是否漏掉了网址最后的”/“,比如原来的网址是<code>https://godlowd.github.io/</code>,但是填写进去的时候是<code>https://godlowd.github.io</code>.建议还是直接复制浏览器地址栏中的地址,再粘贴进去,就可以避免类似问题<br>重新部署我们的Blog之后打开就可以看到评论功能了.不过这个时候还处于一个比较基本的状态.要进行更深层次的定制还需要进一步优化.</p>
 <h2 id="打开评论邮件提醒系统"><a href="#打开评论邮件提醒系统" class="headerlink" title="打开评论邮件提醒系统"></a>打开评论邮件提醒系统</h2><p>首先贴一下<a href="https://github.com/zhaojun1998/Valine-Admin" target="_blank" rel="noopener">大佬的GitHub项目地址</a>,这是一个Valine的拓展应用,可以用来通知站长新评论,而且支持自定义邮件主题(有一说一,彩虹色的还蛮好康的嗷).下面就让我来康康这个玩意是怎么整的</p>
 <h3 id="设置代码库"><a href="#设置代码库" class="headerlink" title="设置代码库"></a>设置代码库</h3><p>首先我们需要在Lean Cloud的<strong>云引擎</strong>的<strong>设置</strong>中把上面大佬的项目地址添加进去并保存<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%A0%81%E5%BA%93.png" alt="设置代码库"></p>
 <h3 id="自定义环境变量"><a href="#自定义环境变量" class="headerlink" title="自定义环境变量"></a>自定义环境变量</h3><p>光有了大佬的代码还不够,我们还需要知道有了新评论如何登录一个邮箱并且把通知发送到站长的邮箱不是?,所以我们需要在<strong>环境变量</strong>这个地方设置好这些东西</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -172,13 +274,14 @@
 <th>解释</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>SITE_NAME</td>
 <td>网站名称,就是在博客的配置文件中的<strong>title</strong>项</td>
 </tr>
 <tr>
 <td>SITE_URL</td>
-<td>网站的地址,*<em>最后不要加 / *</em>,和上面的安全域名略有不同</td>
+<td>网站的地址,<strong>最后不要加 / </strong>,和上面的安全域名略有不同</td>
 </tr>
 <tr>
 <td>SMTP_USER</td>
@@ -196,9 +299,12 @@
 <td>SENDER_NAME</td>
 <td>寄件人名称</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png" alt="SENDER_NAME"></p>
 <p>另外还有一些环境变量是这样子的:</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -206,7 +312,8 @@
 <th>解释</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>TO_EMAIL</td>
 <td>指定<strong>收信信箱</strong>,默认为SITE_USER.用于SITE_USER发件人和收件人不一致的情况下使用</td>
 </tr>
@@ -214,7 +321,9 @@
 <td>TEMPLATE_NAME</td>
 <td>提醒邮件的模板,默认为default,目前支持rainbow</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>切换到<strong>部署</strong>页面,选择中间的Git源码部署,下面的分支或版本号填写<strong>master</strong>,,然后等待大概7-8分钟.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E9%83%A8%E7%BD%B2.png" alt="部署"><br>部署完成之后的页面应该是这个样子<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E9%83%A8%E7%BD%B22.png" alt="部署2"></p>
 <p>不过很奇怪的是部署完成之后我的web组栏下面并没有和<a href="https://11.tt/posts/2018/add-valine-to-your-blog/" target="_blank" rel="noopener">其他博主一样</a>出现实例的字样.这也导致了他们的重启实例我不知道在哪里运行.如果有知道的兄弟萌欢迎在评论区指出.</p>
 <p>不过困难总是可以克服的嘛.既然不能在实例里面重启,那我就在部署的生产环境里重启.反正都是重启不是?(此处手动贴吧滑稽).</p>
@@ -230,8 +339,7 @@
   <entry>
     <title>操作系统原理笔记</title>
     <url>/2020/03/02/OS/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Operating-System"><a href="#Operating-System" class="headerlink" title="Operating System"></a>Operating System</h1><p>操作系统原理课程学习笔记</p>
-<a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Operating-System"><a href="#Operating-System" class="headerlink" title="Operating System"></a>Operating System</h1><p>操作系统原理课程学习笔记<br><a id="more"></a></p>
 <ul>
 <li>没有安装操作系统,计算机<strong>依然可以运行程序</strong></li>
 <li>普通用户不能正常使用</li>
@@ -244,7 +352,7 @@
 <li>进程调度: 调度策略,优先级</li>
 <li>进程通信: 进程间通信</li>
 </ul>
-<ol start="2">
+<ol>
 <li>内存管理</li>
 </ol>
 <ul>
@@ -253,7 +361,7 @@
 <li>内存保护</li>
 <li>虚拟内存</li>
 </ul>
-<ol start="3">
+<ol>
 <li>设备管理</li>
 </ol>
 <ul>
@@ -262,7 +370,7 @@
 <li>设备传输控制</li>
 <li>设备驱动</li>
 </ul>
-<ol start="4">
+<ol>
 <li>文件管理</li>
 </ol>
 <ul>
@@ -307,12 +415,9 @@
 </ul>
 <p><strong>分时技术</strong>:    主机以<strong>很短</strong>的<strong>时间片</strong>为单位,把CPU轮流分给每个终端使用,直到作业全被执行完.由于<strong>时间片</strong>很短,每个终端都能很快重新获得CPU,得到及时响应.</p>
 <p><strong>等待周期</strong> = <strong>时间片</strong> $\times$ 终端数量</p>
-<p>#####　分时系统的特点</p>
-<ul>
-<li><p>多路调制性:<strong>多用户</strong>联机使用同一台计算机</p>
-</li>
-<li><p>交互性: 及时响应</p>
-</li>
+<h5 id="分时系统的特点"><a href="#分时系统的特点" class="headerlink" title="　分时系统的特点"></a>　分时系统的特点</h5><ul>
+<li>多路调制性:<strong>多用户</strong>联机使用同一台计算机</li>
+<li>交互性: 及时响应</li>
 <li><p>独占性: 用户感觉独占计算机</p>
 </li>
 <li><p>大型分时系统的实践:Multics</p>
@@ -582,7 +687,7 @@
 <p>首扇区的最前面也有一块特殊的内容,称之为<a href="PBR">主启动扇区</a> , 用于启动操作系统和加载操作系统</p>
 <h6 id="BIOS和MBR程序运行过程"><a href="#BIOS和MBR程序运行过程" class="headerlink" title="BIOS和MBR程序运行过程"></a>BIOS和MBR程序运行过程</h6><ol>
 <li>POST $\rightarrow$ CMOS设置(硬盘启动) $\rightarrow$  读取MBR $\rightarrow$ 控制权交给MBR</li>
-<li>MBR读取[分区表](Partion Table) $\rightarrow$ 找到[活动分区](Active Partion) , 并确认其他分区都是不活动分区 $\rightarrow$ 读取活动分区的<a href="分区引导记录PBR">第一个分区</a> $\rightarrow$ 加载到内存</li>
+<li>MBR读取<a href="Partion Table">分区表</a> $\rightarrow$ 找到<a href="Active Partion">活动分区</a> , 并确认其他分区都是不活动分区 $\rightarrow$ 读取活动分区的<a href="分区引导记录PBR">第一个分区</a> $\rightarrow$ 加载到内存</li>
 <li>PBR继续控制后面的引导过程</li>
 </ol>
 <h3 id="操作系统的启动"><a href="#操作系统的启动" class="headerlink" title="操作系统的启动"></a>操作系统的启动</h3><ul>
@@ -621,7 +726,7 @@
 <ul>
 <li>加电吼BIOS启动主机自检</li>
 </ul>
-<ol start="2">
+<ol>
 <li>初始引导</li>
 </ol>
 <ul>
@@ -629,13 +734,13 @@
 <li>引导程序启动DOS7.0,调入操作系统核心</li>
 <li>WINDOWS接管系统</li>
 </ul>
-<ol start="3">
+<ol>
 <li>核心初始化</li>
 </ol>
 <ul>
 <li>资源状态,核心数据初始化</li>
 </ul>
-<ol start="4">
+<ol>
 <li>系统初始化</li>
 </ol>
 <ul>
@@ -658,12 +763,9 @@
 </li>
 <li><p>选择和启动内核配置程序</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make menuconfig</span><br></pre></td></tr></table></figure>
-
-
-
 </li>
 </ol>
-<ol start="3">
+<ol>
 <li><p>根据需要配置内核模块和参数</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Loadable module support	//设置对可加载模块的支持</span><br><span class="line">Processor <span class="built_in">type</span> and features	//设置CPU类型</span><br><span class="line">General setup	//对普通属性的一些设置</span><br><span class="line">Parallel port support //并口支持</span><br><span class="line">Plug and Play configuration //即插即用配置</span><br><span class="line">Block devices	//块设备支持的选项</span><br></pre></td></tr></table></figure>
 </li>
@@ -709,17 +811,16 @@
 <li>使用某个特定版本的Shell执行脚本</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ bash first_script</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>指定一个特定版本的shell版本(此例是<strong>bash</strong>)</li>
 <li>逐行执行脚本中的命令</li>
 <li>当脚本文件中的命令依次执行完毕,临时子shell<strong>自动结束运行</strong>,返回用户原来使用的shell</li>
 </ul>
-<ol start="3">
+<ol>
 <li>在脚本文件<strong>首行</strong>指定shell</li>
 </ol>
 <ul>
-<li>在脚本文件开头增加一行``#!/bin/bash –#!必须顶格,后面接shell全路径</li>
+<li>在脚本文件开头增加一行``#!/bin/bash —#!必须顶格,后面接shell全路径</li>
 <li>可以从/etc/shell获知所有可用shell及其绝对路径</li>
 </ul>
 <h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><ul>
@@ -744,8 +845,7 @@
 <li>异步性<br>进程按照各自的速度向前推进</li>
 <li>独立性<br>进程是OS分配资源和调度CPU的单位</li>
 </ol>
-<p>######　进程和程序的区别</p>
-<ul>
+<h6 id="进程和程序的区别"><a href="#进程和程序的区别" class="headerlink" title="　进程和程序的区别"></a>　进程和程序的区别</h6><ul>
 <li>静态和动态</li>
 </ul>
 <ol>
@@ -781,11 +881,10 @@
 <li>就绪状态(Ready)<br>具备运行条件,但由于<strong>无CPU</strong>,暂时不能运行</li>
 <li>阻塞状态(Block)或等待状态(Wait)<br>因为等待某项服务完成或信号不能运行的状态,如等待: 系统调用, I/O操作, 合作进程信号</li>
 </ul>
-<p>#####　进程状态的变迁</p>
-<p>进程的状态可以依据一定的条件相互转化．</p>
+<h5 id="进程状态的变迁"><a href="#进程状态的变迁" class="headerlink" title="　进程状态的变迁"></a>　进程状态的变迁</h5><p>进程的状态可以依据一定的条件相互转化．</p>
 <ol>
 <li><p>就绪$ \rightarrow$ 运行<br>进程调度</p>
-<ol start="2">
+<ol>
 <li>运行$ \rightarrow$ 就绪<br>时间片到了,或者优先级更高的进程抢占了CPU</li>
 <li>运行$ \rightarrow$ 阻塞<br>请求OS提供服务,等待某个信号的到来</li>
 <li>阻塞$ \rightarrow$ 就绪<br>等待的服务完成 了,等待的信号到来了</li>
@@ -903,14 +1002,11 @@
 <li>子进程是父进程的复制,具有和父进程相同的代码,数据,堆栈,差别在于<strong>ID</strong>号不一样,与时间有关的信息不一样</li>
 </ul>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> 	fork();</span><br><span class="line"> 	<span class="built_in">printf</span>(<span class="string">"Hello World\n"</span>);</span><br><span class="line"> 	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>在屏幕上会输出两个Hello World的字符串</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">pid_t</span> pid;</span><br><span class="line">    pid = fork();</span><br><span class="line">    <span class="keyword">if</span>(pid == <span class="number">0</span>)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Hello World\n"</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(pid &gt; <span class="number">0</span>)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"How are you\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>此时在屏幕上输出一行<code>Hello World</code>与一行<code>How are you</code>.<br>在子进程中,<code>pid=0</code>,在父进程中<code>pid&gt;0</code>(子进程ID),如果执行出错,返回-1<br>但是父进程,子进程是<strong>并发的</strong>,所以字符串输出顺序<strong>不确定</strong>.不会无限循环和递归创建子进程.</p>
 <h4 id="子进程和父进程的并发"><a href="#子进程和父进程的并发" class="headerlink" title="子进程和父进程的并发"></a>子进程和父进程的并发</h4><p>当父进程中的<code>pid = fork()</code>指令执行时,复制相同的代码到子进程.<code>fork()</code>指令之前的指令<strong>不再执行</strong>,从指令后面的语句并发.</p>
 <h4 id="fork函数的实现"><a href="#fork函数的实现" class="headerlink" title="fork函数的实现"></a>fork函数的实现</h4><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">do_fork</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	<span class="keyword">unsigned</span> <span class="keyword">long</span> clone_flags,</span></span></span><br><span class="line"><span class="function"><span class="params">	<span class="keyword">unsigned</span> <span class="keyword">long</span> stack_start,</span></span></span><br><span class="line"><span class="function"><span class="params">	struct pt_regs *regs,</span></span></span><br><span class="line"><span class="function"><span class="params">	<span class="keyword">unsigned</span> <span class="keyword">long</span> stack_size</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line"><span class="keyword">int</span> do_fork&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> *<span class="title">p</span>;</span></span><br><span class="line">    p = alloc_task_struct();<span class="comment">//分配存放位置的内存</span></span><br><span class="line">    ......</span><br><span class="line">    copy_files(clone_flags,p);</span><br><span class="line">    copy_fs(clone_flags,p);</span><br><span class="line">    copy_mm(clone_flags,p);<span class="comment">//拷贝进程所有信息</span></span><br><span class="line">    ......</span><br><span class="line">    wake_up_process(p);<span class="comment">//唤醒进程,挂入可执行队列等待被调度</span></span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h4 id="exec函数簇"><a href="#exec函数簇" class="headerlink" title="exec函数簇"></a>exec函数簇</h4><ul>
 <li>装入一个<strong>指定的可执行程序</strong>运行</li>
 <li><strong>使子进程具有和父进程完全不同的新功能</strong></li>
@@ -946,8 +1042,7 @@
 <li>Linux创建线程:pthread_create(线程函数,参数)</li>
 </ul>
 <h3 id="临界区和锁"><a href="#临界区和锁" class="headerlink" title="临界区和锁"></a>临界区和锁</h3><h4 id="临界资源和临界区"><a href="#临界资源和临界区" class="headerlink" title="临界资源和临界区"></a>临界资源和临界区</h4><ul>
-<li><p>临界资源(Critical Resource): 一次只允许<strong>一个进程</strong>独占访问的资源</p>
-</li>
+<li>临界资源(Critical Resource): 一次只允许<strong>一个进程</strong>独占访问的资源</li>
 <li><p>临界区(Critical Section): 进程中访问临界资源的<strong>程序段</strong></p>
 </li>
 <li><p>临界区和临界资源的访问特点:</p>
@@ -975,9 +1070,7 @@
 </li>
 </ul>
 <h5 id="上锁操作"><a href="#上锁操作" class="headerlink" title="上锁操作"></a>上锁操作</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line">LOCK(S)		<span class="comment">//上锁操作</span></span><br><span class="line">&#123;</span><br><span class="line">    test: <span class="keyword">if</span>(S==<span class="number">0</span>)	</span><br><span class="line">        <span class="keyword">goto</span> test;	<span class="comment">//测试锁标志,内部循环</span></span><br><span class="line">    	<span class="keyword">else</span> <span class="comment">//S==1</span></span><br><span class="line">            S=<span class="number">0</span>;	<span class="comment">//上锁</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h5 id="开锁操作"><a href="#开锁操作" class="headerlink" title="开锁操作"></a>开锁操作</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line">UnLock(S)</span><br><span class="line">&#123;</span><br><span class="line">    S = <span class="number">1</span>;	<span class="comment">//开锁</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>开锁原语</strong></p>
 <h5 id="锁机制访问临界区"><a href="#锁机制访问临界区" class="headerlink" title="锁机制访问临界区"></a>锁机制访问临界区</h5><ol>
 <li>初始化锁状态S=1(可用)</li>

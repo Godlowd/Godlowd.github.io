@@ -19,7 +19,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="前几天心血来潮,觉得自己的博客应该加一点背景音乐.于是程序员他说”要有music”,便有了music 事情怎么可能这么美好!.不出意外的在插入背景音乐的过程中又遇到了许多问题,最后的解决方式也是和之前一样的玄学,不过还是开个帖子记录一下🤔">
@@ -141,14 +141,9 @@
     <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">4</span></a>
 
   </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">0</span></a>
-
-  </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">4</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">5</span></a>
 
   </li>
         <li class="menu-item menu-item-messages">
@@ -289,18 +284,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>前几天心血来潮,觉得自己的博客应该加一点背景音乐.<del>于是程序员他说”要有music”,便有了music</del> 事情怎么可能这么美好!.不出意外的在插入背景音乐的过程中又遇到了许多问题,最后的解决方式也是和之前一样的<strong>玄学</strong>,不过还是开个帖子记录一下🤔</p>
-<a id="more"></a>
-<p>从这几天在网络上找到的资料来看插入背景音乐的方法大概分三类</p>
+        <p>前几天心血来潮,觉得自己的博客应该加一点背景音乐.<del>于是程序员他说”要有music”,便有了music</del> 事情怎么可能这么美好!.不出意外的在插入背景音乐的过程中又遇到了许多问题,最后的解决方式也是和之前一样的<strong>玄学</strong>,不过还是开个帖子记录一下🤔<br><a id="more"></a><br>从这几天在网络上找到的资料来看插入背景音乐的方法大概分三类</p>
 <ol>
 <li>利用音乐平台的”外链生成器”,然后插入到网页当中</li>
 <li>利用<code>hexo-tag-aplayer</code>插件,在写博客的时候把歌曲插入到对应的博文之中</li>
 <li>使用<code>Aplayer</code>,全局的生成背景音乐播放器.</li>
 </ol>
 <h2 id="外链生成器"><a href="#外链生成器" class="headerlink" title="外链生成器"></a>外链生成器</h2><p>这个方法的优点是<strong>简单,高效</strong>,不像其他的两种方法又是安装插件又是自己设置音乐的<code>url</code>,<code>歌词</code>等等,但是很致命的问题是并不是音乐平台上所有的歌曲都支持外链生成.比如:<br>更不要提啥时候这首歌在网易云就会变灰….所以这种依赖音乐平台自身的插入BGM的方法在这里并不适合我<br>所以接下来我们考虑第二种</p>
-<h2 id="hexo-tag-player插件"><a href="#hexo-tag-player插件" class="headerlink" title="hexo-tag-player插件"></a>hexo-tag-player插件</h2><p><code>hexo-tag-player</code>本质上就是我们第三种方法的一个插件,<a href="https://github.com/MoePlayer/hexo-tag-aplayer" target="_blank" rel="noopener">GitHub项目地址</a>送上.<br>首先我们要在博客的目录下面打开<code>git bash</code>,输入<code>npm install --save hexo-tag-aplayer</code>指令来安装这款插件,如果是在Linux系统下面就应该是要打开终端了.不过使用这个功能的前提是<code>Aplayer.js</code>的版本要高于<code>1.8.0</code>,<code>Meting.js</code>的版本要高于<code>1.1.1</code>.(Meting属于后面的扩展内容.不是必须项).然后就可以在<strong>博客的正文的markdown里面</strong>,插入下面的神奇代码,来实现背景音乐播放</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% aplayer title author url [picture_url, narrow, autoplay, width:xxx, lrc:xxx] %&#125;</span><br></pre></td></tr></table></figure>
-<p>这里稍稍解释下标签参数,GitHub文档中都有很详细的描述.</p>
+<h2 id="hexo-tag-player插件"><a href="#hexo-tag-player插件" class="headerlink" title="hexo-tag-player插件"></a>hexo-tag-player插件</h2><p><code>hexo-tag-player</code>本质上就是我们第三种方法的一个插件,<a href="https://github.com/MoePlayer/hexo-tag-aplayer" target="_blank" rel="noopener">GitHub项目地址</a>送上.<br>首先我们要在博客的目录下面打开<code>git bash</code>,输入<code>npm install --save hexo-tag-aplayer</code>指令来安装这款插件,如果是在Linux系统下面就应该是要打开终端了.不过使用这个功能的前提是<code>Aplayer.js</code>的版本要高于<code>1.8.0</code>,<code>Meting.js</code>的版本要高于<code>1.1.1</code>.(Meting属于后面的扩展内容.不是必须项).然后就可以在<strong>博客的正文的markdown里面</strong>,插入下面的神奇代码,来实现背景音乐播放<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% aplayer title author url [picture_url, narrow, autoplay, width:xxx, lrc:xxx] %&#125;</span><br></pre></td></tr></table></figure><br>这里稍稍解释下标签参数,GitHub文档中都有很详细的描述.</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -308,7 +300,8 @@
 <th>解释</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><code>title</code></td>
 <td>曲目标题</td>
 </tr>
@@ -340,12 +333,13 @@
 <td><code>lrc:xxx</code></td>
 <td>(可选)歌词文件 URL 地址</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>同样,歌词标签和播放列表GitHub的<a href="https://github.com/MoePlayer/hexo-tag-aplayer/blob/master/docs/README-zh_cn.md" target="_blank" rel="noopener">文档</a>里都有写.不过这个地方我真的要吐槽一下.文档虽然写的很翔实各种参数都给你标注出来了但是你<sup>TM</sup> 都不告诉我在那里插入这段神奇代码的吗?不说谁知道是插入在布局的swig文件还是markdown还是别的啥地方啊.(来自一个一点都不会前端的菜鸡深深的怨念).<br>不过这种方法也有缺点,就是必须在写文章的时候插入.这就不符合我的全局的要求.所以我们转向它的本尊-Aplayer</p>
-<h2 id="APlayer"><a href="#APlayer" class="headerlink" title="APlayer"></a>APlayer</h2><p>同样,还是先贴<a href="https://github.com/MoePlayer/APlayer" target="_blank" rel="noopener">GitHub项目地址</a>.要使用Aplayer首先需要<code>npm install aplayer --save</code>安装.<a href="https://aplayer.js.org/#/zh-Hans/" target="_blank" rel="noopener">中文文档</a>在这里.然后从它的仓库clone下来它的代码,把其中的<code>dist</code>文件夹拷贝到<code>themes\next\source</code> 下面,再在<code>dist</code>文件夹中新建一个<code>music.js</code>.然后把这段代码拷贝进去</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ap = <span class="keyword">new</span> APlayer(&#123;</span><br><span class="line">    container: <span class="built_in">document</span>.getElementById(<span class="string">'aplayer'</span>),</span><br><span class="line">    audio: [&#123;</span><br><span class="line">        name: <span class="string">'name'</span>,</span><br><span class="line">        artist: <span class="string">'artist'</span>,</span><br><span class="line">        url: <span class="string">'url.mp3'</span>,</span><br><span class="line">        cover: <span class="string">'cover.jpg'</span></span><br><span class="line">    &#125;]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
+<h2 id="APlayer"><a href="#APlayer" class="headerlink" title="APlayer"></a>APlayer</h2><p>同样,还是先贴<a href="https://github.com/MoePlayer/APlayer" target="_blank" rel="noopener">GitHub项目地址</a>.要使用Aplayer首先需要<code>npm install aplayer --save</code>安装.<a href="https://aplayer.js.org/#/zh-Hans/" target="_blank" rel="noopener">中文文档</a>在这里.然后从它的仓库clone下来它的代码,把其中的<code>dist</code>文件夹拷贝到<code>themes\next\source</code> 下面,再在<code>dist</code>文件夹中新建一个<code>music.js</code>.然后把这段代码拷贝进去<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ap = <span class="keyword">new</span> APlayer(&#123;</span><br><span class="line">    container: <span class="built_in">document</span>.getElementById(<span class="string">'aplayer'</span>),</span><br><span class="line">    audio: [&#123;</span><br><span class="line">        name: <span class="string">'name'</span>,</span><br><span class="line">        artist: <span class="string">'artist'</span>,</span><br><span class="line">        url: <span class="string">'url.mp3'</span>,</span><br><span class="line">        cover: <span class="string">'cover.jpg'</span></span><br><span class="line">    &#125;]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>这里就不一一列举参数了,就捡几个主要的说</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -354,7 +348,8 @@
 <th>解释</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><code>container</code></td>
 <td>document.querySelector(‘.aplayer’)</td>
 <td>播放器容器元素</td>
@@ -394,7 +389,9 @@
 <td>‘auto’</td>
 <td>预加载，可选值: ‘none’, ‘metadata’, ‘auto’</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>一段成熟的代码应该像下面这个亚子</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ap = <span class="keyword">new</span> APlayer(&#123;</span><br><span class="line">    container: <span class="built_in">document</span>.getElementById(<span class="string">'player'</span>),</span><br><span class="line">    mini: <span class="literal">false</span>,</span><br><span class="line">    autoplay: <span class="literal">false</span>,</span><br><span class="line">    theme: <span class="string">'#FADFA3'</span>,</span><br><span class="line">    loop: <span class="string">'all'</span>,</span><br><span class="line">    order: <span class="string">'random'</span>,</span><br><span class="line">    preload: <span class="string">'auto'</span>,</span><br><span class="line">    volume: <span class="number">0.7</span>,</span><br><span class="line">    mutex: <span class="literal">true</span>,</span><br><span class="line">    listFolded: <span class="literal">false</span>,</span><br><span class="line">    listMaxHeight: <span class="number">90</span>,</span><br><span class="line">    lrcType: <span class="number">3</span>,</span><br><span class="line">    audio: [</span><br><span class="line">        &#123;</span><br><span class="line">            name: <span class="string">'name1'</span>,</span><br><span class="line">            artist: <span class="string">'artist1'</span>,</span><br><span class="line">            url: <span class="string">'url1.mp3'</span>,</span><br><span class="line">            cover: <span class="string">'cover1.jpg'</span>,</span><br><span class="line">            lrc: <span class="string">'lrc1.lrc'</span>,</span><br><span class="line">            theme: <span class="string">'#ebd0c2'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            name: <span class="string">'name2'</span>,</span><br><span class="line">            artist: <span class="string">'artist2'</span>,</span><br><span class="line">            url: <span class="string">'url2.mp3'</span>,</span><br><span class="line">            cover: <span class="string">'cover2.jpg'</span>,</span><br><span class="line">            lrc: <span class="string">'lrc2.lrc'</span>,</span><br><span class="line">            theme: <span class="string">'#46718b'</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>将上面这段完整的代码写进<code>music.js</code>,其他的选项可以自己设定.提一下,在Aplayer的官方文档中似乎没有提到可以利用资源文件夹的操作,所以在填写url链接的时候需要注意.有兴趣的小伙伴可以试一试利用本地资源的方法.在我自己的代码我是采用外链的方法.虽然我觉得这个外链的获取方式堪称奇技淫巧,但它偏偏就是有效(摊手).<br>还是到网易云,找到想听的歌.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/InsertBGM/%E7%BD%91%E6%98%93%E4%BA%91%E6%89%BE%E6%AD%8C.png" alt=""></p>
@@ -508,7 +505,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -552,12 +549,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">16k</span>
+    <span title="站点总字数">20k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">14 分钟</span>
+    <span title="站点阅读时长">18 分钟</span>
 </div>
 
 <link rel="stylesheet" href="/dist/APlayer.min.css">
@@ -637,6 +634,8 @@
 
 
 
+
+  
 
   
 

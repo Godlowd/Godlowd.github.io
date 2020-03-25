@@ -19,7 +19,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="最近几天闲来无事逛别人的博客的时候发现增加一个留言板的功能好像还蛮有意思的.于是就想自己也整一个.再把导航栏的图标换他一换">
@@ -36,8 +36,8 @@
 <meta property="article:modified_time" content="2020-03-13T01:54:18.573Z">
 <meta property="article:author" content="nullptr">
 <meta property="article:tag" content="hexo">
-<meta property="article:tag" content="valine">
 <meta property="article:tag" content="Blog">
+<meta property="article:tag" content="valine">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/menu.png">
 
@@ -141,14 +141,9 @@
     <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">4</span></a>
 
   </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">0</span></a>
-
-  </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">4</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">5</span></a>
 
   </li>
         <li class="menu-item menu-item-messages">
@@ -289,9 +284,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>最近几天闲来无事逛<a href="https://bestzuo.cn/" target="_blank" rel="noopener">别人的博客</a>的时候发现增加一个留言板的功能好像还蛮有意思的.于是就想自己也整一个.再把导航栏的图标换他一换</p>
-<a id="more"></a>
-<p>自己自定义导航栏其实还蛮简单的,相比之前在网页里面插入播放器而言.🤣🤣</p>
+        <p>最近几天闲来无事逛<a href="https://bestzuo.cn/" target="_blank" rel="noopener">别人的博客</a>的时候发现增加一个留言板的功能好像还蛮有意思的.于是就想自己也整一个.再把导航栏的图标换他一换<br><a id="more"></a><br>自己自定义导航栏其实还蛮简单的,相比之前在网页里面插入播放器而言.🤣🤣</p>
 <h3 id="打开主题配置文件"><a href="#打开主题配置文件" class="headerlink" title="打开主题配置文件"></a>打开主题配置文件</h3><p>我们首先打开位于<code>themes/next</code>文件夹下面的<code>_config.yml</code>配置文件.然后在其中搜索一下<code>menu</code>.定位到下图这个地方.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/menu.png" alt=""></p>
 <p>可以看到注释很详细的解释了<code>menu</code>自定义项的用法.前面的<font color="red">红字</font>部分就是导航栏的<strong>标题</strong>了.注释后面还提到<code>if the translation for this item is available, the translated text will be loaded, otherwise the Key name will be used.</code>这句话的意思就是如果红字部分有对应的翻译,那么对应的翻译就会在网页上自动加载,否则红字就是你的导航栏的名字.那么这个所谓的<code>translation</code>在什么地方呢.</p>
 <h3 id="添加对应的翻译"><a href="#添加对应的翻译" class="headerlink" title="添加对应的翻译"></a>添加对应的翻译</h3><p>打开<code>themes/next/language</code>文件夹.可以看到一排以语言名命名的文件夹.然后打开<code>zh-CN.yml</code><br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%AF%AD%E8%A8%80.png" alt=""></p>
@@ -313,8 +306,8 @@
           
           <div class="post-tags">
               <a href="/tags/hexo/" rel="tag"><i class="fa fa-tag"></i> hexo</a>
-              <a href="/tags/valine/" rel="tag"><i class="fa fa-tag"></i> valine</a>
               <a href="/tags/Blog/" rel="tag"><i class="fa fa-tag"></i> Blog</a>
+              <a href="/tags/valine/" rel="tag"><i class="fa fa-tag"></i> valine</a>
           </div>
 
         
@@ -326,7 +319,10 @@
     <a href="/2020/03/09/%E5%9C%A8%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%8F%92%E5%85%A5BGM/" rel="prev" title="在自己的博客中插入BGM">
       <i class="fa fa-chevron-left"></i> 在自己的博客中插入BGM
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/24/%E8%81%9A%E7%B1%BB/" rel="next" title="聚类">
+      聚类 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -403,7 +399,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -447,12 +443,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">16k</span>
+    <span title="站点总字数">20k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">14 分钟</span>
+    <span title="站点阅读时长">18 分钟</span>
 </div>
 
 <link rel="stylesheet" href="/dist/APlayer.min.css">
@@ -532,6 +528,8 @@
 
 
 
+
+  
 
   
 
