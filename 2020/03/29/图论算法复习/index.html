@@ -22,23 +22,33 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="聚类聚类试图完成的任务面对一个样本集D &#x3D; {x1,x2, x3, … , xm},聚类试图将D中的样本划分成若干个不相交的子集,每一个子集成为之一个簇(cluster).通过这样的划分,也许可以找出每个簇对应的一些潜在规律,例如第一个簇里面的样本都是”浅色瓜”,第二个簇里面的样本都是”深色瓜”,诸如此类.但是这些概念对于聚类算法而言是事先未知的.">
+  <meta name="description" content="图论算法背景知识 G &#x3D; (V, E)用来表示图,其中 V 是顶点集合(vertices) E 是边的集合(edges)  连接图: 任何两个顶点之间存在一个通路邻接表: 存储每个顶点与之直接相关联的一条边.长度和等于边的数目">
 <meta property="og:type" content="article">
-<meta property="og:title" content="聚类">
-<meta property="og:url" content="http://yoursite.com/2020/03/24/%E8%81%9A%E7%B1%BB/index.html">
+<meta property="og:title" content="图论算法复习">
+<meta property="og:url" content="http://yoursite.com/2020/03/29/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Island">
-<meta property="og:description" content="聚类聚类试图完成的任务面对一个样本集D &#x3D; {x1,x2, x3, … , xm},聚类试图将D中的样本划分成若干个不相交的子集,每一个子集成为之一个簇(cluster).通过这样的划分,也许可以找出每个簇对应的一些潜在规律,例如第一个簇里面的样本都是”浅色瓜”,第二个簇里面的样本都是”深色瓜”,诸如此类.但是这些概念对于聚类算法而言是事先未知的.">
+<meta property="og:description" content="图论算法背景知识 G &#x3D; (V, E)用来表示图,其中 V 是顶点集合(vertices) E 是边的集合(edges)  连接图: 任何两个顶点之间存在一个通路邻接表: 存储每个顶点与之直接相关联的一条边.长度和等于边的数目">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s1.ax1x.com/2020/03/25/8XkUEj.png">
-<meta property="og:image" content="https://s1.ax1x.com/2020/03/25/8XUHOS.png">
-<meta property="og:image" content="https://s1.ax1x.com/2020/03/25/8vEA7F.png">
-<meta property="article:published_time" content="2020-03-24T14:13:56.000Z">
-<meta property="article:modified_time" content="2020-03-25T11:37:59.863Z">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/28/GAr7tg.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/28/GAyzYF.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/28/GA6eYD.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/28/GAqF8s.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/28/GAL8YQ.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/29/GEyo34.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/29/GE6bRg.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/29/GEgZcQ.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/29/GERdfK.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/29/GER41S.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/29/GERjpT.png">
+<meta property="article:published_time" content="2020-03-29T03:04:43.000Z">
+<meta property="article:modified_time" content="2020-03-29T03:11:26.424Z">
 <meta property="article:author" content="nullptr">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s1.ax1x.com/2020/03/25/8XkUEj.png">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/03/28/GAr7tg.png">
 
-<link rel="canonical" href="http://yoursite.com/2020/03/24/%E8%81%9A%E7%B1%BB/">
+<link rel="canonical" href="http://yoursite.com/2020/03/29/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0/">
 
 
 <script id="page-configurations">
@@ -50,7 +60,7 @@
   };
 </script>
 
-  <title>聚类 | Island</title>
+  <title>图论算法复习 | Island</title>
   
 
 
@@ -202,7 +212,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/24/%E8%81%9A%E7%B1%BB/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/29/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -215,7 +225,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          聚类
+          图论算法复习
         </h1>
 
         <div class="post-meta">
@@ -225,11 +235,11 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-03-24 22:13:56" itemprop="dateCreated datePublished" datetime="2020-03-24T22:13:56+08:00">2020-03-24</time>
+              <time title="创建时间：2020-03-29 11:04:43" itemprop="dateCreated datePublished" datetime="2020-03-29T11:04:43+08:00">2020-03-29</time>
             </span>
 
           
-            <span id="/2020/03/24/%E8%81%9A%E7%B1%BB/" class="post-meta-item leancloud_visitors" data-flag-title="聚类" title="阅读次数">
+            <span id="/2020/03/29/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0/" class="post-meta-item leancloud_visitors" data-flag-title="图论算法复习" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -251,8 +261,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/03/24/%E8%81%9A%E7%B1%BB/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/24/%E8%81%9A%E7%B1%BB/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/03/29/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/29/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -262,14 +272,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.4k</span>
+              <span>1.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -281,105 +291,95 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h1><h2 id="聚类试图完成的任务"><a href="#聚类试图完成的任务" class="headerlink" title="聚类试图完成的任务"></a>聚类试图完成的任务</h2><p>面对一个样本集<strong>D</strong> = {x<sub>1</sub>,x<sub>2</sub>, x<sub>3</sub>, … , x<sub>m</sub>},聚类试图将D中的样本划分成若干个<strong>不相交的子集</strong>,每一个子集成为之一个<strong>簇</strong>(cluster).通过这样的划分,也许可以找出每个簇对应的一些潜在规律,例如第一个簇里面的样本都是”浅色瓜”,第二个簇里面的样本都是”深色瓜”,诸如此类.但是这些概念对于聚类算法而言是<strong>事先未知的</strong>.</p>
+        <h1 id="图论算法"><a href="#图论算法" class="headerlink" title="图论算法"></a>图论算法</h1><h4 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h4><ul>
+<li>G = (V, E)用来表示图,其中</li>
+<li>V 是顶点集合(vertices)</li>
+<li>E 是边的集合(edges)</li>
+</ul>
+<p>连接图: 任何两个顶点之间存在一个通路<br>邻接表: 存储每个顶点与之直接相关联的一条边.长度和等于边的数目</p>
 <a id="more"></a>
-<h2 id="聚类用到的概念"><a href="#聚类用到的概念" class="headerlink" title="聚类用到的概念"></a>聚类用到的概念</h2><p>假定样本集<strong>D</strong>中包含m个无标记样本.每一个样本<strong>x<sub>i</sub></strong> = {x<sub>i1</sub>,x<sub>i2</sub>,x<sub>i3</sub>, … x<sub>in</sub>}都是一个<strong>n维特征向量</strong>,</p>
-<p>算法划分成的簇用<strong>C<sub>l</sub></strong>表示.假定划分成了k个簇,那么这k个簇两两之间的交集为空集,k个簇的并集为样本集<strong>D</strong>.</p>
-<p>用&lambda;<sub>j</sub> &isin; { 1, 2, 3, … k } 表示D中的样本x<sub>j</sub>的簇标记.即x<sub>j</sub> &isin; $C_{\lambda_j}$  </p>
-<h2 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h2><p>我们希望聚类结果的<strong>簇内相似度高</strong>,<strong>簇间相似度低</strong>.这一点其实很好理解,如果簇内的相似度太低则可能将无关样本也划分进来,如果簇间相似度高了则有可能将原本是一个簇的样本强行划分成了两个簇.</p>
-<p>评价一个聚类的性能度量大概有两类.</p>
-<ol>
-<li>将结果与某个参考模型进行比较,称为<strong>外部指标</strong></li>
-<li>直接考察聚类结果而不利用任何参考模型,称为<strong>内部指标</strong></li>
+<h2 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h2><h3 id="BFS-广度优先"><a href="#BFS-广度优先" class="headerlink" title="BFS(广度优先)"></a>BFS(广度优先)</h3><ul>
+<li>input: G = (V, E), 搜索<strong>源顶点s</strong></li>
+<li>Output: 从源顶点到图中其他顶点的最短距离; 一棵广度优先树<br>算法思想:<br>用<strong>白色</strong>表示初始状态,即还未搜索到,<strong>灰色</strong>表示刚刚搜索到,<strong>黑色</strong>表示所有邻接顶点被搜索完.用一个FIFO保存灰色顶点</li>
+</ul>
+<h4 id="BFS附加数据结构"><a href="#BFS附加数据结构" class="headerlink" title="BFS附加数据结构:"></a>BFS附加数据结构:</h4><ol>
+<li>color[u] 表示顶点颜色</li>
+<li>$\pi$[u] 表示顶点u的父节点</li>
+<li>d[u] 表示顶点u到源顶点s的距离</li>
+<li>FIFO Q 存储灰色顶点</li>
 </ol>
-<p>下面我们来考虑用外部指标进行性能度量的情况</p>
-<h3 id="外部指标"><a href="#外部指标" class="headerlink" title="外部指标"></a>外部指标</h3><p>假定对于上述给定的数据集<strong>D</strong>,通过<strong>聚类</strong>划分出的簇一共有k个,<strong>参考模型</strong>给出的簇一共有s个.将D中的样本两两配对考虑,且有如下定义:</p>
-<p>a = |SS|,|SS| = {(x<sub>i</sub>,x<sub>j</sub>) | &lambda;<sub>i</sub> = &lambda;<sub>j</sub>, &lambda;<sup>‘</sup> <sub>i</sub>= &lambda;<sup>‘</sup> <sub>j</sub>}<br>b = |SD|,|SD| = {(x<sub>i</sub>,x<sub>j</sub>) | &lambda;<sub>i</sub> = &lambda;<sub>j</sub>, &lambda;<sup>‘</sup> <sub>i</sub> &ne; &lambda;<sup>‘</sup> <sub>j</sub>}<br>c = |DS|,|DS| = {(x<sub>i</sub>,x<sub>j</sub>) | &lambda;<sub>i</sub> &ne; &lambda;<sub>j</sub>, &lambda;<sup>‘</sup> <sub>i</sub>= &lambda;<sup>‘</sup> <sub>j</sub>}<br>d = |DD|,|DD| = {(x<sub>i</sub>,x<sub>j</sub>) | &lambda;<sub>i</sub> &ne; &lambda;<sub>j</sub>, &lambda;<sup>‘</sup> <sub>i</sub>&ne; &lambda;<sup>‘</sup> <sub>j</sub>}</p>
-<p>基于上述定义我们导出如下的一些指标(虽然我并没有看懂它到底是怎么推出来的)</p>
-<ul>
-<li>Jaccard系数: JC = $ \frac{a}{a+b+c}$</li>
-<li>FM指数: FMI = $ \sqrt{\frac{a}{a+b}  \times \frac{a}{a+c} }$</li>
-<li>Rand指数: RI =  $ \frac {2(a+d)}{m(m-1)}$</li>
+<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p><img src="https://s1.ax1x.com/2020/03/28/GAr7tg.png" alt="GAr7tg.png"></p>
+<p>前面一张是对数据结构进行初始化,后一张负责搜索过程,当$Q \neq \emptyset$ 时,即所有顶点都不是<strong>灰色</strong>,搜索结束.</p>
+<p>时间复杂度为 O(V + E).相比于DFS,BFS可以提供源节点到其他所有节点的最短距离和最小边数目(以上都是在无向无权图的情况下讨论)</p>
+<h3 id="DFS-深度优先"><a href="#DFS-深度优先" class="headerlink" title="DFS(深度优先)"></a>DFS(深度优先)</h3><ul>
+<li>Input: G = (V , E),没有源顶点.</li>
+<li>Output: 每个顶点有两个时间标记,一个<strong>发现时间</strong>,一个结束时间 ; 深度优先森林</li>
 </ul>
-<p>上述性能度量的结果在区间[0,1]内,越接近1越好,下面我们考虑聚类结果的簇划分$C$ = {C<sub>1</sub>, C<sub>2</sub>,C<sub>3</sub>…C<sub>k</sub>},定义如下概念:</p>
-<ul>
-<li>avg(C) = $ \frac{2}{|C|(|C| - 1)} \sum _{1 \leq i \le j \leq |C|} dist(x_i,x_j)$</li>
-<li>diam (C) = $max_{1 \leq i \le j \leq |C|} dist(x_i,x_j)$</li>
-<li>d$_{min}$($C_i,C_j$) = $min_{x_i \in C_i, x_j \in C_j} dist(x_i,x_j)$</li>
-<li>$d_{cen}{(C_i,C_j)} = dist( \mu_i, \mu_j)$</li>
+<h4 id="DFS-附加数据结构"><a href="#DFS-附加数据结构" class="headerlink" title="DFS 附加数据结构"></a>DFS 附加数据结构</h4><ul>
+<li>$\pi$[u]: 顶点u的父节点</li>
+<li>d[u], f[u]: 发现(discovery time),完成(finish time)时间</li>
+<li>color[u]: 发现前: <strong>白色</strong>; 发现处理中: <strong>灰色</strong>; 处理完后: <strong>黑色</strong></li>
+<li>time-step: 时间步骤, 在顶点发现和搜索完成时增加</li>
 </ul>
-<p>其中dist用于计算两个样本之间的距离, $ \mu$ 代表簇$C$的中心点$ \mu = \frac{1}{|C|} \sum_{1 \leq i \leq |C|} x_i$.显然可以知道avg(C)对应的含义是簇C内样本的平均距离(当然我们希望avg的值越小越好).$d_{min}(C_i,C_j)$ 对应于簇$C_i$和簇$C_j$<strong>最近样本</strong>间的距离,$d_{cen}(C_i,C_j)$对应于簇$C_i$和簇$C_j$ <strong>中心点之间</strong>的距离.<br>同样的,根据以上定义我们可以导出下面常用的性能度量的内部指标</p>
-<ul>
-<li>DB指数: DBI = $ \frac{1}{k} \sum_{i = 1}^{k} max_{j \neq i}( \frac{avg(C_i) + avg(C_j)}{d_{cen}(\mu_i\mu_j)} $</li>
-<li>Dunn指数: DI = $min_{1 \leq i \leq k}{ min_{i \neq j}(\frac {d_{min}(C_i,C_j)}{max_{1 \leq l \leq k}diam(C_l)})}$</li>
+<h4 id="算法-1"><a href="#算法-1" class="headerlink" title="算法"></a>算法</h4><p><a href="https://imgchr.com/i/GAyzYF" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/28/GAyzYF.png" alt="GAyzYF.png" style="zoom:80%;" /></a></p>
+<p><img src="https://s1.ax1x.com/2020/03/28/GA6eYD.png" alt="GA6eYD.png" style="zoom:80%;" /></p>
+<p>第一张图的1-4行仍是对算法的初始化,5-7行则是循环过程.时间复杂度也是O( V + E)</p>
+<h4 id="边的分类"><a href="#边的分类" class="headerlink" title="边的分类"></a>边的分类</h4><ul>
+<li>树边: 抵达白色顶点的边</li>
+<li>回边: 抵达灰色顶点.有向图中的<strong>自回路</strong>也算是回边</li>
+<li>前向边: 抵达黑色顶点的边,且满足d[u] &lt; d[v],可以理解为连接顶点u和它的后裔节点的一条边</li>
+<li>横跨边: 抵达黑色顶点,且满足d[u] &gt; d[v],可以横跨不同深度优先树的顶点或者同一深度优先树的不同顶点之间</li>
 </ul>
-<p>显然DBI的值越小越好(对应簇内部样本距离越小,簇之间的中心距离越大),DI的值越大越好,这里就不再赘述</p>
-<h2 id="原型聚类"><a href="#原型聚类" class="headerlink" title="原型聚类"></a>原型聚类</h2><h3 id="k均值算法"><a href="#k均值算法" class="headerlink" title="k均值算法"></a>k均值算法</h3><p>给定样本集D=$ \left\{ x_1, x_2, x_3…x_m \right\}$,k均值算法针对聚类算法所得到的簇划分C = $ \left\{C_1,C_2,C_3..C_k \right\}$最小化平方误差</p>
-<script type="math/tex; mode=display">
-E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$是簇$C_i$的均值向量,从直观上来看E刻画的是簇内样本对簇$C_i$的围绕紧密程度.E值越小说明簇内样本相似度越高.最小化这个式子我们现在采用的是贪心策略,通过迭代优化来近似求解.</p>
-<p><img src="https://s1.ax1x.com/2020/03/25/8XkUEj.png" alt="8XkUEj.png"></p>
-<p>不过需要注意的是,在最开始初始化的过程中是<strong>随机选取</strong>样本作为初始的均值向量.</p>
-<ul>
-<li><p>对于每一个样本$x_j$,其中$j = 1, 2, 3, …m$</p>
-<ul>
-<li>计算样本与各个簇之间的距离</li>
-<li>根据距离最近的均值确定样本$x_j$的簇标记</li>
-<li>将样本$x_j$划入对应的簇:$C_{\lambda_j} = C_{\lambda_j} \cup \left\{x_j \right\}$</li>
-</ul>
-</li>
-<li><p>对于每一个簇$\mu_i$,其中$i = 1,2,3, … k$</p>
-<ul>
-<li>计算每一个簇内<strong>新的均值向量$\mu’$</strong></li>
-<li>如果新的均值向量$\mu’$和原有的均值向量$\mu$不相等,则将均值向量更新为新的均值向量$\mu’$.否则均值向量不更新</li>
-</ul>
-<p>重复上述操作,直到当前均值向量都未更新或者到达了最大运行轮次</p>
-</li>
-</ul>
-<h3 id="学习向量化-Learning-Vector-Quantization"><a href="#学习向量化-Learning-Vector-Quantization" class="headerlink" title="学习向量化(Learning Vector Quantization)"></a>学习向量化(Learning Vector Quantization)</h3><ul>
-<li>LVQ假设数据样本带有标记,学习过程利用这些监督信息辅助聚类</li>
-</ul>
-<p>给定样本集$D = \left\{(x_1,y_1),(x_2,y_2),…,(x_m,y_m)\right\}$.每个样本$x_j$是由n个属性描述的特征向量$(x_{j1} ;x_{j2};x_{j3}…x_{jn})$.LVQ的目标是<strong>$学习到一组n维原型向量\left\{p_1,p_2,p_3…p_n\right\}$</strong> ,每一个原型向量代表一个聚类簇.</p>
-<h4 id="学习向量化算法"><a href="#学习向量化算法" class="headerlink" title="学习向量化算法"></a>学习向量化算法</h4><ul>
-<li>初始化一组原型向量(这个西瓜书上并没有写的很清楚具体的初始化过程,只有很简单的一句话)</li>
-<li>从D中随机选取一个有标记的样本$(x_j,y_j)$,计算样本与每一个聚类簇$p_j$的距离.</li>
-<li>找出与样本最近的聚类簇$ p_{i’} $ ,如果样本的标记和聚类簇相等,则令原型向量向$x_j$的方向靠拢,$p’ = p_{i’} + \eta (x_j - p_{i’})$</li>
-<li>如果标记和聚类簇不相等,则令原型向量远离$x_j$,$p’ = p_{i’} + \eta (x_j - p_{i’})$</li>
-<li>将原型向量$p_{i’}$更新为$p’$,不断迭代,直到达到停止条件</li>
-</ul>
-<p>新的原型向量$p’$与原来样本$x_j$的距离为$||p’ - x_j|| = (1- \eta ) || p_{i’} - x_j||_2$ .令学习率 $\eta \in (0,1)$ .在更新为$p’$之后将更接近$x_j$.<br>当标记不同的时候也是类似.</p>
-<h2 id="密度聚类"><a href="#密度聚类" class="headerlink" title="密度聚类"></a>密度聚类</h2><p>假定聚类结构能够通过样本分布的紧密程度决定.基于<strong>可连接样本</strong>不断扩展聚类簇获得最终结果.</p>
-<ul>
-<li>$\epsilon$-邻域,对$x_j \in D$,其$\epsilon$-邻域包含样本集D中与$x_j$距离不大于$\epsilon$的样本,即 $N_{\epsilon}(x_j) = \left\{x_i \in D |dist(x_i,x_j) \leq \epsilon \right\}$</li>
-<li>核心对象,若$x_i$的$\epsilon$-邻域至少包含 MinPts个样本(具体数值由我们手动设置),则$x_i$是一个核心对象</li>
-<li>密度直达: 若$x_j$位于$x_i$的$\epsilon$-邻域中,且$x_i$是核心对象,则称$x_j$由$x_i$密度直达</li>
-<li>密度可达: 对$x_j$和$x_i$,如果存在样本序列$p_1$,$p_2$,$p_3$,…$p_n$,其中p=$p_1 = x_i,p_n = x_j,$,且$p_{i+1}$由$p_i$密度直达,则称$x_j$由$x_i$密度可达</li>
-<li>密度相连: 对$x_j$和$x_i$,如果存在$x_k$,使得$x_i$和$x_j$均由$x_k$密度可达,则称$x_i$与$x_j$密度相连</li>
-</ul>
-<p><a href="https://imgchr.com/i/8XUHOS" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/25/8XUHOS.png" alt="8XUHOS.png"></a></p>
-<p>基于以上概念,DBSCAN将<strong>簇</strong>定义为由密度可达关系导出的最大密度相连样本集合.</p>
-<h4 id="DBSCAN算法"><a href="#DBSCAN算法" class="headerlink" title="DBSCAN算法"></a>DBSCAN算法</h4><ul>
-<li>初始化核心对象集合$\Omega$为空集</li>
-<li>对于样本集D中的每一个样本$x_j$,确定它是否满足<strong>核心对象</strong>的条件如果满足,将该样本加入核心对象集合$\Omega$中</li>
-<li>记录当前未访问样本集合$\Gamma_{old} = \Gamma$ .</li>
-<li>初始化聚类簇数为0,未访问样本数集合$\Gamma$ = D</li>
-<li>当$\Omega$不为空集时,随机选取一个$\Omega$中的元素o,初始化队列Q = &lt; o &gt;</li>
-<li>将未访问样本集合$\Gamma$更新为$\Gamma$ \ { o }</li>
-<li>当Q不为空时,提出Q中的首个样本$q$,如果$q$是核心对象,令$\Delta$为$q$的$\epsilon$-邻域中的样本和未访问集合$\Gamma$中的交集</li>
-<li>将$\Delta$中的元素加入队列Q中.更新$\Gamma$为 $\Gamma = \Gamma \backslash \Delta$</li>
-<li>当Q中所有元素都被取出来之后, k自增一,生成聚类簇$C_k$     = $\Gamma_{old} \backslash \Gamma$, 更新核心对象集合$\Omega = \Omega \backslash C_k$</li>
-</ul>
-<h2 id="层次聚类"><a href="#层次聚类" class="headerlink" title="层次聚类"></a>层次聚类</h2><ul>
-<li>在不同层次对数据集进行划分,形成<strong>树形</strong>的聚类结构.可以采用自底向上的聚合策略,也可以采用自顶向下的分拆策略.<h3 id="AGNES"><a href="#AGNES" class="headerlink" title="AGNES"></a>AGNES</h3>将数据集中的每一个样本看作一个<strong>初始聚类簇</strong>,在算法运行的每一步找出距离最近的两个聚类簇进行合并.重复过程直到达到预设的簇的个数.</li>
-<li>簇之间距离的计算:</li>
-</ul>
+<h4 id="括号定理"><a href="#括号定理" class="headerlink" title="括号定理"></a>括号定理</h4><p>在DFS中还有一个括号定理,虽然我觉得这个似乎是很显而易见的事情,不过还是提一句.<br>对任意两个顶点集V中的节点u,v;下列情况有且只有一种成立</p>
 <ol>
-<li>最小距离: $d_{min}(C_i,C_j) = min_{x \in C_i, y \in C_j}dist(x,y)$</li>
-<li>最大距离: $d_{max}(C_i,C_j) = max_{x \in C_i, y \in C_j}dist(x,y)$</li>
-<li><p>平均距离: $d_{avg}(C_i,C_j) = \frac {1}{|C_i||C_j|} \sum_{x \in C_i} \sum_{y \in C_j}dist(x,y)$</p>
-<p><img src="https://s1.ax1x.com/2020/03/25/8vEA7F.png" alt="8vEA7F.png"></p>
-</li>
+<li>u,v互不为后裔</li>
+<li>v是u的后裔</li>
+<li>u是v的后裔</li>
 </ol>
-<p>算法的1-9行对仅含一个样本的<strong>初始聚类簇</strong>和<strong>距离矩阵</strong>进行初始化.所以这也是为什么第七行会有$M(j,i) = M(i,j)$ .<br>第11-23行则是对这个矩阵不断进行更新操作.矩阵合并之后相应的距离矩阵也需要更新.</p>
+<p>没了….</p>
+<h3 id="强连通分支"><a href="#强连通分支" class="headerlink" title="强连通分支"></a>强连通分支</h3><p>这里引入强连通分支的概念. 强连通分支指的是图G = (V , E)的一个极大集,这个集合中所有的顶点都可以<strong>相互到达</strong>,是一种很强的性质,比如下图<br><img src="https://s1.ax1x.com/2020/03/28/GAqF8s.png" alt="GAqF8s.png"></p>
+<h4 id="图的转置"><a href="#图的转置" class="headerlink" title="图的转置"></a>图的转置</h4><p>G<sup>T</sup> 是G的一个转置,将G中所有边<strong>转向</strong>.</p>
+<h4 id="确定强连通分支"><a href="#确定强连通分支" class="headerlink" title="确定强连通分支"></a>确定强连通分支</h4><p>首先需要知道G<sup>T</sup>和G拥有<strong>相同的SCC</strong>.</p>
+<ol>
+<li>在图G上执行DFS,记录每个节点的<strong>完成时间f[u]</strong></li>
+<li>将图G转置成图G<sup>T</sup> .从<strong>具有最大的f[u]</strong>的节点开始.在G<sup>T</sup> 上执行DFS.如果不能到达所有的顶点则执行下一个的DFS</li>
+<li>在最终得到的森林每一棵树就是一个SCC<br>下图是一个例子.<br><img src="https://s1.ax1x.com/2020/03/28/GAL8YQ.png" alt="GAL8YQ.png"></li>
+</ol>
+<h2 id="最小生成树-Minimum"><a href="#最小生成树-Minimum" class="headerlink" title="最小生成树(Minimum"></a>最小生成树(Minimum</h2><p>Spanning Trees)</p>
+<p>连通无向图.</p>
+<ul>
+<li>Goal: 每两个顶点之间保持联通,权重之和最小</li>
+</ul>
+<h4 id="MST的一些特性"><a href="#MST的一些特性" class="headerlink" title="MST的一些特性"></a>MST的一些特性</h4><ul>
+<li>非唯一</li>
+<li>无回路(与最小且联通相冲突0</li>
+<li>边数等于顶点数减一</li>
+</ul>
+<h4 id="MST一般算法"><a href="#MST一般算法" class="headerlink" title="MST一般算法"></a>MST一般算法</h4><p><img src="https://s1.ax1x.com/2020/03/29/GEyo34.png" alt="GEyo34.png"></p>
+<p>这里其实有一个问题没有说明,如何证明安全的边的集合一定是MST呢?<br>不过我们先来看一下安全边的定义和一些概念.</p>
+<ul>
+<li>切割: 将图的顶点分为两个互斥子集S和V - S</li>
+<li>一个边的两个端点分别在切割的两个集合 S和V - S中.就说该边横跨该切割.</li>
+<li>切割的轻边(light edge): 横跨切割的边中<strong>权值最小</strong>的边.可以不唯一</li>
+<li>干预: 集合A中没有边和该切割相交,就说一个切割不干预集合A.</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/03/29/GE6bRg.png" alt="GE6bRg.png"><br>下面介绍Kruskal和Prim算法</p>
+<h4 id="Kruskal"><a href="#Kruskal" class="headerlink" title="Kruskal"></a>Kruskal</h4><p><img src="https://s1.ax1x.com/2020/03/29/GEgZcQ.png" alt="GEgZcQ.png"><br>简单的来说就是</p>
+<ol>
+<li>将所有边按照权重由低到高排序,从最小的边出发</li>
+<li>检查后面的边是不是安全边,如果是就添加到当前这个集合里面.<br>在离散数学中上面这些操作可以直接用图示法表示出来,在算法中需要用到<strong>不相关集合的操作</strong></li>
+</ol>
+<ul>
+<li>MAKE-SET(u):创建集合</li>
+<li>FIND-SET(u): 对于同一个集合中的不同元素,FIND-SET返回的值都是一样的.</li>
+<li>UNION(u,v): 将两个集合合并</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/03/29/GERdfK.png" alt="GERdfK.png"></p>
+<p>上图给出了Kruskal算法描述和实例.</p>
+<h4 id="Prim"><a href="#Prim" class="headerlink" title="Prim"></a>Prim</h4><p>Prim算法的核心是他的贪婪策略.从任意一个给定的节点都可以开始.模式有点像一棵树生长的过程.每次加入一条轻边.直到包含所有的顶点为止.</p>
+<p><img src="https://s1.ax1x.com/2020/03/29/GER41S.png" alt="GER41S.png"></p>
+<p><img src="https://s1.ax1x.com/2020/03/29/GERjpT.png" alt="GERjpT.png"></p>
+<p>需要注意的是Prim算法采用了数据结构中的<strong>优先队列</strong>来存储尚未在MST中的顶点.排序的条件是当前正在生成MST的集合到其他点的距离</p>
 
     </div>
 
@@ -388,6 +388,11 @@ E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$
     
 
       <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 学习</a>
+          </div>
 
         
 
@@ -395,13 +400,10 @@ E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/03/13/Hexo%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%BE%8E%E5%8C%96%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89/" rel="prev" title="Hexo博客导航栏美化与自定义">
-      <i class="fa fa-chevron-left"></i> Hexo博客导航栏美化与自定义
+    <a href="/2020/03/25/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB/" rel="prev" title="贝叶斯分类">
+      <i class="fa fa-chevron-left"></i> 贝叶斯分类
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/03/25/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB/" rel="next" title="贝叶斯分类">
-      贝叶斯分类 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -462,7 +464,7 @@ E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#聚类"><span class="nav-number">1.</span> <span class="nav-text">聚类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#聚类试图完成的任务"><span class="nav-number">1.1.</span> <span class="nav-text">聚类试图完成的任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚类用到的概念"><span class="nav-number">1.2.</span> <span class="nav-text">聚类用到的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能度量"><span class="nav-number">1.3.</span> <span class="nav-text">性能度量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#外部指标"><span class="nav-number">1.3.1.</span> <span class="nav-text">外部指标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原型聚类"><span class="nav-number">1.4.</span> <span class="nav-text">原型聚类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#k均值算法"><span class="nav-number">1.4.1.</span> <span class="nav-text">k均值算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#学习向量化-Learning-Vector-Quantization"><span class="nav-number">1.4.2.</span> <span class="nav-text">学习向量化(Learning Vector Quantization)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#学习向量化算法"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">学习向量化算法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#密度聚类"><span class="nav-number">1.5.</span> <span class="nav-text">密度聚类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DBSCAN算法"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">DBSCAN算法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#层次聚类"><span class="nav-number">1.6.</span> <span class="nav-text">层次聚类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AGNES"><span class="nav-number">1.6.1.</span> <span class="nav-text">AGNES</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#图论算法"><span class="nav-number">1.</span> <span class="nav-text">图论算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#背景知识"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">背景知识</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图的遍历"><span class="nav-number">1.1.</span> <span class="nav-text">图的遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BFS-广度优先"><span class="nav-number">1.1.1.</span> <span class="nav-text">BFS(广度优先)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#BFS附加数据结构"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">BFS附加数据结构:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#算法"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">算法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DFS-深度优先"><span class="nav-number">1.1.2.</span> <span class="nav-text">DFS(深度优先)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DFS-附加数据结构"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">DFS 附加数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#算法-1"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#边的分类"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">边的分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#括号定理"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">括号定理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强连通分支"><span class="nav-number">1.1.3.</span> <span class="nav-text">强连通分支</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#图的转置"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">图的转置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#确定强连通分支"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">确定强连通分支</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最小生成树-Minimum"><span class="nav-number">1.2.</span> <span class="nav-text">最小生成树(Minimum</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MST的一些特性"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">MST的一些特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MST一般算法"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">MST一般算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kruskal"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">Kruskal</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Prim"><span class="nav-number">1.2.0.4.</span> <span class="nav-text">Prim</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

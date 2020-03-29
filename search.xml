@@ -1,6 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>图论算法复习</title>
+    <url>/2020/03/29/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="图论算法"><a href="#图论算法" class="headerlink" title="图论算法"></a>图论算法</h1><h4 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h4><ul>
+<li>G = (V, E)用来表示图,其中</li>
+<li>V 是顶点集合(vertices)</li>
+<li>E 是边的集合(edges)</li>
+</ul>
+<p>连接图: 任何两个顶点之间存在一个通路<br>邻接表: 存储每个顶点与之直接相关联的一条边.长度和等于边的数目</p>
+<a id="more"></a>
+<h2 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h2><h3 id="BFS-广度优先"><a href="#BFS-广度优先" class="headerlink" title="BFS(广度优先)"></a>BFS(广度优先)</h3><ul>
+<li>input: G = (V, E), 搜索<strong>源顶点s</strong></li>
+<li>Output: 从源顶点到图中其他顶点的最短距离; 一棵广度优先树<br>算法思想:<br>用<strong>白色</strong>表示初始状态,即还未搜索到,<strong>灰色</strong>表示刚刚搜索到,<strong>黑色</strong>表示所有邻接顶点被搜索完.用一个FIFO保存灰色顶点</li>
+</ul>
+<h4 id="BFS附加数据结构"><a href="#BFS附加数据结构" class="headerlink" title="BFS附加数据结构:"></a>BFS附加数据结构:</h4><ol>
+<li>color[u] 表示顶点颜色</li>
+<li>$\pi$[u] 表示顶点u的父节点</li>
+<li>d[u] 表示顶点u到源顶点s的距离</li>
+<li>FIFO Q 存储灰色顶点</li>
+</ol>
+<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p><img src="https://s1.ax1x.com/2020/03/28/GAr7tg.png" alt="GAr7tg.png"></p>
+<p>前面一张是对数据结构进行初始化,后一张负责搜索过程,当$Q \neq \emptyset$ 时,即所有顶点都不是<strong>灰色</strong>,搜索结束.</p>
+<p>时间复杂度为 O(V + E).相比于DFS,BFS可以提供源节点到其他所有节点的最短距离和最小边数目(以上都是在无向无权图的情况下讨论)</p>
+<h3 id="DFS-深度优先"><a href="#DFS-深度优先" class="headerlink" title="DFS(深度优先)"></a>DFS(深度优先)</h3><ul>
+<li>Input: G = (V , E),没有源顶点.</li>
+<li>Output: 每个顶点有两个时间标记,一个<strong>发现时间</strong>,一个结束时间 ; 深度优先森林</li>
+</ul>
+<h4 id="DFS-附加数据结构"><a href="#DFS-附加数据结构" class="headerlink" title="DFS 附加数据结构"></a>DFS 附加数据结构</h4><ul>
+<li>$\pi$[u]: 顶点u的父节点</li>
+<li>d[u], f[u]: 发现(discovery time),完成(finish time)时间</li>
+<li>color[u]: 发现前: <strong>白色</strong>; 发现处理中: <strong>灰色</strong>; 处理完后: <strong>黑色</strong></li>
+<li>time-step: 时间步骤, 在顶点发现和搜索完成时增加</li>
+</ul>
+<h4 id="算法-1"><a href="#算法-1" class="headerlink" title="算法"></a>算法</h4><p><a href="https://imgchr.com/i/GAyzYF" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/28/GAyzYF.png" alt="GAyzYF.png" style="zoom:80%;" /></a></p>
+<p><img src="https://s1.ax1x.com/2020/03/28/GA6eYD.png" alt="GA6eYD.png" style="zoom:80%;" /></p>
+<p>第一张图的1-4行仍是对算法的初始化,5-7行则是循环过程.时间复杂度也是O( V + E)</p>
+<h4 id="边的分类"><a href="#边的分类" class="headerlink" title="边的分类"></a>边的分类</h4><ul>
+<li>树边: 抵达白色顶点的边</li>
+<li>回边: 抵达灰色顶点.有向图中的<strong>自回路</strong>也算是回边</li>
+<li>前向边: 抵达黑色顶点的边,且满足d[u] &lt; d[v],可以理解为连接顶点u和它的后裔节点的一条边</li>
+<li>横跨边: 抵达黑色顶点,且满足d[u] &gt; d[v],可以横跨不同深度优先树的顶点或者同一深度优先树的不同顶点之间</li>
+</ul>
+<h4 id="括号定理"><a href="#括号定理" class="headerlink" title="括号定理"></a>括号定理</h4><p>在DFS中还有一个括号定理,虽然我觉得这个似乎是很显而易见的事情,不过还是提一句.<br>对任意两个顶点集V中的节点u,v;下列情况有且只有一种成立</p>
+<ol>
+<li>u,v互不为后裔</li>
+<li>v是u的后裔</li>
+<li>u是v的后裔</li>
+</ol>
+<p>没了….</p>
+<h3 id="强连通分支"><a href="#强连通分支" class="headerlink" title="强连通分支"></a>强连通分支</h3><p>这里引入强连通分支的概念. 强连通分支指的是图G = (V , E)的一个极大集,这个集合中所有的顶点都可以<strong>相互到达</strong>,是一种很强的性质,比如下图<br><img src="https://s1.ax1x.com/2020/03/28/GAqF8s.png" alt="GAqF8s.png"></p>
+<h4 id="图的转置"><a href="#图的转置" class="headerlink" title="图的转置"></a>图的转置</h4><p>G<sup>T</sup> 是G的一个转置,将G中所有边<strong>转向</strong>.</p>
+<h4 id="确定强连通分支"><a href="#确定强连通分支" class="headerlink" title="确定强连通分支"></a>确定强连通分支</h4><p>首先需要知道G<sup>T</sup>和G拥有<strong>相同的SCC</strong>.</p>
+<ol>
+<li>在图G上执行DFS,记录每个节点的<strong>完成时间f[u]</strong></li>
+<li>将图G转置成图G<sup>T</sup> .从<strong>具有最大的f[u]</strong>的节点开始.在G<sup>T</sup> 上执行DFS.如果不能到达所有的顶点则执行下一个的DFS</li>
+<li>在最终得到的森林每一棵树就是一个SCC<br>下图是一个例子.<br><img src="https://s1.ax1x.com/2020/03/28/GAL8YQ.png" alt="GAL8YQ.png"></li>
+</ol>
+<h2 id="最小生成树-Minimum"><a href="#最小生成树-Minimum" class="headerlink" title="最小生成树(Minimum"></a>最小生成树(Minimum</h2><p>Spanning Trees)</p>
+<p>连通无向图.</p>
+<ul>
+<li>Goal: 每两个顶点之间保持联通,权重之和最小</li>
+</ul>
+<h4 id="MST的一些特性"><a href="#MST的一些特性" class="headerlink" title="MST的一些特性"></a>MST的一些特性</h4><ul>
+<li>非唯一</li>
+<li>无回路(与最小且联通相冲突0</li>
+<li>边数等于顶点数减一</li>
+</ul>
+<h4 id="MST一般算法"><a href="#MST一般算法" class="headerlink" title="MST一般算法"></a>MST一般算法</h4><p><img src="https://s1.ax1x.com/2020/03/29/GEyo34.png" alt="GEyo34.png"></p>
+<p>这里其实有一个问题没有说明,如何证明安全的边的集合一定是MST呢?<br>不过我们先来看一下安全边的定义和一些概念.</p>
+<ul>
+<li>切割: 将图的顶点分为两个互斥子集S和V - S</li>
+<li>一个边的两个端点分别在切割的两个集合 S和V - S中.就说该边横跨该切割.</li>
+<li>切割的轻边(light edge): 横跨切割的边中<strong>权值最小</strong>的边.可以不唯一</li>
+<li>干预: 集合A中没有边和该切割相交,就说一个切割不干预集合A.</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/03/29/GE6bRg.png" alt="GE6bRg.png"><br>下面介绍Kruskal和Prim算法</p>
+<h4 id="Kruskal"><a href="#Kruskal" class="headerlink" title="Kruskal"></a>Kruskal</h4><p><img src="https://s1.ax1x.com/2020/03/29/GEgZcQ.png" alt="GEgZcQ.png"><br>简单的来说就是</p>
+<ol>
+<li>将所有边按照权重由低到高排序,从最小的边出发</li>
+<li>检查后面的边是不是安全边,如果是就添加到当前这个集合里面.<br>在离散数学中上面这些操作可以直接用图示法表示出来,在算法中需要用到<strong>不相关集合的操作</strong></li>
+</ol>
+<ul>
+<li>MAKE-SET(u):创建集合</li>
+<li>FIND-SET(u): 对于同一个集合中的不同元素,FIND-SET返回的值都是一样的.</li>
+<li>UNION(u,v): 将两个集合合并</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/03/29/GERdfK.png" alt="GERdfK.png"></p>
+<p>上图给出了Kruskal算法描述和实例.</p>
+<h4 id="Prim"><a href="#Prim" class="headerlink" title="Prim"></a>Prim</h4><p>Prim算法的核心是他的贪婪策略.从任意一个给定的节点都可以开始.模式有点像一棵树生长的过程.每次加入一条轻边.直到包含所有的顶点为止.</p>
+<p><img src="https://s1.ax1x.com/2020/03/29/GER41S.png" alt="GER41S.png"></p>
+<p><img src="https://s1.ax1x.com/2020/03/29/GERjpT.png" alt="GERjpT.png"></p>
+<p>需要注意的是Prim算法采用了数据结构中的<strong>优先队列</strong>来存储尚未在MST中的顶点.排序的条件是当前正在生成MST的集合到其他点的距离</p>
+]]></content>
+      <tags>
+        <tag>算法</tag>
+        <tag>学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>贝叶斯分类</title>
+    <url>/2020/03/25/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="贝叶斯分类"><a href="#贝叶斯分类" class="headerlink" title="贝叶斯分类"></a>贝叶斯分类</h1><p>假设有N种可能的类别标记,即$\Upsilon = \left\{c_1,c_2, … ,c_N\right\}$ ,$\lambda_{ij}$是将一个<strong>真实标记为$c_j$ 的样本</strong>误分类为$c_i$所产生的损失.根据后验概率(应该指的就是常说的条件概率),可以获得样本x分类产生的期望损失,也称为<strong>条件风险</strong></p>
+<script type="math/tex; mode=display">
+R(c_i|x) = \sum_{j = 1}^{N}\lambda_{ij}P(c_j|x)</script><p>我们的目标是找到一个判定准则h来将这个条件风险最小化.显然,如果对于<strong>每一个样本</strong>,h都能最小化条件风险$R(h(x)|x)$,那么总体风险$R(h)$也将会被最小化.</p>
+]]></content>
+  </entry>
+  <entry>
     <title>聚类</title>
     <url>/2020/03/24/%E8%81%9A%E7%B1%BB/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h1><h2 id="聚类试图完成的任务"><a href="#聚类试图完成的任务" class="headerlink" title="聚类试图完成的任务"></a>聚类试图完成的任务</h2><p>面对一个样本集<strong>D</strong> = {x<sub>1</sub>,x<sub>2</sub>, x<sub>3</sub>, … , x<sub>m</sub>},聚类试图将D中的样本划分成若干个<strong>不相交的子集</strong>,每一个子集成为之一个<strong>簇</strong>(cluster).通过这样的划分,也许可以找出每个簇对应的一些潜在规律,例如第一个簇里面的样本都是”浅色瓜”,第二个簇里面的样本都是”深色瓜”,诸如此类.但是这些概念对于聚类算法而言是<strong>事先未知的</strong>.</p>
@@ -121,8 +227,8 @@ E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$
 ]]></content>
       <tags>
         <tag>hexo</tag>
-        <tag>Blog</tag>
         <tag>valine</tag>
+        <tag>Blog</tag>
       </tags>
   </entry>
   <entry>
