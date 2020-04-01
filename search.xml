@@ -114,6 +114,15 @@
 <li>未知最短路径的点集合Q, Q = V -S.Q是一个极小优先队列.</li>
 </ol>
 <p>重复地从Q中选取具有最短估计距离的顶点进行处理.对从Q中提出出来的顶点u,每一个邻接顶底v都执行RELAX操作.然后把提出出来的顶点u加入到已知最短路径的集合S中去.<br><img src="https://s1.ax1x.com/2020/03/29/GZPsOS.png" alt="GZPsOS.png"></p>
+<h2 id="全成对最短路径"><a href="#全成对最短路径" class="headerlink" title="全成对最短路径"></a>全成对最短路径</h2><ul>
+<li>Input: G = (V, E) , 权</li>
+<li>Output: 任何点对之间的最短距离 ; 一个n * n的矩阵,元素是对应点对之间的最短距离,$\delta(u,v)$</li>
+</ul>
+<p>如果对每一个顶点使用单源最短路径,那么时间开销会很大.根据在单源最短路径中我们的讨论,一个最短路径的一部分也必然是最短路径.因此可以考虑使用动态规划来解决.<br>假定<strong>p是从i到j至多含有m条边的最短路径</strong>,对于这条路径上的任意一点,如果i = j,即出发点和终点是同一点,那么w(p) = 0,权之和显然为0.如果 i $\leq$ j,设在j前面一点为p,易得从i到p的最短路径最多含有m-1条边,我们可以得到$\delta(i,j) = \delta(i,p) + w_{kj}$</p>
+<p>设$l_{ij}^{(m)}$为从i到j至多含有m条边的最短路径的权.</p>
+<ul>
+<li>m = 0时,$l_{ij}^{(0)}$ = </li>
+</ul>
 ]]></content>
       <tags>
         <tag>算法</tag>
@@ -467,11 +476,11 @@ E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$
   <entry>
     <title>操作系统原理笔记</title>
     <url>/2020/03/02/OS/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Operating-System"><a href="#Operating-System" class="headerlink" title="Operating System"></a>Operating System</h1><p>操作系统原理课程学习笔记<br><a id="more"></a></p>
-<ul>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Operating-System"><a href="#Operating-System" class="headerlink" title="Operating System"></a>Operating System</h1><ul>
 <li>没有安装操作系统,计算机<strong>依然可以运行程序</strong></li>
 <li>普通用户不能正常使用</li>
 </ul>
+<a id="more"></a>
 <h4 id="操作系统功能和定义"><a href="#操作系统功能和定义" class="headerlink" title="操作系统功能和定义"></a>操作系统功能和定义</h4><ol>
 <li>进程管理(CPU管理)</li>
 </ol>
@@ -543,7 +552,7 @@ E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$
 </ul>
 <p><strong>分时技术</strong>:    主机以<strong>很短</strong>的<strong>时间片</strong>为单位,把CPU轮流分给每个终端使用,直到作业全被执行完.由于<strong>时间片</strong>很短,每个终端都能很快重新获得CPU,得到及时响应.</p>
 <p><strong>等待周期</strong> = <strong>时间片</strong> $\times$ 终端数量</p>
-<h5 id="分时系统的特点"><a href="#分时系统的特点" class="headerlink" title="　分时系统的特点"></a>　分时系统的特点</h5><ul>
+<h5 id="分时系统的特点"><a href="#分时系统的特点" class="headerlink" title="分时系统的特点"></a>分时系统的特点</h5><ul>
 <li>多路调制性:<strong>多用户</strong>联机使用同一台计算机</li>
 <li>交互性: 及时响应</li>
 <li><p>独占性: 用户感觉独占计算机</p>
@@ -890,21 +899,23 @@ E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$
 <li><p>获取Linux源代码</p>
 </li>
 <li><p>选择和启动内核配置程序</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make menuconfig</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make menuconfig</span><br></pre></td></tr></table></figure>
 <ol>
-<li><p>根据需要配置内核模块和参数</p>
+<li>根据需要配置内核模块和参数</li>
+</ol>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Loadable module support	//设置对可加载模块的支持</span><br><span class="line">Processor <span class="built_in">type</span> and features	//设置CPU类型</span><br><span class="line">General setup	//对普通属性的一些设置</span><br><span class="line">Parallel port support //并口支持</span><br><span class="line">Plug and Play configuration //即插即用配置</span><br><span class="line">Block devices	//块设备支持的选项</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>重新编译新的内核</p>
+<ol>
+<li>重新编译新的内核</li>
+</ol>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make dep	//生成依赖dependency信息</span><br><span class="line">make clean	//清除旧的编译结果</span><br><span class="line">make bzImage	//二进制文件</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编译和安装新的模块</p>
+<ol>
+<li>编译和安装新的模块</li>
+</ol>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make modules</span><br><span class="line">make modules install	//模块被编译且安装到/usr/lib/内核版本号目录下</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动新内核</p>
-</li>
+<ol>
+<li>启动新内核</li>
 </ol>
 <h3 id="OS用户界面"><a href="#OS用户界面" class="headerlink" title="OS用户界面"></a>OS用户界面</h3><ul>
 <li>OS提供给用户控制计算机的机制，又称用户接口</li>
@@ -912,7 +923,7 @@ E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$
 <p>用户界面的分类：</p>
 <ul>
 <li>操作界面</li>
-<li>系统调用</li>
+<li>系统调用:系统功能调用,程序界面</li>
 </ul>
 <h4 id="操作界面"><a href="#操作界面" class="headerlink" title="操作界面"></a>操作界面</h4><ul>
 <li><p>图形用户接口（GUI,Graphic User Interface）</p>
@@ -951,7 +962,25 @@ E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$
 <li>在脚本文件开头增加一行``#!/bin/bash —#!必须顶格,后面接shell全路径</li>
 <li>可以从/etc/shell获知所有可用shell及其绝对路径</li>
 </ul>
-<h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><ul>
+<h4 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h4><ul>
+<li>操作系统<strong>内核</strong>为应用程序提供的<strong>服务</strong>/<strong>函数</strong></li>
+</ul>
+<p>特点: </p>
+<ol>
+<li>一般涉及核心资源或硬件的操作</li>
+<li>运行于核态</li>
+<li>每个系统调用具有<strong>唯一的编号</strong></li>
+<li>调用过程中会产生<strong>中断</strong>.自愿中断</li>
+</ol>
+<h5 id="Linux利用INT-80H中断实现系统调用"><a href="#Linux利用INT-80H中断实现系统调用" class="headerlink" title="Linux利用INT 80H中断实现系统调用"></a>Linux利用INT 80H中断实现系统调用</h5><ul>
+<li>利用<strong>EAX寄存器</strong>存放系统调用的编号</li>
+</ul>
+<h5 id="隐式系统调用"><a href="#隐式系统调用" class="headerlink" title="隐式系统调用"></a>隐式系统调用</h5><ul>
+<li>类似API函数</li>
+<li>在高级语言中使用</li>
+<li>在系统内部转换为包含<strong>INT 80H</strong>的指令,执行相应的系统调用</li>
+</ul>
+<h5 id="Linux系统调用的工作原理"><a href="#Linux系统调用的工作原理" class="headerlink" title="Linux系统调用的工作原理"></a>Linux系统调用的工作原理</h5><h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><ul>
 <li>重点掌握<strong>线程</strong>,<strong>同步和P-V操作</strong>, <strong>Windows和Linux同步机制</strong>,<strong>进程通信</strong></li>
 </ul>
 <p>OS区别与应用软件最核心的功能在于OS有进程管理功能和内存管理功能，如果一个应用软件具有上述两个功能我们可以把他看做一个OS</p>
@@ -1008,6 +1037,12 @@ E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$
 <li>运行状态(Running)<br>进程已经占有CPU,在CPU上运行,对于大多数计算机来说只有一个CPU所以只有一个进程能够真正的占用CPU</li>
 <li>就绪状态(Ready)<br>具备运行条件,但由于<strong>无CPU</strong>,暂时不能运行</li>
 <li>阻塞状态(Block)或等待状态(Wait)<br>因为等待某项服务完成或信号不能运行的状态,如等待: 系统调用, I/O操作, 合作进程信号</li>
+</ul>
+<h5 id="支持挂起-suspend-和解挂-resume-操作"><a href="#支持挂起-suspend-和解挂-resume-操作" class="headerlink" title="支持挂起(suspend)和解挂(resume)操作"></a>支持挂起(suspend)和解挂(resume)操作</h5><ul>
+<li>挂起: 用户或者OS将进程有意暂停</li>
+<li>解挂: 将挂起的进程继续</li>
+<li>阻塞: 活动阻塞(正常阻塞)和静止阻塞(阻塞时挂起)</li>
+<li>就绪: 活动就绪(正常就绪)和静止就绪(就绪时挂起)</li>
 </ul>
 <h5 id="进程状态的变迁"><a href="#进程状态的变迁" class="headerlink" title="　进程状态的变迁"></a>　进程状态的变迁</h5><p>进程的状态可以依据一定的条件相互转化．</p>
 <ol>
@@ -1123,7 +1158,10 @@ E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$
 <li>阻塞</li>
 <li>唤醒</li>
 </ol>
-<h3 id="Windows控制进程"><a href="#Windows控制进程" class="headerlink" title="Windows控制进程"></a>Windows控制进程</h3><h3 id="Linux进程控制"><a href="#Linux进程控制" class="headerlink" title="Linux进程控制"></a>Linux进程控制</h3><ul>
+<h3 id="Windows控制进程"><a href="#Windows控制进程" class="headerlink" title="Windows控制进程"></a>Windows控制进程</h3><ul>
+<li>创建进程的方法: 点击图标,启动/创建进程</li>
+</ul>
+<h3 id="Linux进程控制"><a href="#Linux进程控制" class="headerlink" title="Linux进程控制"></a>Linux进程控制</h3><ul>
 <li>创建进程fork(),返回一个pid_t的整形值<br>例如,<code>pid_t pid = fork()</code></li>
 <li>新建进程是当前进程的<strong>子进程</strong>,在Linux中所有的进程都具有家族关系</li>
 <li>父进程与子进程<br>父进程: fork()的调用者<br>子进程: 新建的进程</li>
@@ -1135,6 +1173,9 @@ E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$
 <p>此时在屏幕上输出一行<code>Hello World</code>与一行<code>How are you</code>.<br>在子进程中,<code>pid=0</code>,在父进程中<code>pid&gt;0</code>(子进程ID),如果执行出错,返回-1<br>但是父进程,子进程是<strong>并发的</strong>,所以字符串输出顺序<strong>不确定</strong>.不会无限循环和递归创建子进程.</p>
 <h4 id="子进程和父进程的并发"><a href="#子进程和父进程的并发" class="headerlink" title="子进程和父进程的并发"></a>子进程和父进程的并发</h4><p>当父进程中的<code>pid = fork()</code>指令执行时,复制相同的代码到子进程.<code>fork()</code>指令之前的指令<strong>不再执行</strong>,从指令后面的语句并发.</p>
 <h4 id="fork函数的实现"><a href="#fork函数的实现" class="headerlink" title="fork函数的实现"></a>fork函数的实现</h4><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">do_fork</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	<span class="keyword">unsigned</span> <span class="keyword">long</span> clone_flags,</span></span></span><br><span class="line"><span class="function"><span class="params">	<span class="keyword">unsigned</span> <span class="keyword">long</span> stack_start,</span></span></span><br><span class="line"><span class="function"><span class="params">	struct pt_regs *regs,</span></span></span><br><span class="line"><span class="function"><span class="params">	<span class="keyword">unsigned</span> <span class="keyword">long</span> stack_size</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line"><span class="keyword">int</span> do_fork&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> *<span class="title">p</span>;</span></span><br><span class="line">    p = alloc_task_struct();<span class="comment">//分配存放位置的内存</span></span><br><span class="line">    ......</span><br><span class="line">    copy_files(clone_flags,p);</span><br><span class="line">    copy_fs(clone_flags,p);</span><br><span class="line">    copy_mm(clone_flags,p);<span class="comment">//拷贝进程所有信息</span></span><br><span class="line">    ......</span><br><span class="line">    wake_up_process(p);<span class="comment">//唤醒进程,挂入可执行队列等待被调度</span></span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Linux启动以后的第一个进程是<strong>init进程</strong>,所有其他进程都是init的子孙</li>
+</ul>
 <h4 id="exec函数簇"><a href="#exec函数簇" class="headerlink" title="exec函数簇"></a>exec函数簇</h4><ul>
 <li>装入一个<strong>指定的可执行程序</strong>运行</li>
 <li><strong>使子进程具有和父进程完全不同的新功能</strong></li>
@@ -1187,7 +1228,7 @@ E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$
 <li>让权等待: 等待进程放弃CPU,(让其他进程有机会得到CPU)</li>
 </ul>
 <h5 id="临界区的大小设置"><a href="#临界区的大小设置" class="headerlink" title="临界区的大小设置"></a>临界区的大小设置</h5><p>临界区既不能设置的<strong>过大</strong>,也不能设置的<strong>过小</strong></p>
-<p>设置的过大程序等待的时间会变成,过小则达不到设置临界区的目的</p>
+<p>设置的过大程序等待的时间会变长,过小则达不到设置临界区的目的</p>
 <h4 id="锁机制"><a href="#锁机制" class="headerlink" title="锁机制"></a>锁机制</h4><ul>
 <li>基本原理: 设置一个标志”S”，表明临界资源<strong>可用</strong>或者<strong>不可用</strong><ol>
 <li>进入临界区之前检查标志是否<strong>可用</strong></li>
@@ -1205,6 +1246,246 @@ E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$
 <li>进入临界区之前执行<strong>上锁</strong>操作</li>
 <li>退出临界区之后执行<strong>开锁</strong>操作</li>
 </ol>
+<p>锁机制是否满足四个设计原则?</p>
+<p>不满足让权等待</p>
+<h4 id="同步和P-V操作-重点"><a href="#同步和P-V操作-重点" class="headerlink" title="同步和P-V操作(重点)"></a>同步和P-V操作(重点)</h4><h5 id="同步和互斥的概念"><a href="#同步和互斥的概念" class="headerlink" title="同步和互斥的概念"></a>同步和互斥的概念</h5><p>进程的<strong>互斥</strong>关系: 多个进程由于共享了独占性资源,必须协调各进程对资源的存取顺序,确保没有任何两个或者以上的进程同时进行<strong>存取操作</strong></p>
+<ul>
+<li>互斥和资源共享相关</li>
+<li>资源: 临界资源</li>
+<li>存取操作区域: 临界区<br>进程的<strong>同步</strong>关系: 若干<strong>合作进程</strong>为了完成一个共同的任务,需要相互协调运行步伐,<strong>一个进程</strong>开始某个操作<strong>之前</strong>,必须要求<strong>另一个进程</strong>已经完成了某个操作,否则前面的进程只能<strong>等待</strong></li>
+<li>合作关系的另一种解释: 合作进程中的某些操作之间需要满足某种<strong>先后关系</strong>或某个操作能否进程需要满足某个<strong>前提条件</strong>,否则只能等待</li>
+<li>互斥关系属于特殊的同步关系</li>
+</ul>
+<h5 id="P-V操作的概念"><a href="#P-V操作的概念" class="headerlink" title="P-V操作的概念"></a>P-V操作的概念</h5><h6 id="信号灯的概念"><a href="#信号灯的概念" class="headerlink" title="信号灯的概念"></a>信号灯的概念</h6><ul>
+<li>一种进程同步机制</li>
+</ul>
+<p>进程在运行过程中<strong>受信号灯状态控制</strong>, 并能<strong>改变信号灯状态</strong></p>
+<ul>
+<li>信号灯的状态可以<strong>阻塞</strong>或者<strong>唤醒</strong>进程</li>
+<li>信号灯的状态可以被进程改变</li>
+</ul>
+<h6 id="信号灯的数据结构"><a href="#信号灯的数据结构" class="headerlink" title="信号灯的数据结构"></a>信号灯的数据结构</h6><ul>
+<li>定义为一个二元矢量(S,q)</li>
+<li>S: 整数,初值非负(S又称信号量,不与信号灯做区分)</li>
+<li>q: PCB队列,初值为空集</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SEMAPHORE</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> S;	<span class="comment">//整数,初值非负</span></span><br><span class="line">	pointer_PCB q; 	<span class="comment">//队列:进程PCB指针,初值空集</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>两个操作:</p>
+<ol>
+<li>P操作: 通过(Passeren)</li>
+<li>V操作: 释放</li>
+</ol>
+<ul>
+<li>P操作原理</li>
+</ul>
+<ol>
+<li>S减一</li>
+<li>如果<strong>差</strong> $\geq$ 0,该进程继续</li>
+<li>如果<strong>差</strong> $\leq$ 0.则该进程阻塞,并加入队列q中,转调度函数</li>
+</ol>
+<ul>
+<li>Q操作原理</li>
+</ul>
+<ol>
+<li>S加一</li>
+<li>如果<strong>和</strong> $\geq$ 0,该进程继续</li>
+<li>如果<strong>和</strong> $\leq$ 0.则该进程<strong>继续</strong>, 同时从q中<strong>唤醒</strong>一个进程</li>
+</ol>
+<h5 id="P-V操作解决互斥问题"><a href="#P-V操作解决互斥问题" class="headerlink" title="P-V操作解决互斥问题"></a>P-V操作解决互斥问题</h5><ul>
+<li>本质: 实现对临界区的互斥访问</li>
+<li>应用过程:<ol>
+<li>进入临界区之前执行P操作</li>
+<li>离开临界区之后再执行V操作</li>
+</ol>
+</li>
+<li>S的初值设置合理(似乎s的初值只能设为1)</li>
+</ul>
+<h5 id="P-V操作解决同步问题"><a href="#P-V操作解决同步问题" class="headerlink" title="P-V操作解决同步问题"></a>P-V操作解决同步问题</h5><ul>
+<li>同步机制实质: 运行条件不满足时,能让进程暂停;条件满足时能让进程继续</li>
+<li>基本思路:</li>
+</ul>
+<ol>
+<li>暂停当前进程: 在关键操作<strong>之前</strong>执行<strong>P</strong>操作</li>
+<li>继续进程: 在关键操作<strong>之后</strong>执行<strong>V</strong>操作</li>
+<li>定义合适的信号量S,表示运行条件</li>
+</ol>
+<ul>
+<li>什么是关键操作:</li>
+</ul>
+<ol>
+<li>是否需要条件</li>
+<li>完成与否是否影响另外一个进程</li>
+</ol>
+<h4 id="Windows和Linux同步机制"><a href="#Windows和Linux同步机制" class="headerlink" title="Windows和Linux同步机制"></a>Windows和Linux同步机制</h4><h5 id="Windows同步机制"><a href="#Windows同步机制" class="headerlink" title="Windows同步机制"></a>Windows同步机制</h5><ul>
+<li>临界区</li>
+<li>互斥量</li>
+<li>信号量</li>
+<li>事件</li>
+<li>等待</li>
+</ul>
+<ol>
+<li>临界区</li>
+</ol>
+<ul>
+<li>在进程内使用,保证仅一个线程可以申请到该对象</li>
+<li>是临界资源的访问<br>等待函数<strong>WaitForXXXObject</strong>: 等待目标对象变成有信号状态就返回.线程结束的时候会变成有信号状态</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">DWORD WaitForMultipleObjects</span><br><span class="line">(	</span><br><span class="line">DWORD nCount,		<span class="comment">//等待目标对象数量</span></span><br><span class="line">CONST HANDLE *lpHandles,	<span class="comment">//目标对象的句柄数组</span></span><br><span class="line">BOOL fWaitAll,				<span class="comment">//等待方式</span></span><br><span class="line">DWORD dwMilliseconds);		<span class="comment">//等待时间</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">DWORD WaitForSingleObjects</span><br><span class="line">(	</span><br><span class="line">HANDLE hHandles,	<span class="comment">//目标对象的句柄</span></span><br><span class="line">DWORD dwMilliseconds);		<span class="comment">//等待时间</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>互斥量(Mutex)</li>
+</ol>
+<ul>
+<li>保证只有<strong>一个</strong>线程或者进程可以申请到资源</li>
+<li><strong>可以跨进程使用</strong></li>
+<li>可以有名称</li>
+<li>比临界区耗费更多资源</li>
+</ul>
+<ol>
+<li>信号量(Semaphore)</li>
+</ol>
+<ul>
+<li>允许指定数目的<strong>多个</strong>线程/进程访问临界区</li>
+<li>一种资源计数器.用于限制并发线程的数量</li>
+<li>初始值可设为n,则表示允许N个进程/线程<strong>并发访问资源</strong>.</li>
+<li>可以通过相应函数<strong>增</strong>或者<strong>减</strong>.WaitForSingleObject将信号量减一,ReleaseSemaphore将信号量增一</li>
+<li>信号量的值大于0时,有信号状态;小于等于0时,为无信号状态</li>
+</ul>
+<h5 id="Linux父子进程同步"><a href="#Linux父子进程同步" class="headerlink" title="Linux父子进程同步"></a>Linux父子进程同步</h5><h6 id="wait函数"><a href="#wait函数" class="headerlink" title="wait函数"></a>wait函数</h6><ul>
+<li>进程调用<strong>wait(int status)</strong>阻塞自己,阻塞到有子进程结束.如果没有则一直阻塞.<br>wait收集该子进程信息并彻底销毁</li>
+<li>保存进程退出时的状态,如果忽略退出信息,<code>pid = wait(NULL)</code> </li>
+</ul>
+<h6 id="exit函数"><a href="#exit函数" class="headerlink" title="exit函数"></a>exit函数</h6><ul>
+<li>终结进程,利用status传递进程结束时的状态</li>
+<li>变成<strong>僵尸状态</strong>,保留部分PCB信息.给<strong>wait</strong>收集</li>
+</ul>
+<ol>
+<li>正常结束还是异常结束</li>
+<li>占用系统CPU总时间</li>
+<li>缺页中断次数</li>
+</ol>
+<ul>
+<li>调用schedule,选择新进程运行</li>
+</ul>
+<h6 id="sleep函数"><a href="#sleep函数" class="headerlink" title="sleep函数"></a>sleep函数</h6><ul>
+<li>进程暂停执行nSecond秒</li>
+<li>系统暂停调度该进程</li>
+<li>相当于Windows的suspend,挂起若干秒</li>
+</ul>
+<h6 id="父子进程共享普通变量"><a href="#父子进程共享普通变量" class="headerlink" title="父子进程共享普通变量"></a>父子进程共享普通变量</h6><p>对于普通变量,父子进程各自操作变量副本.互不影响</p>
+<h6 id="父子进程共享文件资源"><a href="#父子进程共享文件资源" class="headerlink" title="父子进程共享文件资源"></a>父子进程共享文件资源</h6><p>对于文件,父子进程共享同一文件和读写指针</p>
+<h4 id="进程通信"><a href="#进程通信" class="headerlink" title="进程通信"></a>进程通信</h4><h5 id="Windows中的匿名管道通信"><a href="#Windows中的匿名管道通信" class="headerlink" title="Windows中的匿名管道通信"></a>Windows中的匿名管道通信</h5><ul>
+<li>管道定义: 进程间的一种通信机制.一个进程A可以通过管道把数据传输给另外一个进程B.前者向管道输入数据,后者向管道输出数据.</li>
+<li>工作原理:<br>有读/写两个句柄: <code>CreatePipe(Handle W, Handle R)</code><br>通过写 写句柄向管道中写数据<code>WriteFile(W,Buffer)</code>或者通过输出重定向 向写句柄写入<br>通过读 读句柄,从管道读取数据<code>ReadFile(R,Buffer)</code>.或者通过输入重定向从读句柄读出</li>
+<li>仅能用于<strong>父子</strong>或者<strong>兄弟</strong>进程通信</li>
+</ul>
+<ol>
+<li>父进程创建管道<code>CreatePipe(W,R)</code></li>
+<li>父进程创建子进程<code>CreateProcess()</code></li>
+<li>父进程写或读管道,子进程输入或者输出重定向到管道.</li>
+</ol>
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><h3 id="死锁的概念"><a href="#死锁的概念" class="headerlink" title="死锁的概念"></a>死锁的概念</h3><p>相邻的哲学家不可能同时吃饭.<br>用代码表示哲学家的生活就是如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">UINT Philosopher(int i)	&#x2F;&#x2F; 线程函数,i是哲学家的编号</span><br><span class="line">&#123;</span><br><span class="line">	while(true)</span><br><span class="line">	&#123;</span><br><span class="line">		思考;</span><br><span class="line">		休息;</span><br><span class="line">		P(S[i]);	&#x2F;&#x2F;取左手边的筷子</span><br><span class="line">		P(S[i+4]%5);&#x2F;&#x2F;取右手边的筷子</span><br><span class="line">		吃饭;</span><br><span class="line">		V(S[i+4]%5);&#x2F;&#x2F;放下右手边的筷子</span><br><span class="line">		V(S[i]);	&#x2F;&#x2F;放下左手边的筷子</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于上述程序,<strong>吃饭</strong>显然要访问公共资源,是属于临界操作,需要加以适当的P-V操作来限制.筷子是否可用就是<strong>信号量</strong>.</p>
+<ul>
+<li>死锁的定义: 两个或多个进程无限期的等待永远不会发生的条件的一种系统状态<br>死锁的结果就是每个进程都永远阻塞</li>
+</ul>
+<h3 id="死锁起因"><a href="#死锁起因" class="headerlink" title="死锁起因"></a>死锁起因</h3><h4 id="系统资源有限"><a href="#系统资源有限" class="headerlink" title="系统资源有限"></a>系统资源有限</h4><p>进程对资源的竞争产生死锁</p>
+<h4 id="并发进程推进顺序不当"><a href="#并发进程推进顺序不当" class="headerlink" title="并发进程推进顺序不当"></a>并发进程推进顺序不当</h4><p>进程<strong>请求</strong>或者<strong>释放</strong>资源的顺序不当,也可能导致死锁.<br>例如</p>
+<h4 id="关于死锁的一些结论"><a href="#关于死锁的一些结论" class="headerlink" title="关于死锁的一些结论"></a>关于死锁的一些结论</h4><ul>
+<li>参与死锁的进程至少是<strong>2</strong>个</li>
+<li>参与死锁的进程至少有<strong>2个已经占有资源</strong></li>
+<li>参与死锁的所有进程都在等待资源</li>
+<li>参与死锁的进程是当前系统中所有进程的子集.<br>死锁会浪费大量的系统资源,甚至导致系统崩溃.</li>
+</ul>
+<h3 id="预防死锁的策略"><a href="#预防死锁的策略" class="headerlink" title="预防死锁的策略"></a>预防死锁的策略</h3><h4 id="死锁的必要条件"><a href="#死锁的必要条件" class="headerlink" title="死锁的必要条件"></a>死锁的必要条件</h4><ul>
+<li>互斥条件: 资源具有独占性,进程互斥使用资源.</li>
+<li>不剥夺条件: 进程在释放资源前(即访问完)不能被其他进程剥夺</li>
+<li>部分分配条件: 进程所需要的资源逐步分配.需要时申请和分配.</li>
+<li>环路条件: 多个进程构成<strong>环路</strong>,环中每个进程已占用的资源被前一进程申请,自己所需要的新资源又被环中的后裔进程申请</li>
+</ul>
+<p>上述条件不需要全部满足,满足一个即可</p>
+<h4 id="解决死锁的策略"><a href="#解决死锁的策略" class="headerlink" title="解决死锁的策略"></a>解决死锁的策略</h4><ul>
+<li>通过设置某些限制条件,破坏死锁四个必要条件中的一个或者多个来防止死锁</li>
+</ul>
+<ol>
+<li>破坏互斥条件: 难</li>
+<li>破坏不剥夺条件: 代价大</li>
+<li>破坏部分分配条件: 预先静态分配</li>
+<li>破坏环路条件: 有序资源分配</li>
+</ol>
+<h2 id="进程调度"><a href="#进程调度" class="headerlink" title="进程调度"></a>进程调度</h2><h3 id="进程调度概念"><a href="#进程调度概念" class="headerlink" title="进程调度概念"></a>进程调度概念</h3><ul>
+<li>在合适的时候以<strong>一定的策略</strong>选择一个<strong>就绪</strong>进程运行.</li>
+</ul>
+<p>调度时机?调度策略?调度目标?</p>
+<h4 id="调度目标"><a href="#调度目标" class="headerlink" title="调度目标"></a>调度目标</h4><ol>
+<li>响应速度尽可能快,以更少的时间片进行切换</li>
+<li>进程处理时间尽可能短</li>
+<li>吞吐量尽可能大</li>
+<li>资源利用率尽可能高</li>
+<li>对所有进程要公平</li>
+<li>避免饥饿</li>
+<li>避免死锁</li>
+</ol>
+<p>但是上述部分原则之间存在自相矛盾的现象<br>例如1和2,要求响应速度尽可能快就要占用更多CPU资源,相应地用来处理进程的CPU资源就会减少,进程处理时间就会变长.<br>还有1和3.CPU更频繁切换,调度更频繁进行,和之前一样CPU的有效工作时间就会缩短.因此单位时间可以处理的cpu数量会少.<br>2和5.让一个进程处理时间缩短意味着其他进程获得CPU的概率降低了.是不公平的.<br>对于不同的操作系统满足不同的策略.</p>
+<ul>
+<li>可以量化的目标</li>
+</ul>
+<ol>
+<li>周转时间: 进程提交给计算机到最终完成所花费的时间.<br>t = t<sub>c</sub> - t<sub>s</sub><br>t<sub>c</sub>是进程完成时间,t<sub>s</sub>是进程开始时间</li>
+<li>平均周转时间:<br>t = (t<sub>1</sub> + t<sub>2</sub> + … +t<sub>n</sub>) / n<br>平均周转时间越短说明进程在系统内停留的时间也越短.系统吞吐量也就越大.资源利用率也就越高.</li>
+<li>带权周转时间w: 进程在系统中相对停留时间<br>w = t / t<sub>r</sub><br>t: 进程周转时间<br>t<sub>r</sub>进程运行时间</li>
+</ol>
+<h3 id="典型进程调度算法"><a href="#典型进程调度算法" class="headerlink" title="典型进程调度算法"></a>典型进程调度算法</h3><h4 id="FCFS-先来先服务"><a href="#FCFS-先来先服务" class="headerlink" title="FCFS(先来先服务)"></a>FCFS(先来先服务)</h4><p>按照作业进入系统时间先后挑选作业,先进优先被运行.<br>效率不高,只考虑作业等候时间,没考虑<strong>运行时间长短</strong>.不利于短作业</p>
+<h4 id="SJF-短作业优先调度算法"><a href="#SJF-短作业优先调度算法" class="headerlink" title="SJF(短作业优先调度算法)"></a>SJF(短作业优先调度算法)</h4><p>参考运行时间,选取运行时间最短的作业投入运行.<br>效率不高,忽视了作业等待时间,容易出现资源饥饿现象.</p>
+<h4 id="响应比高者优先调度"><a href="#响应比高者优先调度" class="headerlink" title="响应比高者优先调度"></a>响应比高者优先调度</h4><ul>
+<li>作业相应时间与运行时间的比值<br>响应比 = (等待时间 + 运行时间) / 运行时间.计算每个作业的响应比,选择响应比最高的作业优先投入运行.<br>有利于短作业,等候时间长的作业.</li>
+</ul>
+<h4 id="优先数调度算法"><a href="#优先数调度算法" class="headerlink" title="优先数调度算法"></a>优先数调度算法</h4><p>根据进程优先数,把CPU分配给最高的进程,进程优先数 = 静态优先数+ 动态优先数</p>
+<h5 id="静态优先数"><a href="#静态优先数" class="headerlink" title="静态优先数"></a>静态优先数</h5><p>在进程创建时确定,在整个进程运行期间不再更改.</p>
+<ul>
+<li>进程所需资源多少</li>
+<li>程序运行时间长短</li>
+<li>进程类型(IO/CPU,前台,后台,核心/用户.</li>
+</ul>
+<h5 id="动态优先数"><a href="#动态优先数" class="headerlink" title="动态优先数"></a>动态优先数</h5><p>可以改变</p>
+<ul>
+<li>CPU超过一定时长</li>
+<li>当进行I/O操作</li>
+<li>当进程等待超过一定时长.</li>
+</ul>
+<h4 id="循环轮转调度法"><a href="#循环轮转调度法" class="headerlink" title="循环轮转调度法"></a>循环轮转调度法</h4><p>把所有进程按先进先出的原则排成队列.新来进程加到队列末尾.<br>进程以时间片q为单位轮流使用CPU,,刚运行完一个时间片的进程排到队列末尾,等候下一轮运行.逻辑上是环形.</p>
+<ul>
+<li>优点: 平等机会获得CPU,等待固定时间就可以重新获得CPU<br>时间片:<br>如果q太大: 交互性差,甚至退化成FCFS算法<br>如果q的值太小: 进程切换频繁,系统开销增加<br>改进: 让时间片大小可变,组织多个就绪队列.</li>
+</ul>
+<h3 id="Linux进程调度"><a href="#Linux进程调度" class="headerlink" title="Linux进程调度"></a>Linux进程调度</h3><p>Linux进程类型: </p>
+<ol>
+<li><p>普通进程<br>采用动态优先级调度,调度程序<strong>周期性</strong>的修改优先级(避免饥饿)<br>只要进程占用CPU,优先级就随时间流失而不断下降.task_struct的counter表示优先级.系统调用<strong>sched_setscheduler()</strong>可以改变调度策略.实时进程子孙进程也是实时进程.</p>
+</li>
+<li><p>实时进程<br>采用静态优先级调度,由用户<strong>预先指定</strong>,以后不会改变<br>实时进程调度策略为FIFO或者RR(时间片轮转).当采用FIFO策略时,当前实时进程会一直占用CPU直到被<strong>阻塞</strong>或者<strong>被抢占</strong>或者<strong>退出</strong>.阻塞后再就绪时被添加到同优先级队列的末尾.当采用RR策略时,与其他实时进程共同使用CPU,确保同优先级的多个进程能共享CPU.</p>
+</li>
+</ol>
+<h4 id="调度时机"><a href="#调度时机" class="headerlink" title="调度时机"></a>调度时机</h4><ul>
+<li><p>中断处理过程中直接调用schedule().<br>时钟中断,I/O中断,系统调用和异常.<br>内核被动调度情形.</p>
+</li>
+<li><p>中断处理过程返回用户态时直接调用schedule()<br>必须根据need_resched标记来确定是否调用</p>
+</li>
+<li>内核线程可以直接调用schedule()<br>属于内核主动调度的情形</li>
+<li>用户态进程<strong>只能陷入内核后</strong>在中断处理过程中被动调用<br>同样也是必须根据need_resched标记.</li>
+</ul>
+<h4 id="进程切换"><a href="#进程切换" class="headerlink" title="进程切换"></a>进程切换</h4><ul>
+<li>内核挂起当前CPU上的进程并恢复之前挂起的某个进程,任务切换,上下文切换</li>
+<li>与中断上下文切换有差别<br>中断前后在同一进程上下文中,只是<strong>用户态</strong>转向<strong>内核态</strong>执行.</li>
+<li>进程上下文包含了进程执行需要的所有信息.</li>
+</ul>
+<ol>
+<li>用户地址空间:程序代码,数据,用户堆栈</li>
+<li>控制信息: 进程描述符,内核堆栈</li>
+<li>硬件上下文</li>
+</ol>
+<ul>
+<li>schedule()函数<br>选择新进程<code>next = pick_next_task(rq,prerv)</code>,进程调度算法<br>调用宏<code>context_switch(rq,prev,next)</code>切换进程上下文,在宏当中实际上是调用<code>switch_to(prev,next)</code>来切换上下文的.</li>
+</ul>
 ]]></content>
       <tags>
         <tag>Notes</tag>
