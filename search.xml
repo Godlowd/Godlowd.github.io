@@ -57,8 +57,7 @@
 <li>将图G转置成图G<sup>T</sup> .从<strong>具有最大的f[u]</strong>的节点开始.在G<sup>T</sup> 上执行DFS.如果不能到达所有的顶点则执行下一个的DFS</li>
 <li>在最终得到的森林每一棵树就是一个SCC<br>下图是一个例子.<br><img src="https://s1.ax1x.com/2020/03/28/GAL8YQ.png" alt="GAL8YQ.png"></li>
 </ol>
-<h2 id="最小生成树-Minimum"><a href="#最小生成树-Minimum" class="headerlink" title="最小生成树(Minimum"></a>最小生成树(Minimum</h2><p>Spanning Trees)</p>
-<p>连通无向图.</p>
+<h2 id="最小生成树-MinimumSpanning-Trees"><a href="#最小生成树-MinimumSpanning-Trees" class="headerlink" title="最小生成树(MinimumSpanning Trees)"></a>最小生成树(MinimumSpanning Trees)</h2><p>连通无向图.</p>
 <ul>
 <li>Goal: 每两个顶点之间保持联通,权重之和最小</li>
 </ul>
@@ -120,9 +119,30 @@
 </ul>
 <p>如果对每一个顶点使用单源最短路径,那么时间开销会很大.根据在单源最短路径中我们的讨论,一个最短路径的一部分也必然是最短路径.因此可以考虑使用动态规划来解决.<br>假定<strong>p是从i到j至多含有m条边的最短路径</strong>,对于这条路径上的任意一点,如果i = j,即出发点和终点是同一点,那么w(p) = 0,权之和显然为0.如果 i $\leq$ j,设在j前面一点为p,易得从i到p的最短路径最多含有m-1条边,我们可以得到$\delta(i,j) = \delta(i,p) + w_{kj}$</p>
 <p>设$l_{ij}^{(m)}$为从i到j至多含有m条边的最短路径的权.</p>
-<ul>
-<li>m = 0时,$l_{ij}^{(0)}$ = </li>
+<p>m = 0时,</p>
+<script type="math/tex; mode=display">
+l_{ij}^{(0)} = \left\{
+\begin{aligned}
+0 & &if m = 0 \\
+\infty if i \neq j
+\end{aligned}
+\right.</script><p>i = j 说明这两个点就是同一个点,所以距离是0, 如果i $\neq$j的话说明这两点不是同一点,而且之间的距离是0,所以必然不存在,返回正无穷.<br>m &gt; 1 时 </p>
+<script type="math/tex; mode=display">
+l_{ij}^{(m)} = min_{1 \leq k \leq }{l_{ij}^{(m-1)} + w_{kj}}</script><p>当m不等于0时,说明这两点之间一定有边相连.就像之前一样,对每一个之前的节点执行<strong>Relax</strong>操作,然后选其中最小的.<br>m = 1 时, </p>
+<script type="math/tex; mode=display">
+l_{ij}^{(1)} = w_{ij}</script><p>显而易见,只有一条边最小值就是这条边的权重.</p>
+<h3 id="Floyd-Warshall算法"><a href="#Floyd-Warshall算法" class="headerlink" title="Floyd-Warshall算法"></a>Floyd-Warshall算法</h3><ul>
+<li>有向有权图</li>
+<li>可以存在<strong>负权边</strong>,无<strong>负权回路</strong></li>
 </ul>
+<h4 id="最短路径需要用到的数据结构"><a href="#最短路径需要用到的数据结构" class="headerlink" title="最短路径需要用到的数据结构"></a>最短路径需要用到的数据结构</h4><ul>
+<li>路径p = <v<sub>1&lt;/sub&gt;,v<sub>2</sub>,v<sub>3</sub>,v<sub>4</sub>…,v<sub>l</sub>&gt;,p的<strong>中间顶点的集合</strong>是指{v<sub>2</sub>,v<sub>3</sub>,v<sub>4</sub>…,v<sub>l-1</sub>}中的点</li>
+<li>$d_{ij}^{(k)}$ : 从i到j最小的权值,其中间节点来自集合{1,2,…k}</li>
+</ul>
+<p>现在我们假设有一顶点k</p>
+<ol>
+<li>k是路径p的中间顶点.<br>所以</li>
+</ol>
 ]]></content>
       <tags>
         <tag>算法</tag>
@@ -1425,7 +1445,7 @@ E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$
 <li>资源利用率尽可能高</li>
 <li>对所有进程要公平</li>
 <li>避免饥饿</li>
-<li>避免死锁</li>
+<li>c</li>
 </ol>
 <p>但是上述部分原则之间存在自相矛盾的现象<br>例如1和2,要求响应速度尽可能快就要占用更多CPU资源,相应地用来处理进程的CPU资源就会减少,进程处理时间就会变长.<br>还有1和3.CPU更频繁切换,调度更频繁进行,和之前一样CPU的有效工作时间就会缩短.因此单位时间可以处理的cpu数量会少.<br>2和5.让一个进程处理时间缩短意味着其他进程获得CPU的概率降低了.是不公平的.<br>对于不同的操作系统满足不同的策略.</p>
 <ul>
@@ -1486,6 +1506,441 @@ E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$
 <ul>
 <li>schedule()函数<br>选择新进程<code>next = pick_next_task(rq,prerv)</code>,进程调度算法<br>调用宏<code>context_switch(rq,prev,next)</code>切换进程上下文,在宏当中实际上是调用<code>switch_to(prev,next)</code>来切换上下文的.</li>
 </ul>
+<h2 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h2><h3 id="内存管理功能"><a href="#内存管理功能" class="headerlink" title="内存管理功能"></a>内存管理功能</h3><p>存储器功能需求: 容量足够大,速度足够快,信息永久保存,多道程序运行.</p>
+<ul>
+<li>共享: 代码和数据共享,节省内存</li>
+<li>保护: 不允许程序之间非法的相互访问.</li>
+</ul>
+<p>存储管理的功能: </p>
+<h4 id="地址映射"><a href="#地址映射" class="headerlink" title="地址映射"></a>地址映射</h4><p>把程序中的地址(虚拟/虚/逻辑)变换成内存中的真实地址的过程,方式有三种,固定地址映射,静态地址映射,动态地址映射.</p>
+<h5 id="固定地址映射"><a href="#固定地址映射" class="headerlink" title="固定地址映射"></a>固定地址映射</h5><p>在编程或者编译时确定逻辑地址和物理地址的映射关系,但是在程序加载的时候必须放在<strong>指定的内存区域</strong>,但是容易产生地址冲突,运行失败.</p>
+<h5 id="静态地址映射"><a href="#静态地址映射" class="headerlink" title="静态地址映射"></a>静态地址映射</h5><p>程序<strong>装入</strong>时由OS完成逻辑地址到物理地址的映射.设<strong>逻辑地址</strong>为VA,<strong>装入基址</strong>为BA,<strong>物理地址</strong>为MA.有</p>
+<script type="math/tex; mode=display">
+MA = BA + VA</script><ul>
+<li>程序运行之前确定映射关系</li>
+<li>程序装入之后不能移动,移动之后必须放回原来的位置</li>
+<li>程序占用连续的内存空间.</li>
+</ul>
+<h5 id="动态地址映射"><a href="#动态地址映射" class="headerlink" title="动态地址映射."></a>动态地址映射.</h5><p>在程序<strong>执行过程中</strong>把逻辑地址转换为物理地址.例如,<code>MOV AX,[500]</code>OS就会在访问500单元时执行地址转换.如果程序在过程中有移动,则可能产生新的BA,相应的MA也就需要重新计算.</p>
+<ul>
+<li>程序占用的内存空间可以动态变化,BA需要及时更新.</li>
+<li>不要求占用连续的内存空间,每段程序的BA应该知道</li>
+<li>便于多个进程共享代码</li>
+<li>需要硬件支持MMU(内存管理)</li>
+</ul>
+<h4 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h4><p>解决问题: 程序过多或者过大时,内存不够,不能运行.多个程序并发时地址冲突,不能运行.</p>
+<ul>
+<li>面向用户的虚拟封闭内存.</li>
+</ul>
+<ol>
+<li>线行地址空间</li>
+<li>容量4G</li>
+<li>封闭空间</li>
+<li>和物理地址分离(地址无冲突)</li>
+<li>程序员编程时使用线行虚拟地址</li>
+</ol>
+<h4 id="内存分配"><a href="#内存分配" class="headerlink" title="内存分配"></a>内存分配</h4><p>解决目标: 为程序运行分配足够的内存空间.<br>需要解决的问题:</p>
+<ol>
+<li>放置策略: 程序调入内存时将其放置在哪个内存区?</li>
+<li>调入策略: 何时把要运行的代码和要访问的数据存入内存</li>
+<li>淘汰策略: 内存空间不够时,迁出哪些代码或数据以腾出内存</li>
+</ol>
+<h4 id="存储保护"><a href="#存储保护" class="headerlink" title="存储保护"></a>存储保护</h4><p>解决目标: 保证在内存中的多道程序只在给定的存储区域中活动且互不干扰.防止访问越权和越界<br>使用<strong>界址寄存器</strong>来限制,程序访问内存时硬件自动将目的地址与下限寄存器和上限寄存器中存放的地址界限进行比较,判断是否越界.</p>
+<h3 id="物理内存管理"><a href="#物理内存管理" class="headerlink" title="物理内存管理"></a>物理内存管理</h3><h4 id="分区内存管理"><a href="#分区内存管理" class="headerlink" title="分区内存管理"></a>分区内存管理</h4><p>根据分区管理形式不同可以分为</p>
+<ul>
+<li>单一区存储管理</li>
+<li>分区存储管理,其中还可细分为固定分区和动态分区.</li>
+</ul>
+<h5 id="单一区存储管理"><a href="#单一区存储管理" class="headerlink" title="单一区存储管理"></a>单一区存储管理</h5><p>用户区不分区,完全被一个程序占用</p>
+<ul>
+<li>优点: 简单,不需要复杂的硬件支持,适于单用户单任务OS</li>
+<li>缺点: 程序运行占用整个内存,即使程序很小也是这样,内存浪费,利用率低</li>
+</ul>
+<h5 id="分区存储管理"><a href="#分区存储管理" class="headerlink" title="分区存储管理"></a>分区存储管理</h5><p>把用户区内存划分为若干大小不等的分区,供不同的程序使用,根据分区的<strong>时机</strong>分为固定分区和动态分区</p>
+<h6 id="固定分区"><a href="#固定分区" class="headerlink" title="固定分区"></a>固定分区</h6><p>把内存<strong>固定</strong>地划分为若干个大小不等的分区供程序使用,每个分区的<strong>位置</strong>和<strong>大小</strong>都固定.系统运行期间不再改变.用<strong>分区表</strong>记录分区的位置大小和使用情况.</p>
+<ul>
+<li>在程序装入前,内存已被分区,不再改变</li>
+<li>每个分区大小不相同,适应大小不同的程序</li>
+<li>系统要维护分区表</li>
+</ul>
+<p>缺点: 浪费内存,大程序可能无法运行.</p>
+<h6 id="动态分区"><a href="#动态分区" class="headerlink" title="动态分区"></a>动态分区</h6><p>在程序装入的时候创建分区,使分区的大小刚好和程序的大小相适应.存在内存碎片.</p>
+<h6 id="空闲区表如何排序"><a href="#空闲区表如何排序" class="headerlink" title="空闲区表如何排序"></a>空闲区表如何排序</h6><ul>
+<li>放置策略(空闲区表排序原则)<ol>
+<li>按空闲区位置(首址)递增排序.(首次适应法)</li>
+<li>按空闲区位置(首址)递减排序</li>
+<li>按空闲区大小的递增排序.</li>
+<li>按空闲区大小的递减排序</li>
+</ol>
+</li>
+</ul>
+<h6 id="首次适应法"><a href="#首次适应法" class="headerlink" title="# 首次适应法"></a># 首次适应法</h6><p>尽可能先使用<strong>低地址</strong>的内存,当需要较大分区时在高地址空间有较大的满足概率.</p>
+<h6 id="最佳适应法"><a href="#最佳适应法" class="headerlink" title="# 最佳适应法"></a># 最佳适应法</h6><p>尽可能使用<strong>较小</strong>的空闲区,保留大的空闲区,当需要较大分区时有较大满足可能性</p>
+<h6 id="最坏适应法"><a href="#最坏适应法" class="headerlink" title="# 最坏适应法"></a># 最坏适应法</h6><p>节省遍历时间.最大的分区切割以后还是一个较大的分区,还可能可以让程序运行.</p>
+<h5 id="分区的回收"><a href="#分区的回收" class="headerlink" title="分区的回收"></a>分区的回收</h5><p>回收程序释放的分区,登记到<strong>空闲区表</strong>中,以便再次分区.</p>
+<ul>
+<li>考虑释放区与现有空闲区<strong>是否相邻</strong></li>
+<li>如不相邻则直接插入空闲区表</li>
+<li>如果相邻则与<strong>空闲区合并</strong>后更新空闲区表.</li>
+</ul>
+<h4 id="内存覆盖技术"><a href="#内存覆盖技术" class="headerlink" title="内存覆盖技术"></a>内存覆盖技术</h4><ul>
+<li>在较小内存空间中运行较大程序<h5 id="内存分区"><a href="#内存分区" class="headerlink" title="内存分区"></a>内存分区</h5></li>
+<li>常驻区: 被某段单独且固定地占用,可以划分多个.</li>
+<li>覆盖区: 能被多段共用,可划分多个.</li>
+</ul>
+<h5 id="覆盖的缺点"><a href="#覆盖的缺点" class="headerlink" title="覆盖的缺点"></a>覆盖的缺点</h5><ul>
+<li>编程复杂,程序员划分程序模块并确定覆盖关系.</li>
+<li>程序执行时间长,从外存装入内存耗时.</li>
+</ul>
+<h4 id="内存交换技术"><a href="#内存交换技术" class="headerlink" title="内存交换技术"></a>内存交换技术</h4><p>在<strong>小内存</strong>中,<strong>并发</strong>的运行多个进程.</p>
+<ul>
+<li>原理: 在内存不够时将进程<strong>写入到磁盘</strong>,当进程要运行时重新写回内存.<h5 id="交换技术的缺点"><a href="#交换技术的缺点" class="headerlink" title="交换技术的缺点"></a>交换技术的缺点</h5></li>
+<li><strong>换入</strong>和<strong>换出</strong>增加CPU开销.</li>
+<li>交换单位太大<h5 id="需要考虑的问题"><a href="#需要考虑的问题" class="headerlink" title="需要考虑的问题"></a>需要考虑的问题</h5></li>
+<li>减少交换传送的信息量</li>
+<li>外存交换空间的管理办法</li>
+<li>程序换入时的地址重定位.</li>
+</ul>
+<h4 id="内存碎片"><a href="#内存碎片" class="headerlink" title="内存碎片"></a>内存碎片</h4><ul>
+<li>过小的空闲区,难以实际利用.降低内存有效利用率.</li>
+</ul>
+<p><strong>最佳适应法</strong>最容易产生内存碎片.</p>
+<h5 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h5><ul>
+<li>规定门限值,如果剩余部分少于门限值,则空闲区不进行分割,全部分配给用户.</li>
+</ul>
+<h5 id="方法二-碎片拼接"><a href="#方法二-碎片拼接" class="headerlink" title="方法二: 碎片拼接"></a>方法二: 碎片拼接</h5><ul>
+<li>将所有空闲区集中一起构成一个大的空闲区</li>
+<li>拼接的时机: </li>
+</ul>
+<ol>
+<li>释放区回收的时候(拼接频率过大,系统开销大)</li>
+<li>系统找不到足够大的空闲区的时候(空闲区的管理复杂)</li>
+<li>定期(空闲区的管理复杂)</li>
+</ol>
+<h6 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h6><ul>
+<li>消耗系统资源</li>
+<li>离线拼接,需要对所有作业进行离线,暂停作业进行拼接</li>
+<li>重新定义拼接,每个作业内存的大小,位置发生了变化,需要重新定义.</li>
+</ul>
+<h5 id="方法三-解除程序占用连续内存才能运行的限制"><a href="#方法三-解除程序占用连续内存才能运行的限制" class="headerlink" title="方法三: 解除程序占用连续内存才能运行的限制"></a>方法三: 解除程序占用连续内存才能运行的限制</h5><ul>
+<li>把程序<strong>分拆多个部分装入不同分区</strong>,充分利用碎片.</li>
+</ul>
+<h3 id="虚拟内存管理"><a href="#虚拟内存管理" class="headerlink" title="虚拟内存管理"></a>虚拟内存管理</h3><ul>
+<li>使得大的程序能在较小内存中运行</li>
+<li>多个程序可以在小内存中运行</li>
+<li>多个程序<strong>并发运行</strong>地址不冲突.</li>
+<li>无碎片</li>
+<li><p>实现思路: 只把当前必要的很小一部分代码和数据装入内存,其余代码和数据需要的时候再装入,不再运行的代码和数据从内存中删除.</p>
+</li>
+<li><p>程序运行的局部性: 在一个<strong>有限的</strong>时间段内访问的代码和数据往往集中在<strong>有限的地址范围内</strong>.</p>
+</li>
+<li>把程序的一部分装入内存在较大概率上也足够让其运行一小段时间.<h4 id="页式虚拟存储管理"><a href="#页式虚拟存储管理" class="headerlink" title="页式虚拟存储管理"></a>页式虚拟存储管理</h4></li>
+<li>把进程和内存都按一定大小(如1k,2K,4K等)划分成等大小的小片,进程的小片叫<strong>页</strong>,内存的小片叫<strong>页框</strong>,</li>
+</ul>
+<p>只把程序<strong>部分页</strong>装入内存即可运行.页在内存中占用的页框<strong>不必相邻</strong>.需要新页时,按需从硬盘调入内存.</p>
+<h4 id="页表和页式地址映射"><a href="#页表和页式地址映射" class="headerlink" title="页表和页式地址映射"></a>页表和页式地址映射</h4><p>虚拟地址(VA)可以被分解成<strong>页号P</strong>和<strong>页内偏移W</strong></p>
+<ul>
+<li>页号 = VA / 页的大小</li>
+<li>页内偏移 = VA % 页的大小</li>
+<li>计算页号和页内偏移的另一种方法: </li>
+</ul>
+<ol>
+<li>页号P = VA &gt;&gt; n, 其中n为页的大小2<sup>n</sup></li>
+<li>页内偏移W = VA &amp;&amp;(2<sup>n</sup>-1)</li>
+</ol>
+<ul>
+<li>页面映射表: 记录页与页框之间的对应关系.<h5 id="页式地址映射"><a href="#页式地址映射" class="headerlink" title="页式地址映射"></a>页式地址映射</h5>将虚拟地址(页式地址)映射到物理地址上.</li>
+</ul>
+<ol>
+<li>从VA中分离P和W</li>
+<li>查页表,以P为索引查页框号P’</li>
+<li>计算物理地址MA = P’ $\times$ 页面大小 + W</li>
+</ol>
+<h4 id="快表技术和页面共享技术"><a href="#快表技术和页面共享技术" class="headerlink" title="快表技术和页面共享技术"></a>快表技术和页面共享技术</h4><ul>
+<li>快表(Cache): 页表放在<strong>Cache</strong>中. 容量小,访问快,成本高,慢表部分内容复制,地址映射时优先访问快表.</li>
+<li>慢表: 页表放在内存中<br>如果在快表中找到了所需的数据,叫<strong>命中</strong>.没有命中访问慢表,同时更新快表.合理页面调度策略能够快表具有较高命中率</li>
+</ul>
+<h4 id="缺页中断"><a href="#缺页中断" class="headerlink" title="缺页中断"></a>缺页中断</h4><p>页表扩充: 带<strong>中断位</strong>的页表.</p>
+<ul>
+<li>定义: 访问的目的页<strong>不在内存</strong>,系统产生异常中断.</li>
+<li>缺页中断处理程序: 把所缺的页从页表指出的辅存地址调入内存中的某个页框中,并更新页表中对应的中断位为<strong>0</strong>.</li>
+<li>缺页率: 缺页次数 / 访问次数</li>
+</ul>
+<h4 id="页面淘汰"><a href="#页面淘汰" class="headerlink" title="页面淘汰"></a>页面淘汰</h4><ul>
+<li>选择淘汰<strong>哪一页</strong>的规则.</li>
+<li>页面抖动: 页面在<strong>内存</strong>和<strong>辅存</strong>间频繁交换的现象,降低系统效率.</li>
+</ul>
+<p>一个好的淘汰策略应该具有较低的缺页率,页面抖动较少.</p>
+<ul>
+<li>常用淘汰算法</li>
+</ul>
+<ol>
+<li>最佳算法(OPT): 淘汰以后<strong>不再需要</strong>或者<strong>最远的将来</strong>才会用到的页面.0</li>
+</ol>
+<p>理论上最佳,但实践中该算法<strong>无法实现</strong>,在进程访问完之前并不知道将来需要访问什么页面</p>
+<ol>
+<li>先进先出算法(FIFO): 淘汰在内存中<strong>停留时间最长</strong>的页面</li>
+</ol>
+<p>实现简单: 只有按顺序地址空间访问时才有较高命中率.</p>
+<ol>
+<li>最久未使用淘汰算法: 淘汰最长时间未被使用的页面(LRU)</li>
+</ol>
+<p>页面设置一个<strong>移位寄存器R</strong>,每当页面被访问则将其重置1. 周期性地将所有页面的R左移一位. 当需要淘汰页面时,选择R值最大的页(R值越大,对应页的未被使用时间也就越长.R的位数越多,位移周期越小就越精确.但硬件成本也就越高.</p>
+<ol>
+<li>最不经常用算法(LFU)</li>
+</ol>
+<p>选择到当前时间为止访问次数最少的页面.</p>
+<h3 id="段式和段页式虚拟内存"><a href="#段式和段页式虚拟内存" class="headerlink" title="段式和段页式虚拟内存"></a>段式和段页式虚拟内存</h3><p>把进程<strong>按逻辑意义</strong>分成多个段,每个段有<strong>段名</strong>,长度不定.有点像汇编里面的code segment stack segment</p>
+<ul>
+<li>以段为单位装入,每段分配连续的内存.段与段之间不需要相邻</li>
+</ul>
+<h4 id="段式地址映射机制"><a href="#段式地址映射机制" class="headerlink" title="段式地址映射机制"></a>段式地址映射机制</h4><p>段表: 记录每段在内存中的映射地址,包括<strong>段号</strong>,<strong>段长</strong>,<strong>基地址</strong>.</p>
+<ul>
+<li>段号: 段的编号(<strong>唯一</strong>)</li>
+<li>段长: 该段的长度</li>
+<li>基地址: 在内存中的首地址</li>
+</ul>
+<p>映射过程: </p>
+<ol>
+<li>由逻辑地址VA分离出(S,W)</li>
+<li>查询段表</li>
+<li>物理地址MA = B + W</li>
+</ol>
+<ul>
+<li>段的共享: </li>
+</ul>
+<ol>
+<li>在内存中只有一份存储</li>
+<li>共享段被多个进程映射到各自段表</li>
+<li>需要共享的模块可以设置为单独的段.</li>
+</ol>
+<ul>
+<li>缺点:</li>
+</ul>
+<ol>
+<li>需要连续空间</li>
+<li>最大尺寸受到内存大小限制</li>
+</ol>
+<h4 id="段式-VS-页式"><a href="#段式-VS-页式" class="headerlink" title="段式 VS 页式"></a>段式 VS 页式</h4><p>页式系统是一位地址空间,段式是二维.</p>
+<h4 id="段页式存储管理"><a href="#段页式存储管理" class="headerlink" title="段页式存储管理"></a>段页式存储管理</h4><p>地址构成: 段号,页号,页内偏移.</p>
+<h5 id="段页式地址的映射机构"><a href="#段页式地址的映射机构" class="headerlink" title="段页式地址的映射机构"></a>段页式地址的映射机构</h5><ul>
+<li>同时采用<strong>段表</strong>和<strong>页表</strong>实现地址映射</li>
+<li>系统为<strong>每一个进程</strong>建立一个<strong>段表</strong></li>
+<li>系统为<strong>每一个段</strong>建立一个<strong>页表</strong></li>
+<li>段表给出每段的<strong>页表基址</strong>和<strong>页表长度</strong></li>
+<li>页表给出每页对应的页框.</li>
+</ul>
+<h3 id="Intel-CPU和-Linux内存管理"><a href="#Intel-CPU和-Linux内存管理" class="headerlink" title="Intel CPU和 Linux内存管理"></a>Intel CPU和 Linux内存管理</h3><h4 id="Intel-CPU物理结构"><a href="#Intel-CPU物理结构" class="headerlink" title="Intel CPU物理结构"></a>Intel CPU物理结构</h4><h5 id="实模式"><a href="#实模式" class="headerlink" title="实模式"></a>实模式</h5><ul>
+<li>20位寻址能力</li>
+<li>地址表示方式:段地址(16位) : 偏移地址(16位)</li>
+<li>段地址4位对齐</li>
+<li>程序直接存储物理地址</li>
+</ul>
+<h5 id="保护模式"><a href="#保护模式" class="headerlink" title="保护模式"></a>保护模式</h5><ul>
+<li>32位地址: 4G内存</li>
+<li>支持多任务,任务切换,上下文保护</li>
+<li>进程隔离</li>
+<li>支持<strong>分段机制</strong>和<strong>分页机制</strong></li>
+</ul>
+<p>每个进程的运行结果只会影响自身.</p>
+<ul>
+<li>控制寄存器CR0<br>PE: 0 - 实模式 ; 1 - 保护模式<br>PG: 允许分页<br>PE和PG分别在寄存器的两头.</li>
+<li>控制寄存器CR2:<br>如果发生缺页,引发缺页的线性地址保存在CR2中</li>
+<li>控制寄存器CR3:<br>页目录基址(高20位)</li>
+</ul>
+<h5 id="x86-CPU架构下三种地址"><a href="#x86-CPU架构下三种地址" class="headerlink" title="x86 CPU架构下三种地址"></a>x86 CPU架构下三种地址</h5><ul>
+<li>逻辑地址(就是汇编里面最常用的那种地址</li>
+<li>线性地址: 由<strong>逻辑地址</strong>转换得到</li>
+<li>物理地址: 如果<strong>未分页</strong>则线性地址就是物理地址.如果分页那么线性地址不等于物理地址.</li>
+</ul>
+<h4 id="Intel-CPU段机制"><a href="#Intel-CPU段机制" class="headerlink" title="Intel CPU段机制"></a>Intel CPU段机制</h4><ul>
+<li>一段<strong>连续内存</strong></li>
+</ul>
+<h5 id="描述符"><a href="#描述符" class="headerlink" title="描述符"></a>描述符</h5><ul>
+<li>段基址: 32位(段基址1 + 段基址2)</li>
+<li>段界限: 20位(段界限1 + 段界限2)</li>
+<li>把逻辑地址转换到线性地址.</li>
+</ul>
+<p>描述段的属性.8字节:</p>
+<ul>
+<li>段基址</li>
+<li>段界限</li>
+<li>段属性</li>
+<li>段类型</li>
+<li>访问该段所需要的最小特权级</li>
+<li>是否在内存.<h5 id="描述符表"><a href="#描述符表" class="headerlink" title="描述符表"></a>描述符表</h5></li>
+<li>存放描述符的数组,长度为8字节的整数倍</li>
+</ul>
+<ol>
+<li>全局描述符表(GDT),包含所有进程可用的段的描述符,系统仅一个</li>
+<li>局部描述符表(LDT),包含与特定进程相关的描述符,一个进程一个</li>
+<li>中断描述符表(IDT),包含中断服务程序的描述符.</li>
+</ol>
+<h5 id="选择子-Selecto"><a href="#选择子-Selecto" class="headerlink" title="选择子(Selecto)"></a>选择子(Selecto)</h5><ul>
+<li>用于选择GDT/LDT中的某个描述符,存放在<strong>段寄存器</strong>中,高13位是整数索引.</li>
+<li>构成: </li>
+</ul>
+<ol>
+<li>索引域: 给出段描述符在GDT或者LDT中的位置</li>
+<li>TI域,GDT(0)或者LDT(T)</li>
+<li>特权级别域,两位.</li>
+</ol>
+<h4 id="硬件分页"><a href="#硬件分页" class="headerlink" title="硬件分页"></a>硬件分页</h4><ul>
+<li>大小: 4KB</li>
+<li>通过设置CR0的PG位开启分页功能.</li>
+</ul>
+<h5 id="普通页表实现问题"><a href="#普通页表实现问题" class="headerlink" title="普通页表实现问题:"></a>普通页表实现问题:</h5><p>32位OS(4G空间),</p>
+<ul>
+<li>每页<strong>4K</strong>,</li>
+<li>页表每个记录占<strong>4个字节</strong>.</li>
+<li>进程页数 = 4G / 4K = <strong>1M</strong> 个页</li>
+<li><strong>页表记录</strong>应该有<strong>1M</strong>条记录</li>
+<li>页表所占内存: 1M $\times$ 4字节 = 4M</li>
+<li>页表所占<strong>页框</strong>数 = 4M / 4K = 1K 页框</li>
+</ul>
+<p>问题: 难以找到<strong>连续1K个页框</strong>,页表全部装入<strong>过度消耗</strong>.<br>解决: 存储到离散页框.存部分. </p>
+<ul>
+<li>访问数组需要<strong>三次</strong>访问内存</li>
+<li>页目录调入内存</li>
+<li>页表按需要调入内存.<br>Linux实际上是二级页表,采用三级页表机制,增加对硬件的适应性.</li>
+</ul>
+<h4 id="Linux对段的支持"><a href="#Linux对段的支持" class="headerlink" title="Linux对段的支持."></a>Linux对段的支持.</h4><ul>
+<li>进程建立,段机制对寄存器的初始化: start_thread().</li>
+<li>Linux四个范围一样的段: 0 ~ 0xFFFFFFFF(4G)</li>
+<li>内核特权级为0,用户特权级为3</li>
+<li>利用段机制隔离用户数据和系统数据</li>
+<li>避免/简化虚拟地址到线性地址的转换.</li>
+</ul>
+<h2 id="设备管理"><a href="#设备管理" class="headerlink" title="设备管理"></a>设备管理</h2><h3 id="设备管理概念"><a href="#设备管理概念" class="headerlink" title="设备管理概念"></a>设备管理概念</h3><ol>
+<li>按交互对象</li>
+<li>按交互方向</li>
+<li>按外设特性</li>
+</ol>
+<p>设备管理的主要功能: </p>
+<ul>
+<li>设备分配: 按照一定策略,为申请设备的进程分配设备,记录设备的使用情况.(<strong>基本任务</strong>)</li>
+<li>设备映射: 设备管理模块将逻辑设备映射到物理设备的功能.</li>
+<li>设备独立性: 物理设备对用户透明,用户使用统一规范的方式使用设备.用户编程的时候使用设备逻辑名,由系统实现逻辑设备到物理设备的转换.</li>
+<li>设备驱动: 对物理设备进行控制实现I/O操作.</li>
+<li>设备驱动与硬件密切相关,每类设备配置特定的驱动程序,驱动程序一般由设备厂商根据OS来编写.OS仅对设备驱动的接口提出要求.</li>
+</ul>
+<h3 id="Spooling系统"><a href="#Spooling系统" class="headerlink" title="Spooling系统"></a>Spooling系统</h3><p>独占性设备包括<strong>所有的字符型设备</strong><br>共享性设备包括<strong>所有块型设备</strong></p>
+<h4 id="独占性设备的分配"><a href="#独占性设备的分配" class="headerlink" title="独占性设备的分配"></a>独占性设备的分配</h4><ol>
+<li>申请</li>
+<li>分配</li>
+<li>发送使用指令</li>
+<li>完成I/O传输</li>
+<li>释放设备</li>
+<li>回收设备</li>
+</ol>
+<p>在进程申请成功直到释放用完之前独占设备.</p>
+<h4 id="共享型设备"><a href="#共享型设备" class="headerlink" title="共享型设备"></a>共享型设备</h4><p><strong>不需要申请</strong>,不存在占用或者释放设备的问题.但是I/O期间只能有一个进程使用设备. </p>
+<h4 id="虚拟技术"><a href="#虚拟技术" class="headerlink" title="虚拟技术"></a>虚拟技术</h4><ul>
+<li>在一类物理设备模拟另一类物理设备的技术</li>
+<li>借助<strong>辅存部分区域</strong>模拟独占设备.将独占转换为共享设备</li>
+<li>虚拟设备: 用来模拟独占设备的区域. </li>
+<li>虚拟分配: 当进程需要与独占设备交换信息时,就采用虚拟技术将与该独占设备所对应的虚拟设备分配给他</li>
+</ul>
+<h5 id="SPOOL系统原理"><a href="#SPOOL系统原理" class="headerlink" title="SPOOL系统原理"></a>SPOOL系统原理</h5><p>任务执行前: 预先将程序和数据输入到输入井中</p>
+<p>任务运行时: 使用数据,从输入井中取出</p>
+<p>任务运行时: 输出数据时,把数据写入到输出井</p>
+<p>任务运行完: 外设空闲时输出全部数据和信息</p>
+<h3 id="Linux模块机制"><a href="#Linux模块机制" class="headerlink" title="Linux模块机制"></a>Linux模块机制</h3><ul>
+<li><p>LKM: 解决单体内核机制的不足</p>
+</li>
+<li><p>一种<strong>未经链接</strong>的可执行代码</p>
+</li>
+<li>经过装载(即<strong>链接</strong>)成为内核的一部分</li>
+<li>可以动态加载或者卸载. </li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#编译模块</span></span><br><span class="line">gcc -o _D_KERNEL_ -DMOUDLE hello.c <span class="comment">#两个参数提示GCC把hello.c编译为模块</span></span><br><span class="line"><span class="comment">#安装模块</span></span><br><span class="line">sudo insmod hellomodule.ko <span class="comment">#发现调用hello_init函数</span></span><br><span class="line"><span class="comment">#删除模块</span></span><br><span class="line">sudo rmmod module <span class="comment">#卸载模块调用hello_exit函数</span></span><br><span class="line"><span class="comment">#查看内核信息,输出函数不是printf是printk,所以在内核信息中查看</span></span><br><span class="line">dmesg</span><br><span class="line"><span class="comment"># 查看模块</span></span><br><span class="line">lsmod </span><br><span class="line"><span class="comment">#注册模块</span></span><br><span class="line">module_init(hello_init)</span><br><span class="line"><span class="comment">#卸载模块</span></span><br><span class="line">module_exit(hello_exit)</span><br></pre></td></tr></table></figure>
+<h4 id="带参数的模块"><a href="#带参数的模块" class="headerlink" title="带参数的模块"></a>带参数的模块</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">module_param(name, <span class="built_in">type</span>,perm);</span><br><span class="line"><span class="comment"># name: 模块参数的名称</span></span><br><span class="line"><span class="comment"># type: 模块参数的数据类型,int,bool等</span></span><br><span class="line"><span class="comment"># perm: 模块参数的权限</span></span><br></pre></td></tr></table></figure>
+<h3 id="Linux驱动程序-LDD"><a href="#Linux驱动程序-LDD" class="headerlink" title="Linux驱动程序(LDD)"></a>Linux驱动程序(LDD)</h3><ul>
+<li>应用程序通过<strong>驱动程序</strong>间接访问设备</li>
+<li>驱动程序工作在核态.<h4 id="设备分类"><a href="#设备分类" class="headerlink" title="设备分类"></a>设备分类</h4></li>
+<li>字符设备:以字节为单位逐个进行I/O操作.</li>
+<li>块设备: 存取通过buffer,cache来进行.例如硬盘.</li>
+<li>网络设备.</li>
+<li><p>设备文件: 硬件设备作为<strong>文件</strong>看待</p>
+</li>
+<li><p>主设备号</p>
+</li>
+</ul>
+<ol>
+<li>标识该设备种类,标识驱动程序</li>
+<li>主设备号范围: 0~255</li>
+<li>Linux内核支持动态分配主设备号</li>
+</ol>
+<ul>
+<li>次设备号</li>
+</ul>
+<ol>
+<li>同一设备驱动程序的不同硬件设备</li>
+<li>只在<strong>驱动程序内部</strong>使用.</li>
+</ol>
+<p>驱动程序的<strong>注册</strong>和<strong>注销</strong>一定要实现.</p>
+<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>Windows固定采用<strong>DriverEntry</strong>作为入口函数<br>给<strong>pDriverObject-&gt;DriverUnload</strong>赋值退出函数指针.</p>
+<h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><p>用户通过<strong>读写指针</strong>来读取信息项.</p>
+<h4 id="文件分类"><a href="#文件分类" class="headerlink" title="文件分类"></a>文件分类</h4><ol>
+<li>文件用途</li>
+<li>文件操作权限</li>
+<li>文件性质</li>
+</ol>
+<h4 id="文件属性"><a href="#文件属性" class="headerlink" title="文件属性"></a>文件属性</h4><p>指定文件类型,操作特性,存取保护等<strong>一组信息</strong>.放在文件所在目录的目录文件中.<br>在MS-DOS系统中,文件属性占目录项的<strong>一个字节</strong><br>00000001-只读属性<br>00000010-隐藏属性.</p>
+<h4 id="文件系统-1"><a href="#文件系统-1" class="headerlink" title="文件系统"></a>文件系统</h4><ul>
+<li>负责管理文件的机构</li>
+</ul>
+<h4 id="文件的逻辑结构"><a href="#文件的逻辑结构" class="headerlink" title="文件的逻辑结构"></a>文件的逻辑结构</h4><ul>
+<li>记录式文件: 记录结构化的数据</li>
+<li>流式文件: 信息项是<strong>字节</strong>,节省存储空间</li>
+</ul>
+<p>现代操作系统中文件都是流式文件.由应用程序去解释这些文件.</p>
+<h4 id="文件存取方法"><a href="#文件存取方法" class="headerlink" title="文件存取方法"></a>文件存取方法</h4><h5 id="顺序存取"><a href="#顺序存取" class="headerlink" title="顺序存取"></a>顺序存取</h5><p>按照文件信息项排列顺序依次存取.</p>
+<ul>
+<li>读写指针: 文件打开时,读写指针直向第一个信息项,每存取一个信息项,读写指针自动加一而指向下一个信息项.<h5 id="随机存取"><a href="#随机存取" class="headerlink" title="随机存取"></a>随机存取</h5></li>
+<li>直接存取,存取操作时<strong>指定存取的位置</strong></li>
+<li>对流式文件或者记录为<strong>定长</strong>的文件容易确定存取位置.<h3 id="文件物理结构"><a href="#文件物理结构" class="headerlink" title="文件物理结构"></a>文件物理结构</h3></li>
+<li>文件在存储设备上的存储方式</li>
+</ul>
+<h4 id="连续文件"><a href="#连续文件" class="headerlink" title="连续文件"></a>连续文件</h4><ul>
+<li>按<strong>逻辑块</strong>的顺序存放在硬盘连续的物理存储块中</li>
+<li>文件目录记录文件长度(块数)和第一个存储块的块号</li>
+</ul>
+<p>缺点: 不容易动态增长,不利于文件的插入和删除.需要预留空间</p>
+<h4 id="串联文件"><a href="#串联文件" class="headerlink" title="串联文件"></a>串联文件</h4><ul>
+<li>文件存放<strong>不连续的</strong>的存储块中,每个存储块有一个指针(next),指向下一个存储块.</li>
+<li>文件目录记录文件指明文件名和第一个存储块的块号</li>
+</ul>
+<p>缺点: 存取速度慢,不适合随机存取,next指针占用内存,适用于FAT系统.</p>
+<h3 id="FAT文件系统"><a href="#FAT文件系统" class="headerlink" title="FAT文件系统"></a>FAT文件系统</h3><ul>
+<li>串联文件应用.</li>
+<li>FAT将next有序集中放到FAT表中.<h4 id="文件访问过程"><a href="#文件访问过程" class="headerlink" title="文件访问过程:"></a>文件访问过程:</h4></li>
+</ul>
+<ol>
+<li>访问文件目录: 找0块的块号i</li>
+<li>访问FAT找下一块的块号: <code>FAT(i)</code>.i是当前的块号.<br>文件分配表的缺点: </li>
+<li>读文件时,先读FAT,<strong>影响使用效率</strong>.</li>
+<li>FAT占用存储空间.存储块越多,FAT元素越多.且元素位宽越长,占用更多额外的存储空间.</li>
+</ol>
+<p>如果存储块有$2^N$块,FAT有$2^N$个元素,每项只需要需要N位的宽度</p>
+<h4 id="扇区"><a href="#扇区" class="headerlink" title="扇区"></a>扇区</h4><ul>
+<li>磁盘上最小可寻址存储单元(512字节)<h4 id="簇-存储块"><a href="#簇-存储块" class="headerlink" title="簇 = 存储块"></a>簇 = 存储块</h4></li>
+<li>设备最小的存储单元,固定数量的扇区.<br>360K磁盘 簇 = 2个扇区(1024字节)<br>10MB硬盘 簇 = 8个扇区(4096字节)<br>2GB硬盘: 簇 = 64个扇区(32KB)<br>FAT元素数目和簇的数目一样多.<br>磁盘容量 = FAT长度 $\times$ 簇容量 = FAT长度 $\times$ 簇扇区数 $\times$ 512 字节.</li>
+</ul>
+<h3 id="文件存储和目录"><a href="#文件存储和目录" class="headerlink" title="文件存储和目录"></a>文件存储和目录</h3><p>记录磁盘空闲块的方法</p>
+<h4 id="空闲文件目录"><a href="#空闲文件目录" class="headerlink" title="空闲文件目录"></a>空闲文件目录</h4><ul>
+<li>把连续空闲区看成一个特殊文件,由多个空闲块构成<br>为空闲文件建立专门的目录: <strong>空闲文件目录</strong>,每个表项对应一个空闲文件.包括第一个空闲块号,空闲块个数.<h4 id="空闲块链"><a href="#空闲块链" class="headerlink" title="空闲块链"></a>空闲块链</h4></li>
+<li>把所有空闲块链接在一起</li>
+<li>当申请者需要空闲块时, 链头开始搜索所需要的空闲块</li>
+<li>当需要回收空闲块时,把释放的空闲块<strong>逐个</strong>加在链尾</li>
+</ul>
+<h4 id="位视图"><a href="#位视图" class="headerlink" title="位视图"></a>位视图</h4><p>从内存怒中划出若干个字节, 每个bit表示要给存储块空闲或者被占用.</p>
+<h4 id="文件目录管理"><a href="#文件目录管理" class="headerlink" title="文件目录管理"></a>文件目录管理</h4><ul>
+<li>文件名址录: 记录文件名和存放地址的目录表.</li>
+<li>具有将文件名转换为外存物理地址的功能</li>
+<li><strong>文件属性</strong>也记录在目录里面</li>
+</ul>
+<p>文件目录以文件形式存于外村,这个文件叫目录文件..</p>
 ]]></content>
       <tags>
         <tag>Notes</tag>
