@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="图论算法背景知识 G &#x3D; (V, E)用来表示图,其中 V 是顶点集合(vertices) E 是边的集合(edges)  连接图: 任何两个顶点之间存在一个通路邻接表: 存储每个顶点与之直接相关联的一条边.长度和等于边的数目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图论算法复习">
+<meta property="og:url" content="http://yoursite.com/2020/03/29/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Island">
+<meta property="og:description" content="图论算法背景知识 G &#x3D; (V, E)用来表示图,其中 V 是顶点集合(vertices) E 是边的集合(edges)  连接图: 任何两个顶点之间存在一个通路邻接表: 存储每个顶点与之直接相关联的一条边.长度和等于边的数目">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/28/GAr7tg.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/28/GAyzYF.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/28/GA6eYD.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/28/GAqF8s.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/28/GAL8YQ.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/29/GEyo34.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/29/GE6bRg.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/29/GEgZcQ.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/29/GERdfK.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/29/GER41S.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/29/GERjpT.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/29/GV1NQg.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/29/GV8mbd.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/29/GVwdIg.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/29/GVICCR.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/29/GZPsOS.png">
+<meta property="article:published_time" content="2020-03-29T03:04:43.000Z">
+<meta property="article:modified_time" content="2020-05-01T06:37:23.619Z">
+<meta property="article:author" content="nullptr">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/03/28/GAr7tg.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/29/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>图论算法复习 | Island</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Island" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  <div class="container use-motion">
+    <div class="headband"></div>
+    
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Island</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">6</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-messages">
+
+    <a href="/message/" rel="section"><i class="fa fa-fw fa-comment"></i>留言板</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Godlowd" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/29/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nullptr">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Island">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          图论算法复习
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-29 11:04:43" itemprop="dateCreated datePublished" datetime="2020-03-29T11:04:43+08:00">2020-03-29</time>
+            </span>
+
+          
+            <span id="/2020/03/29/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0/" class="post-meta-item leancloud_visitors" data-flag-title="图论算法复习" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/03/29/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/29/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="图论算法"><a href="#图论算法" class="headerlink" title="图论算法"></a>图论算法</h1><h4 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h4><ul>
+<li>G = (V, E)用来表示图,其中</li>
+<li>V 是顶点集合(vertices)</li>
+<li>E 是边的集合(edges)</li>
+</ul>
+<p>连接图: 任何两个顶点之间存在一个通路<br>邻接表: 存储每个顶点与之直接相关联的一条边.长度和等于边的数目</p>
+<a id="more"></a>
+<h2 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h2><h3 id="BFS-广度优先"><a href="#BFS-广度优先" class="headerlink" title="BFS(广度优先)"></a>BFS(广度优先)</h3><ul>
+<li>input: G = (V, E), 搜索<strong>源顶点s</strong></li>
+<li>Output: 从源顶点到图中其他顶点的最短距离; 一棵广度优先树<br>算法思想:<br>用<strong>白色</strong>表示初始状态,即还未搜索到,<strong>灰色</strong>表示刚刚搜索到,<strong>黑色</strong>表示所有邻接顶点被搜索完.用一个FIFO保存灰色顶点</li>
+</ul>
+<h4 id="BFS附加数据结构"><a href="#BFS附加数据结构" class="headerlink" title="BFS附加数据结构:"></a>BFS附加数据结构:</h4><ol>
+<li>color[u] 表示顶点颜色</li>
+<li>$\pi$[u] 表示顶点u的父节点</li>
+<li>d[u] 表示顶点u到源顶点s的距离</li>
+<li>FIFO Q 存储灰色顶点</li>
+</ol>
+<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p><img src="https://s1.ax1x.com/2020/03/28/GAr7tg.png" alt="GAr7tg.png"></p>
+<p>前面一张是对数据结构进行初始化,后一张负责搜索过程,当$Q \neq \emptyset$ 时,即所有顶点都不是<strong>灰色</strong>,搜索结束.</p>
+<p>时间复杂度为 O(V + E).相比于DFS,BFS可以提供源节点到其他所有节点的最短距离和最小边数目(以上都是在无向无权图的情况下讨论)</p>
+<h3 id="DFS-深度优先"><a href="#DFS-深度优先" class="headerlink" title="DFS(深度优先)"></a>DFS(深度优先)</h3><ul>
+<li>Input: G = (V , E),没有源顶点.</li>
+<li>Output: 每个顶点有两个时间标记,一个<strong>发现时间</strong>,一个结束时间 ; 深度优先森林</li>
+</ul>
+<h4 id="DFS-附加数据结构"><a href="#DFS-附加数据结构" class="headerlink" title="DFS 附加数据结构"></a>DFS 附加数据结构</h4><ul>
+<li>$\pi$[u]: 顶点u的父节点</li>
+<li>d[u], f[u]: 发现(discovery time),完成(finish time)时间</li>
+<li>color[u]: 发现前: <strong>白色</strong>; 发现处理中: <strong>灰色</strong>; 处理完后: <strong>黑色</strong></li>
+<li>time-step: 时间步骤, 在顶点发现和搜索完成时增加</li>
+</ul>
+<h4 id="算法-1"><a href="#算法-1" class="headerlink" title="算法"></a>算法</h4><p><a href="https://imgchr.com/i/GAyzYF" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/28/GAyzYF.png" alt="GAyzYF.png" style="zoom:80%;" /></a></p>
+<p><img src="https://s1.ax1x.com/2020/03/28/GA6eYD.png" alt="GA6eYD.png" style="zoom:80%;" /></p>
+<p>第一张图的1-4行仍是对算法的初始化,5-7行则是循环过程.时间复杂度也是O( V + E)</p>
+<h4 id="边的分类"><a href="#边的分类" class="headerlink" title="边的分类"></a>边的分类</h4><ul>
+<li>树边: 抵达白色顶点的边</li>
+<li>回边: 抵达灰色顶点.有向图中的<strong>自回路</strong>也算是回边</li>
+<li>前向边: 抵达黑色顶点的边,且满足d[u] &lt; d[v],可以理解为连接顶点u和它的后裔节点的一条边</li>
+<li>横跨边: 抵达黑色顶点,且满足d[u] &gt; d[v],可以横跨不同深度优先树的顶点或者同一深度优先树的不同顶点之间</li>
+</ul>
+<h4 id="括号定理"><a href="#括号定理" class="headerlink" title="括号定理"></a>括号定理</h4><p>在DFS中还有一个括号定理,虽然我觉得这个似乎是很显而易见的事情,不过还是提一句.<br>对任意两个顶点集V中的节点u,v;下列情况有且只有一种成立</p>
+<ol>
+<li>u,v互不为后裔</li>
+<li>v是u的后裔</li>
+<li>u是v的后裔</li>
+</ol>
+<p>没了….</p>
+<h3 id="强连通分支"><a href="#强连通分支" class="headerlink" title="强连通分支"></a>强连通分支</h3><p>这里引入强连通分支的概念. 强连通分支指的是图G = (V , E)的一个极大集,这个集合中所有的顶点都可以<strong>相互到达</strong>,是一种很强的性质,比如下图<br><img src="https://s1.ax1x.com/2020/03/28/GAqF8s.png" alt="GAqF8s.png"></p>
+<h4 id="图的转置"><a href="#图的转置" class="headerlink" title="图的转置"></a>图的转置</h4><p>G<sup>T</sup> 是G的一个转置,将G中所有边<strong>转向</strong>.</p>
+<h4 id="确定强连通分支"><a href="#确定强连通分支" class="headerlink" title="确定强连通分支"></a>确定强连通分支</h4><p>首先需要知道G<sup>T</sup>和G拥有<strong>相同的SCC</strong>.</p>
+<ol>
+<li>在图G上执行DFS,记录每个节点的<strong>完成时间f[u]</strong></li>
+<li>将图G转置成图G<sup>T</sup> .从<strong>具有最大的f[u]</strong>的节点开始.在G<sup>T</sup> 上执行DFS.如果不能到达所有的顶点则执行下一个的DFS</li>
+<li>在最终得到的森林每一棵树就是一个SCC<br>下图是一个例子.<br><img src="https://s1.ax1x.com/2020/03/28/GAL8YQ.png" alt="GAL8YQ.png"></li>
+</ol>
+<h2 id="最小生成树-MinimumSpanning-Trees"><a href="#最小生成树-MinimumSpanning-Trees" class="headerlink" title="最小生成树(MinimumSpanning Trees)"></a>最小生成树(MinimumSpanning Trees)</h2><p>连通无向图.</p>
+<ul>
+<li>Goal: 每两个顶点之间保持联通,权重之和最小</li>
+</ul>
+<h4 id="MST的一些特性"><a href="#MST的一些特性" class="headerlink" title="MST的一些特性"></a>MST的一些特性</h4><ul>
+<li>非唯一</li>
+<li>无回路(与最小且联通相冲突0</li>
+<li>边数等于顶点数减一</li>
+</ul>
+<h4 id="MST一般算法"><a href="#MST一般算法" class="headerlink" title="MST一般算法"></a>MST一般算法</h4><p><img src="https://s1.ax1x.com/2020/03/29/GEyo34.png" alt="GEyo34.png"></p>
+<p>这里其实有一个问题没有说明,如何证明安全的边的集合一定是MST呢?<br>不过我们先来看一下安全边的定义和一些概念.</p>
+<ul>
+<li>切割: 将图的顶点分为两个互斥子集S和V - S</li>
+<li>一个边的两个端点分别在切割的两个集合 S和V - S中.就说该边横跨该切割.</li>
+<li>切割的轻边(light edge): 横跨切割的边中<strong>权值最小</strong>的边.可以不唯一</li>
+<li>干预: 集合A中没有边和该切割相交,就说一个切割不干预集合A.</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/03/29/GE6bRg.png" alt="GE6bRg.png"><br>下面介绍Kruskal和Prim算法</p>
+<h4 id="Kruskal"><a href="#Kruskal" class="headerlink" title="Kruskal"></a>Kruskal</h4><p><img src="https://s1.ax1x.com/2020/03/29/GEgZcQ.png" alt="GEgZcQ.png"><br>简单的来说就是</p>
+<ol>
+<li>将所有边按照权重由低到高排序,从最小的边出发</li>
+<li>检查后面的边是不是安全边,如果是就添加到当前这个集合里面.<br>在离散数学中上面这些操作可以直接用图示法表示出来,在算法中需要用到<strong>不相关集合的操作</strong></li>
+</ol>
+<ul>
+<li>MAKE-SET(u):创建集合</li>
+<li>FIND-SET(u): 对于同一个集合中的不同元素,FIND-SET返回的值都是一样的.</li>
+<li>UNION(u,v): 将两个集合合并</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/03/29/GERdfK.png" alt="GERdfK.png"></p>
+<p>上图给出了Kruskal算法描述和实例.</p>
+<h4 id="Prim"><a href="#Prim" class="headerlink" title="Prim"></a>Prim</h4><p>Prim算法的核心是他的贪婪策略.从任意一个给定的节点都可以开始.模式有点像一棵树生长的过程.每次加入一条轻边.直到包含所有的顶点为止.</p>
+<p><img src="https://s1.ax1x.com/2020/03/29/GER41S.png" alt="GER41S.png"></p>
+<p><img src="https://s1.ax1x.com/2020/03/29/GERjpT.png" alt="GERjpT.png"></p>
+<p>需要注意的是Prim算法采用了数据结构中的<strong>优先队列</strong>来存储尚未在MST中的顶点.排序的条件是当前正在生成MST的集合到其他点的距离</p>
+<h2 id="单源最短路径"><a href="#单源最短路径" class="headerlink" title="单源最短路径"></a>单源最短路径</h2><p>从给定<strong>源顶点</strong>s到图中其他顶点$v \in V$的最短路径</p>
+<ul>
+<li>Input: G = (V, E) ; 权</li>
+<li>如果从点u不能到达点v,则$\delta(u,v) = \infty$</li>
+</ul>
+<p>最短路径优化的基础: 如果一条路径是最短路径,那么它的<strong>部分路径</strong>也是最短路径.由<strong>反证法</strong>可知.<br>当图中存在回路的时候,那么从<strong>源顶点s</strong>到另一个顶点v可能就存在非唯一路径.那么这个时候我们称从s到v权值之和最小的路径是它的最短路径.这个情况常常发生在有权值为负的边的情况下<br>当然也可能存在 <strong>不存在最短路径</strong>的情况.如下图所示.<br><img src="https://s1.ax1x.com/2020/03/29/GV1NQg.png" alt="GV1NQg.png"><br>因为回路权值之和<strong>为负</strong>,根据定义最短路径也就不存在.另外,在最短路径中也不应该存在回路,无论是<strong>正权回路</strong>,还是<strong>负权回路</strong>,又或者是<strong>权为0的回路</strong>.</p>
+<h3 id="最短路径数据结构"><a href="#最短路径数据结构" class="headerlink" title="最短路径数据结构"></a>最短路径数据结构</h3><ul>
+<li>d[v]: 等于$\delta(s.v)$,初始情况d[v]是无穷大,在算法的过程中逐步减少.类似于BFS</li>
+<li>$\pi$[v]: 从源顶点s到顶点v最短路径上的父节点,如果没有父节点就置为<strong>NIL</strong>.</li>
+<li>最短路径和最短路径树不唯一<h3 id="算法-2"><a href="#算法-2" class="headerlink" title="算法"></a>算法</h3>首先对所有顶点的数据结构进行初始化.d[v]置无穷,$\pi$置NIL. 源顶点s的d[s]置0.<h4 id="缩短法-RELAX"><a href="#缩短法-RELAX" class="headerlink" title="缩短法(RELAX)"></a>缩短法(RELAX)</h4>对边(u.v)的缩短就是: 检查源顶点<strong>直接到v的距离</strong>是否会比<strong>通过顶点u到v的距离</strong>更长.如果满足的话就更新一下d[u]和d[v]的值.操作之后应该满足 $ d[v] \leq d[u] + w(u,v)$,两边之和大于第三边2333<br><img src="https://s1.ax1x.com/2020/03/29/GV8mbd.png" alt="GV8mbd.png"><h4 id="Bellman-Ford算法"><a href="#Bellman-Ford算法" class="headerlink" title="Bellman-Ford算法"></a>Bellman-Ford算法</h4></li>
+<li>允许负权边.</li>
+<li>返回值: 如果从源顶点s没有可抵达的负权值回路,返回真,其余返回假.</li>
+<li>思想: 遍历所有的边| V - 1 | 次,每次对每条边执行一次缩短运算.</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/03/29/GVwdIg.png" alt="GVwdIg.png"><br>算法前半部分在不断的遍历.后半部分则在检测是否存在回路.如果存在回路则返回FALSE<br>检查回路的算法:<br><img src="https://s1.ax1x.com/2020/03/29/GVICCR.png" alt="GVICCR.png"><br>如果图中出现了负权回路.那么就会有上图的情况.整个算法的时间复杂度为O(VE)</p>
+<h4 id="DAG"><a href="#DAG" class="headerlink" title="DAG"></a>DAG</h4><p>思想: 对图进行<strong>拓扑排序</strong>,依据拓扑排序对边进行缩短操作..因为DAG中没有<strong>负权边</strong>,所以最短路径一定存在</p>
+<h4 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h4><p>不存在负权值边界.包含两类顶点的集合: </p>
+<ol>
+<li>已知最短路径的点集合S</li>
+<li>未知最短路径的点集合Q, Q = V -S.Q是一个极小优先队列.</li>
+</ol>
+<p>重复地从Q中选取具有最短估计距离的顶点进行处理.对从Q中提出出来的顶点u,每一个邻接顶底v都执行RELAX操作.然后把提出出来的顶点u加入到已知最短路径的集合S中去.<br><img src="https://s1.ax1x.com/2020/03/29/GZPsOS.png" alt="GZPsOS.png"></p>
+<h2 id="全成对最短路径"><a href="#全成对最短路径" class="headerlink" title="全成对最短路径"></a>全成对最短路径</h2><ul>
+<li>Input: G = (V, E) , 权</li>
+<li>Output: 任何点对之间的最短距离 ; 一个n * n的矩阵,元素是对应点对之间的最短距离,$\delta(u,v)$</li>
+</ul>
+<p>如果对每一个顶点使用单源最短路径,那么时间开销会很大.根据在单源最短路径中我们的讨论,一个最短路径的一部分也必然是最短路径.因此可以考虑使用动态规划来解决.<br>假定<strong>p是从i到j至多含有m条边的最短路径</strong>,对于这条路径上的任意一点,如果i = j,即出发点和终点是同一点,那么w(p) = 0,权之和显然为0.如果 i $\leq$ j,设在j前面一点为p,易得从i到p的最短路径最多含有m-1条边,我们可以得到$\delta(i,j) = \delta(i,p) + w_{kj}$</p>
+<p>设$l_{ij}^{(m)}$为从i到j至多含有m条边的最短路径的权.</p>
+<p>m = 0时,</p>
+<script type="math/tex; mode=display">
+l_{ij}^{(0)} = \left\{
+\begin{aligned}
+0 & &if m = 0 \\
+\infty if i \neq j
+\end{aligned}
+\right.</script><p>i = j 说明这两个点就是同一个点,所以距离是0, 如果i $\neq$j的话说明这两点不是同一点,而且之间的距离是0,所以必然不存在,返回正无穷.<br>m &gt; 1 时 </p>
+<script type="math/tex; mode=display">
+l_{ij}^{(m)} = min_{1 \leq k \leq }{l_{ij}^{(m-1)} + w_{kj}}</script><p>当m不等于0时,说明这两点之间一定有边相连.就像之前一样,对每一个之前的节点执行<strong>Relax</strong>操作,然后选其中最小的.<br>m = 1 时, </p>
+<script type="math/tex; mode=display">
+l_{ij}^{(1)} = w_{ij}</script><p>显而易见,只有一条边最小值就是这条边的权重.</p>
+<h3 id="Floyd-Warshall算法"><a href="#Floyd-Warshall算法" class="headerlink" title="Floyd-Warshall算法"></a>Floyd-Warshall算法</h3><ul>
+<li>有向有权图</li>
+<li>可以存在<strong>负权边</strong>,无<strong>负权回路</strong></li>
+</ul>
+<h4 id="最短路径需要用到的数据结构"><a href="#最短路径需要用到的数据结构" class="headerlink" title="最短路径需要用到的数据结构"></a>最短路径需要用到的数据结构</h4><ul>
+<li>路径p = <v<sub>1&lt;/sub&gt;,v<sub>2</sub>,v<sub>3</sub>,v<sub>4</sub>…,v<sub>l</sub>&gt;,p的<strong>中间顶点的集合</strong>是指{v<sub>2</sub>,v<sub>3</sub>,v<sub>4</sub>…,v<sub>l-1</sub>}中的点</li>
+<li>$d_{ij}^{(k)}$ : 从i到j最小的权值,其中间节点来自集合{1,2,…k}</li>
+</ul>
+<p>现在我们假设有一顶点k</p>
+<ol>
+<li>k是路径p的中间顶点.<br>所以</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 学习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/25/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB/" rel="prev" title="贝叶斯分类">
+      <i class="fa fa-chevron-left"></i> 贝叶斯分类
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#图论算法"><span class="nav-number">1.</span> <span class="nav-text">图论算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#背景知识"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">背景知识</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图的遍历"><span class="nav-number">1.1.</span> <span class="nav-text">图的遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BFS-广度优先"><span class="nav-number">1.1.1.</span> <span class="nav-text">BFS(广度优先)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#BFS附加数据结构"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">BFS附加数据结构:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#算法"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">算法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DFS-深度优先"><span class="nav-number">1.1.2.</span> <span class="nav-text">DFS(深度优先)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DFS-附加数据结构"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">DFS 附加数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#算法-1"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#边的分类"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">边的分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#括号定理"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">括号定理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强连通分支"><span class="nav-number">1.1.3.</span> <span class="nav-text">强连通分支</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#图的转置"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">图的转置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#确定强连通分支"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">确定强连通分支</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最小生成树-MinimumSpanning-Trees"><span class="nav-number">1.2.</span> <span class="nav-text">最小生成树(MinimumSpanning Trees)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MST的一些特性"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">MST的一些特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MST一般算法"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">MST一般算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kruskal"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">Kruskal</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Prim"><span class="nav-number">1.2.0.4.</span> <span class="nav-text">Prim</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单源最短路径"><span class="nav-number">1.3.</span> <span class="nav-text">单源最短路径</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最短路径数据结构"><span class="nav-number">1.3.1.</span> <span class="nav-text">最短路径数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#缩短法-RELAX"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">缩短法(RELAX)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Bellman-Ford算法"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">Bellman-Ford算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DAG"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">DAG</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Dijkstra"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">Dijkstra</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全成对最短路径"><span class="nav-number">1.4.</span> <span class="nav-text">全成对最短路径</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Floyd-Warshall算法"><span class="nav-number">1.4.1.</span> <span class="nav-text">Floyd-Warshall算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最短路径需要用到的数据结构"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">最短路径需要用到的数据结构</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="nullptr"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">nullptr</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+
+      </div>
+      <link rel="stylesheet" href="/dist/APlayer.min.css">
+      <div id="aplayer"></div>
+      <script type="text/javascript" src="/dist/APlayer.min.js"></script>
+      <script type="text/javascript" src="/dist/music.js"></script>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nullptr</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">36k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">32 分钟</span>
+</div>
+
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+      <div id="aplayer"></div>
+      <script type="text/javascript" src="/dist/APlayer.min.js"></script>
+      <script type="text/javascript" src="/dist/music.js"></script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
+    <script defer src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@latest/three-waves.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : '3iQDsqCTkyy0A3KHhcjtbMk0-gzGzoHsz',
+      appKey     : 'RYhztxl3AtsgVo9Lipd0B3WI',
+      placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+      <div id="aplayer"></div>
+      <script type="text/javascript" src="/dist/APlayer.min.js"></script>
+      <script type="text/javascript" src="/dist/music.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

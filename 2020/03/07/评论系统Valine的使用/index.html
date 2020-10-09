@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="评论系统Valine的使用@云淡风轻 开发了一款轻量级的Blog评论应用,这里记录下Valine的使用和自定义过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="评论系统Valine的使用">
+<meta property="og:url" content="http://yoursite.com/2020/03/07/%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9FValine%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Island">
+<meta property="og:description" content="评论系统Valine的使用@云淡风轻 开发了一款轻量级的Blog评论应用,这里记录下Valine的使用和自定义过程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/TIM%E6%88%AA%E5%9B%BE20200307120352.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E5%A1%AB%E5%86%99Web%E5%AE%89%E5%85%A8%E5%9F%9F%E5%90%8D.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%A0%81%E5%BA%93.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E9%83%A8%E7%BD%B2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E9%83%A8%E7%BD%B22.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E5%A6%99%E5%95%8A.jpg">
+<meta property="article:published_time" content="2020-03-07T04:25:55.000Z">
+<meta property="article:modified_time" content="2020-03-07T07:41:46.337Z">
+<meta property="article:author" content="nullptr">
+<meta property="article:tag" content="Blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/TIM%E6%88%AA%E5%9B%BE20200307120352.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/07/%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9FValine%E7%9A%84%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>评论系统Valine的使用 | Island</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Island" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+  <div class="container use-motion">
+    <div class="headband"></div>
+    
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Island</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">6</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">7</span></a>
+
+  </li>
+        <li class="menu-item menu-item-messages">
+
+    <a href="/message/" rel="section"><i class="fa fa-fw fa-comment"></i>留言板</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Godlowd" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9FValine%E7%9A%84%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nullptr">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Island">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          评论系统Valine的使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 12:25:55" itemprop="dateCreated datePublished" datetime="2020-03-07T12:25:55+08:00">2020-03-07</time>
+            </span>
+
+          
+            <span id="/2020/03/07/%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9FValine%E7%9A%84%E4%BD%BF%E7%94%A8/" class="post-meta-item leancloud_visitors" data-flag-title="评论系统Valine的使用" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/03/07/%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9FValine%E7%9A%84%E4%BD%BF%E7%94%A8/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/07/%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9FValine%E7%9A%84%E4%BD%BF%E7%94%A8/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="评论系统Valine的使用"><a href="#评论系统Valine的使用" class="headerlink" title="评论系统Valine的使用"></a>评论系统Valine的使用</h1><p><a href="https://ioliu.cn/2017/add-valine-comments-to-your-blog/" target="_blank" rel="noopener">@云淡风轻</a> 开发了一款轻量级的Blog评论应用,这里记录下Valine的使用和自定义过程</p>
+<a id="more"></a>
+<h2 id="获取App-ID和App-Key"><a href="#获取App-ID和App-Key" class="headerlink" title="获取App ID和App Key"></a>获取App ID和App Key</h2><p>在<a href="https://leancloud.cn/dashboard/applist.html#/apps" target="_blank" rel="noopener">LeanCloud的官网</a>上注册一个帐号,实名并邮箱验证通过之后可以<a href="https://leancloud.cn/dashboard/applist.html#/apps" target="_blank" rel="noopener">这里</a>创建一个应用.应用名可以随便取.</p>
+<p>在刚刚创建的应用的设置中选择<strong>应用Key</strong>,就可以看到这个应用的App ID和App Key了.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/TIM%E6%88%AA%E5%9B%BE20200307120352.png" alt="TIM截图20200307120352"></p>
+<h2 id="设置安全域名"><a href="#设置安全域名" class="headerlink" title="设置安全域名"></a>设置安全域名</h2><p>然后打开设置中的<strong>安全中心</strong>,在下面的<strong>Web安全域名</strong>中填入我们网站的域名,如下图<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E5%A1%AB%E5%86%99Web%E5%AE%89%E5%85%A8%E5%9F%9F%E5%90%8D.png" alt="填写Web安全域名"></p>
+<h2 id="在主题配置文件中填入相应字段"><a href="#在主题配置文件中填入相应字段" class="headerlink" title="在主题配置文件中填入相应字段"></a>在主题配置文件中填入相应字段</h2><p>打开博客所在目录,找到<strong>主题</strong>的配置文件,不是整个博客的.在文本中搜索”valine”,把刚才获取到的App ID和App Key填入进去.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png" alt="修改配置文件"><br>这里提一个坑,在复制App ID和App Key的时候注意不要<strong>激活了后面的注释</strong>,如果注释被视为了代码的一部分就会报一个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Code : undefined [410 GET https:&#x2F;&#x2F;avoscloud.com&#x2F;1.1&#x2F;classes&#x2F;Comment]</span><br></pre></td></tr></table></figure>
+<p>的错误,这个时候就应该检查一下是否配置文件中的注释出现了问题<br>另外在这个过程中还可能出现其他的问题,比如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Code 403: 访问被api域名白名单拒绝，请检查你的安全域名设置</span><br></pre></td></tr></table></figure><br>就要检查在第二步<strong>设置安全域名</strong>的过程中是否漏掉了网址最后的”/“,比如原来的网址是<code>https://godlowd.github.io/</code>,但是填写进去的时候是<code>https://godlowd.github.io</code>.建议还是直接复制浏览器地址栏中的地址,再粘贴进去,就可以避免类似问题<br>重新部署我们的Blog之后打开就可以看到评论功能了.不过这个时候还处于一个比较基本的状态.要进行更深层次的定制还需要进一步优化.</p>
+<h2 id="打开评论邮件提醒系统"><a href="#打开评论邮件提醒系统" class="headerlink" title="打开评论邮件提醒系统"></a>打开评论邮件提醒系统</h2><p>首先贴一下<a href="https://github.com/zhaojun1998/Valine-Admin" target="_blank" rel="noopener">大佬的GitHub项目地址</a>,这是一个Valine的拓展应用,可以用来通知站长新评论,而且支持自定义邮件主题(有一说一,彩虹色的还蛮好康的嗷).下面就让我来康康这个玩意是怎么整的</p>
+<h3 id="设置代码库"><a href="#设置代码库" class="headerlink" title="设置代码库"></a>设置代码库</h3><p>首先我们需要在Lean Cloud的<strong>云引擎</strong>的<strong>设置</strong>中把上面大佬的项目地址添加进去并保存<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%A0%81%E5%BA%93.png" alt="设置代码库"></p>
+<h3 id="自定义环境变量"><a href="#自定义环境变量" class="headerlink" title="自定义环境变量"></a>自定义环境变量</h3><p>光有了大佬的代码还不够,我们还需要知道有了新评论如何登录一个邮箱并且把通知发送到站长的邮箱不是?,所以我们需要在<strong>环境变量</strong>这个地方设置好这些东西</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>环境变量名</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SITE_NAME</td>
+<td>网站名称,就是在博客的配置文件中的<strong>title</strong>项</td>
+</tr>
+<tr>
+<td>SITE_URL</td>
+<td>网站的地址,<strong>最后不要加 / </strong>,和上面的安全域名略有不同</td>
+</tr>
+<tr>
+<td>SMTP_USER</td>
+<td>SMTP 服务用户名，一般为邮箱地址。</td>
+</tr>
+<tr>
+<td>SMTP_PASS</td>
+<td>SMTP密码,这个可以自行查询对应邮件服务商的获取方式,不是登录密码</td>
+</tr>
+<tr>
+<td>SMTP_SERVICE</td>
+<td>邮件服务提供商,支持<code>QQ</code>、<code>163</code>、<code>126</code>、<code>Gmail</code>、<code>Yahoo</code></td>
+</tr>
+<tr>
+<td>SENDER_NAME</td>
+<td>寄件人名称</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png" alt="SENDER_NAME"></p>
+<p>另外还有一些环境变量是这样子的:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>环境变量名</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TO_EMAIL</td>
+<td>指定<strong>收信信箱</strong>,默认为SITE_USER.用于SITE_USER发件人和收件人不一致的情况下使用</td>
+</tr>
+<tr>
+<td>TEMPLATE_NAME</td>
+<td>提醒邮件的模板,默认为default,目前支持rainbow</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>切换到<strong>部署</strong>页面,选择中间的Git源码部署,下面的分支或版本号填写<strong>master</strong>,,然后等待大概7-8分钟.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E9%83%A8%E7%BD%B2.png" alt="部署"><br>部署完成之后的页面应该是这个样子<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E9%83%A8%E7%BD%B22.png" alt="部署2"></p>
+<p>不过很奇怪的是部署完成之后我的web组栏下面并没有和<a href="https://11.tt/posts/2018/add-valine-to-your-blog/" target="_blank" rel="noopener">其他博主一样</a>出现实例的字样.这也导致了他们的重启实例我不知道在哪里运行.如果有知道的兄弟萌欢迎在评论区指出.</p>
+<p>不过困难总是可以克服的嘛.既然不能在实例里面重启,那我就在部署的生产环境里重启.反正都是重启不是?(此处手动贴吧滑稽).</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>上述工作完成之后,我们在主题的配置文件中选择将它的<code>notify</code>项设为<code>true</code>来打开邮件提醒,同时在评论区输入一条评论来测试一下.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C.PNG" alt="测试结果"><br>就测试结果来看.确实我收到了自己给自己发的邮件(因为之前在设置环境变量的时候设置的是这样子的嘛).而且发送邮件的主题也和我们在环境变量中定义的<code>rainbow</code>相同.我们可以认为Valine的邮件提醒功能算是成功启动了.</p>
+<p><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E5%A6%99%E5%95%8A.jpg" alt="妙啊"></p>
+<h2 id="Valine的其他功能"><a href="#Valine的其他功能" class="headerlink" title="Valine的其他功能"></a>Valine的其他功能</h2><p>时间关系,本人还需要苦逼的干活,所以不能一次性整完Valine的全部功能,目前在日程表上的计划(日程表: 我不是我没有你别瞎说)有更换自定义表情包,开辟专门的留言板页面.取消显示OS和浏览器型号,支持游客的留言被回复也可被通知,等等.辣么就下次再见啦</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://deserts.io/valine-admin-document/" target="_blank" rel="noopener">https://deserts.io/valine-admin-document/</a><br><a href="https://bestzuo.cn/posts/3307440964.html" target="_blank" rel="noopener">https://bestzuo.cn/posts/3307440964.html</a><br><a href="https://deserts.io/diy-a-comment-system/" target="_blank" rel="noopener">https://deserts.io/diy-a-comment-system/</a><br><a href="https://rightofriver.github.io/2019/10/30/ValineBug1/#fnref:3" target="_blank" rel="noopener">https://rightofriver.github.io/2019/10/30/ValineBug1/#fnref:3</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Blog/" rel="tag"><i class="fa fa-tag"></i> Blog</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/02/OS/" rel="prev" title="操作系统原理笔记">
+      <i class="fa fa-chevron-left"></i> 操作系统原理笔记
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/09/%E5%9C%A8%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%8F%92%E5%85%A5BGM/" rel="next" title="在自己的博客中插入BGM">
+      在自己的博客中插入BGM <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#评论系统Valine的使用"><span class="nav-number">1.</span> <span class="nav-text">评论系统Valine的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取App-ID和App-Key"><span class="nav-number">1.1.</span> <span class="nav-text">获取App ID和App Key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置安全域名"><span class="nav-number">1.2.</span> <span class="nav-text">设置安全域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在主题配置文件中填入相应字段"><span class="nav-number">1.3.</span> <span class="nav-text">在主题配置文件中填入相应字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打开评论邮件提醒系统"><span class="nav-number">1.4.</span> <span class="nav-text">打开评论邮件提醒系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置代码库"><span class="nav-number">1.4.1.</span> <span class="nav-text">设置代码库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义环境变量"><span class="nav-number">1.4.2.</span> <span class="nav-text">自定义环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署"><span class="nav-number">1.4.3.</span> <span class="nav-text">部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试"><span class="nav-number">1.4.4.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Valine的其他功能"><span class="nav-number">1.5.</span> <span class="nav-text">Valine的其他功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.6.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="nullptr"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">nullptr</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+
+      </div>
+      <link rel="stylesheet" href="/dist/APlayer.min.css">
+      <div id="aplayer"></div>
+      <script type="text/javascript" src="/dist/APlayer.min.js"></script>
+      <script type="text/javascript" src="/dist/music.js"></script>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nullptr</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">36k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">32 分钟</span>
+</div>
+
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+      <div id="aplayer"></div>
+      <script type="text/javascript" src="/dist/APlayer.min.js"></script>
+      <script type="text/javascript" src="/dist/music.js"></script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
+    <script defer src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@latest/three-waves.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : '3iQDsqCTkyy0A3KHhcjtbMk0-gzGzoHsz',
+      appKey     : 'RYhztxl3AtsgVo9Lipd0B3WI',
+      placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+      <div id="aplayer"></div>
+      <script type="text/javascript" src="/dist/APlayer.min.js"></script>
+      <script type="text/javascript" src="/dist/music.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

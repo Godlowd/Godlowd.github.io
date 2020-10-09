@@ -1,0 +1,1949 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>图论算法复习</title>
+    <url>/2020/03/29/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h1 id="图论算法"><a href="#图论算法" class="headerlink" title="图论算法"></a>图论算法</h1><h4 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h4><ul>
+<li>G = (V, E)用来表示图,其中</li>
+<li>V 是顶点集合(vertices)</li>
+<li>E 是边的集合(edges)</li>
+</ul>
+<p>连接图: 任何两个顶点之间存在一个通路<br>邻接表: 存储每个顶点与之直接相关联的一条边.长度和等于边的数目</p>
+<a id="more"></a>
+<h2 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h2><h3 id="BFS-广度优先"><a href="#BFS-广度优先" class="headerlink" title="BFS(广度优先)"></a>BFS(广度优先)</h3><ul>
+<li>input: G = (V, E), 搜索<strong>源顶点s</strong></li>
+<li>Output: 从源顶点到图中其他顶点的最短距离; 一棵广度优先树<br>算法思想:<br>用<strong>白色</strong>表示初始状态,即还未搜索到,<strong>灰色</strong>表示刚刚搜索到,<strong>黑色</strong>表示所有邻接顶点被搜索完.用一个FIFO保存灰色顶点</li>
+</ul>
+<h4 id="BFS附加数据结构"><a href="#BFS附加数据结构" class="headerlink" title="BFS附加数据结构:"></a>BFS附加数据结构:</h4><ol>
+<li>color[u] 表示顶点颜色</li>
+<li>$\pi$[u] 表示顶点u的父节点</li>
+<li>d[u] 表示顶点u到源顶点s的距离</li>
+<li>FIFO Q 存储灰色顶点</li>
+</ol>
+<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p><img src="https://s1.ax1x.com/2020/03/28/GAr7tg.png" alt="GAr7tg.png"></p>
+<p>前面一张是对数据结构进行初始化,后一张负责搜索过程,当$Q \neq \emptyset$ 时,即所有顶点都不是<strong>灰色</strong>,搜索结束.</p>
+<p>时间复杂度为 O(V + E).相比于DFS,BFS可以提供源节点到其他所有节点的最短距离和最小边数目(以上都是在无向无权图的情况下讨论)</p>
+<h3 id="DFS-深度优先"><a href="#DFS-深度优先" class="headerlink" title="DFS(深度优先)"></a>DFS(深度优先)</h3><ul>
+<li>Input: G = (V , E),没有源顶点.</li>
+<li>Output: 每个顶点有两个时间标记,一个<strong>发现时间</strong>,一个结束时间 ; 深度优先森林</li>
+</ul>
+<h4 id="DFS-附加数据结构"><a href="#DFS-附加数据结构" class="headerlink" title="DFS 附加数据结构"></a>DFS 附加数据结构</h4><ul>
+<li>$\pi$[u]: 顶点u的父节点</li>
+<li>d[u], f[u]: 发现(discovery time),完成(finish time)时间</li>
+<li>color[u]: 发现前: <strong>白色</strong>; 发现处理中: <strong>灰色</strong>; 处理完后: <strong>黑色</strong></li>
+<li>time-step: 时间步骤, 在顶点发现和搜索完成时增加</li>
+</ul>
+<h4 id="算法-1"><a href="#算法-1" class="headerlink" title="算法"></a>算法</h4><p><a href="https://imgchr.com/i/GAyzYF" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/28/GAyzYF.png" alt="GAyzYF.png" style="zoom:80%;" /></a></p>
+<p><img src="https://s1.ax1x.com/2020/03/28/GA6eYD.png" alt="GA6eYD.png" style="zoom:80%;" /></p>
+<p>第一张图的1-4行仍是对算法的初始化,5-7行则是循环过程.时间复杂度也是O( V + E)</p>
+<h4 id="边的分类"><a href="#边的分类" class="headerlink" title="边的分类"></a>边的分类</h4><ul>
+<li>树边: 抵达白色顶点的边</li>
+<li>回边: 抵达灰色顶点.有向图中的<strong>自回路</strong>也算是回边</li>
+<li>前向边: 抵达黑色顶点的边,且满足d[u] &lt; d[v],可以理解为连接顶点u和它的后裔节点的一条边</li>
+<li>横跨边: 抵达黑色顶点,且满足d[u] &gt; d[v],可以横跨不同深度优先树的顶点或者同一深度优先树的不同顶点之间</li>
+</ul>
+<h4 id="括号定理"><a href="#括号定理" class="headerlink" title="括号定理"></a>括号定理</h4><p>在DFS中还有一个括号定理,虽然我觉得这个似乎是很显而易见的事情,不过还是提一句.<br>对任意两个顶点集V中的节点u,v;下列情况有且只有一种成立</p>
+<ol>
+<li>u,v互不为后裔</li>
+<li>v是u的后裔</li>
+<li>u是v的后裔</li>
+</ol>
+<p>没了….</p>
+<h3 id="强连通分支"><a href="#强连通分支" class="headerlink" title="强连通分支"></a>强连通分支</h3><p>这里引入强连通分支的概念. 强连通分支指的是图G = (V , E)的一个极大集,这个集合中所有的顶点都可以<strong>相互到达</strong>,是一种很强的性质,比如下图<br><img src="https://s1.ax1x.com/2020/03/28/GAqF8s.png" alt="GAqF8s.png"></p>
+<h4 id="图的转置"><a href="#图的转置" class="headerlink" title="图的转置"></a>图的转置</h4><p>G<sup>T</sup> 是G的一个转置,将G中所有边<strong>转向</strong>.</p>
+<h4 id="确定强连通分支"><a href="#确定强连通分支" class="headerlink" title="确定强连通分支"></a>确定强连通分支</h4><p>首先需要知道G<sup>T</sup>和G拥有<strong>相同的SCC</strong>.</p>
+<ol>
+<li>在图G上执行DFS,记录每个节点的<strong>完成时间f[u]</strong></li>
+<li>将图G转置成图G<sup>T</sup> .从<strong>具有最大的f[u]</strong>的节点开始.在G<sup>T</sup> 上执行DFS.如果不能到达所有的顶点则执行下一个的DFS</li>
+<li>在最终得到的森林每一棵树就是一个SCC<br>下图是一个例子.<br><img src="https://s1.ax1x.com/2020/03/28/GAL8YQ.png" alt="GAL8YQ.png"></li>
+</ol>
+<h2 id="最小生成树-MinimumSpanning-Trees"><a href="#最小生成树-MinimumSpanning-Trees" class="headerlink" title="最小生成树(MinimumSpanning Trees)"></a>最小生成树(MinimumSpanning Trees)</h2><p>连通无向图.</p>
+<ul>
+<li>Goal: 每两个顶点之间保持联通,权重之和最小</li>
+</ul>
+<h4 id="MST的一些特性"><a href="#MST的一些特性" class="headerlink" title="MST的一些特性"></a>MST的一些特性</h4><ul>
+<li>非唯一</li>
+<li>无回路(与最小且联通相冲突0</li>
+<li>边数等于顶点数减一</li>
+</ul>
+<h4 id="MST一般算法"><a href="#MST一般算法" class="headerlink" title="MST一般算法"></a>MST一般算法</h4><p><img src="https://s1.ax1x.com/2020/03/29/GEyo34.png" alt="GEyo34.png"></p>
+<p>这里其实有一个问题没有说明,如何证明安全的边的集合一定是MST呢?<br>不过我们先来看一下安全边的定义和一些概念.</p>
+<ul>
+<li>切割: 将图的顶点分为两个互斥子集S和V - S</li>
+<li>一个边的两个端点分别在切割的两个集合 S和V - S中.就说该边横跨该切割.</li>
+<li>切割的轻边(light edge): 横跨切割的边中<strong>权值最小</strong>的边.可以不唯一</li>
+<li>干预: 集合A中没有边和该切割相交,就说一个切割不干预集合A.</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/03/29/GE6bRg.png" alt="GE6bRg.png"><br>下面介绍Kruskal和Prim算法</p>
+<h4 id="Kruskal"><a href="#Kruskal" class="headerlink" title="Kruskal"></a>Kruskal</h4><p><img src="https://s1.ax1x.com/2020/03/29/GEgZcQ.png" alt="GEgZcQ.png"><br>简单的来说就是</p>
+<ol>
+<li>将所有边按照权重由低到高排序,从最小的边出发</li>
+<li>检查后面的边是不是安全边,如果是就添加到当前这个集合里面.<br>在离散数学中上面这些操作可以直接用图示法表示出来,在算法中需要用到<strong>不相关集合的操作</strong></li>
+</ol>
+<ul>
+<li>MAKE-SET(u):创建集合</li>
+<li>FIND-SET(u): 对于同一个集合中的不同元素,FIND-SET返回的值都是一样的.</li>
+<li>UNION(u,v): 将两个集合合并</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/03/29/GERdfK.png" alt="GERdfK.png"></p>
+<p>上图给出了Kruskal算法描述和实例.</p>
+<h4 id="Prim"><a href="#Prim" class="headerlink" title="Prim"></a>Prim</h4><p>Prim算法的核心是他的贪婪策略.从任意一个给定的节点都可以开始.模式有点像一棵树生长的过程.每次加入一条轻边.直到包含所有的顶点为止.</p>
+<p><img src="https://s1.ax1x.com/2020/03/29/GER41S.png" alt="GER41S.png"></p>
+<p><img src="https://s1.ax1x.com/2020/03/29/GERjpT.png" alt="GERjpT.png"></p>
+<p>需要注意的是Prim算法采用了数据结构中的<strong>优先队列</strong>来存储尚未在MST中的顶点.排序的条件是当前正在生成MST的集合到其他点的距离</p>
+<h2 id="单源最短路径"><a href="#单源最短路径" class="headerlink" title="单源最短路径"></a>单源最短路径</h2><p>从给定<strong>源顶点</strong>s到图中其他顶点$v \in V$的最短路径</p>
+<ul>
+<li>Input: G = (V, E) ; 权</li>
+<li>如果从点u不能到达点v,则$\delta(u,v) = \infty$</li>
+</ul>
+<p>最短路径优化的基础: 如果一条路径是最短路径,那么它的<strong>部分路径</strong>也是最短路径.由<strong>反证法</strong>可知.<br>当图中存在回路的时候,那么从<strong>源顶点s</strong>到另一个顶点v可能就存在非唯一路径.那么这个时候我们称从s到v权值之和最小的路径是它的最短路径.这个情况常常发生在有权值为负的边的情况下<br>当然也可能存在 <strong>不存在最短路径</strong>的情况.如下图所示.<br><img src="https://s1.ax1x.com/2020/03/29/GV1NQg.png" alt="GV1NQg.png"><br>因为回路权值之和<strong>为负</strong>,根据定义最短路径也就不存在.另外,在最短路径中也不应该存在回路,无论是<strong>正权回路</strong>,还是<strong>负权回路</strong>,又或者是<strong>权为0的回路</strong>.</p>
+<h3 id="最短路径数据结构"><a href="#最短路径数据结构" class="headerlink" title="最短路径数据结构"></a>最短路径数据结构</h3><ul>
+<li>d[v]: 等于$\delta(s.v)$,初始情况d[v]是无穷大,在算法的过程中逐步减少.类似于BFS</li>
+<li>$\pi$[v]: 从源顶点s到顶点v最短路径上的父节点,如果没有父节点就置为<strong>NIL</strong>.</li>
+<li>最短路径和最短路径树不唯一<h3 id="算法-2"><a href="#算法-2" class="headerlink" title="算法"></a>算法</h3>首先对所有顶点的数据结构进行初始化.d[v]置无穷,$\pi$置NIL. 源顶点s的d[s]置0.<h4 id="缩短法-RELAX"><a href="#缩短法-RELAX" class="headerlink" title="缩短法(RELAX)"></a>缩短法(RELAX)</h4>对边(u.v)的缩短就是: 检查源顶点<strong>直接到v的距离</strong>是否会比<strong>通过顶点u到v的距离</strong>更长.如果满足的话就更新一下d[u]和d[v]的值.操作之后应该满足 $ d[v] \leq d[u] + w(u,v)$,两边之和大于第三边2333<br><img src="https://s1.ax1x.com/2020/03/29/GV8mbd.png" alt="GV8mbd.png"><h4 id="Bellman-Ford算法"><a href="#Bellman-Ford算法" class="headerlink" title="Bellman-Ford算法"></a>Bellman-Ford算法</h4></li>
+<li>允许负权边.</li>
+<li>返回值: 如果从源顶点s没有可抵达的负权值回路,返回真,其余返回假.</li>
+<li>思想: 遍历所有的边| V - 1 | 次,每次对每条边执行一次缩短运算.</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/03/29/GVwdIg.png" alt="GVwdIg.png"><br>算法前半部分在不断的遍历.后半部分则在检测是否存在回路.如果存在回路则返回FALSE<br>检查回路的算法:<br><img src="https://s1.ax1x.com/2020/03/29/GVICCR.png" alt="GVICCR.png"><br>如果图中出现了负权回路.那么就会有上图的情况.整个算法的时间复杂度为O(VE)</p>
+<h4 id="DAG"><a href="#DAG" class="headerlink" title="DAG"></a>DAG</h4><p>思想: 对图进行<strong>拓扑排序</strong>,依据拓扑排序对边进行缩短操作..因为DAG中没有<strong>负权边</strong>,所以最短路径一定存在</p>
+<h4 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h4><p>不存在负权值边界.包含两类顶点的集合: </p>
+<ol>
+<li>已知最短路径的点集合S</li>
+<li>未知最短路径的点集合Q, Q = V -S.Q是一个极小优先队列.</li>
+</ol>
+<p>重复地从Q中选取具有最短估计距离的顶点进行处理.对从Q中提出出来的顶点u,每一个邻接顶底v都执行RELAX操作.然后把提出出来的顶点u加入到已知最短路径的集合S中去.<br><img src="https://s1.ax1x.com/2020/03/29/GZPsOS.png" alt="GZPsOS.png"></p>
+<h2 id="全成对最短路径"><a href="#全成对最短路径" class="headerlink" title="全成对最短路径"></a>全成对最短路径</h2><ul>
+<li>Input: G = (V, E) , 权</li>
+<li>Output: 任何点对之间的最短距离 ; 一个n * n的矩阵,元素是对应点对之间的最短距离,$\delta(u,v)$</li>
+</ul>
+<p>如果对每一个顶点使用单源最短路径,那么时间开销会很大.根据在单源最短路径中我们的讨论,一个最短路径的一部分也必然是最短路径.因此可以考虑使用动态规划来解决.<br>假定<strong>p是从i到j至多含有m条边的最短路径</strong>,对于这条路径上的任意一点,如果i = j,即出发点和终点是同一点,那么w(p) = 0,权之和显然为0.如果 i $\leq$ j,设在j前面一点为p,易得从i到p的最短路径最多含有m-1条边,我们可以得到$\delta(i,j) = \delta(i,p) + w_{kj}$</p>
+<p>设$l_{ij}^{(m)}$为从i到j至多含有m条边的最短路径的权.</p>
+<p>m = 0时,</p>
+<script type="math/tex; mode=display">
+l_{ij}^{(0)} = \left\{
+\begin{aligned}
+0 & &if m = 0 \\
+\infty if i \neq j
+\end{aligned}
+\right.</script><p>i = j 说明这两个点就是同一个点,所以距离是0, 如果i $\neq$j的话说明这两点不是同一点,而且之间的距离是0,所以必然不存在,返回正无穷.<br>m &gt; 1 时 </p>
+<script type="math/tex; mode=display">
+l_{ij}^{(m)} = min_{1 \leq k \leq }{l_{ij}^{(m-1)} + w_{kj}}</script><p>当m不等于0时,说明这两点之间一定有边相连.就像之前一样,对每一个之前的节点执行<strong>Relax</strong>操作,然后选其中最小的.<br>m = 1 时, </p>
+<script type="math/tex; mode=display">
+l_{ij}^{(1)} = w_{ij}</script><p>显而易见,只有一条边最小值就是这条边的权重.</p>
+<h3 id="Floyd-Warshall算法"><a href="#Floyd-Warshall算法" class="headerlink" title="Floyd-Warshall算法"></a>Floyd-Warshall算法</h3><ul>
+<li>有向有权图</li>
+<li>可以存在<strong>负权边</strong>,无<strong>负权回路</strong></li>
+</ul>
+<h4 id="最短路径需要用到的数据结构"><a href="#最短路径需要用到的数据结构" class="headerlink" title="最短路径需要用到的数据结构"></a>最短路径需要用到的数据结构</h4><ul>
+<li>路径p = <v<sub>1&lt;/sub&gt;,v<sub>2</sub>,v<sub>3</sub>,v<sub>4</sub>…,v<sub>l</sub>&gt;,p的<strong>中间顶点的集合</strong>是指{v<sub>2</sub>,v<sub>3</sub>,v<sub>4</sub>…,v<sub>l-1</sub>}中的点</li>
+<li>$d_{ij}^{(k)}$ : 从i到j最小的权值,其中间节点来自集合{1,2,…k}</li>
+</ul>
+<p>现在我们假设有一顶点k</p>
+<ol>
+<li>k是路径p的中间顶点.<br>所以</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>算法</tag>
+        <tag>学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在自己的博客中插入BGM</title>
+    <url>/2020/03/09/%E5%9C%A8%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%8F%92%E5%85%A5BGM/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>前几天心血来潮,觉得自己的博客应该加一点背景音乐.<del>于是程序员他说”要有music”,便有了music</del> 事情怎么可能这么美好!.不出意外的在插入背景音乐的过程中又遇到了许多问题,最后的解决方式也是和之前一样的<strong>玄学</strong>,不过还是开个帖子记录一下🤔<br><a id="more"></a><br>从这几天在网络上找到的资料来看插入背景音乐的方法大概分三类</p>
+<ol>
+<li>利用音乐平台的”外链生成器”,然后插入到网页当中</li>
+<li>利用<code>hexo-tag-aplayer</code>插件,在写博客的时候把歌曲插入到对应的博文之中</li>
+<li>使用<code>Aplayer</code>,全局的生成背景音乐播放器.</li>
+</ol>
+<h2 id="外链生成器"><a href="#外链生成器" class="headerlink" title="外链生成器"></a>外链生成器</h2><p>这个方法的优点是<strong>简单,高效</strong>,不像其他的两种方法又是安装插件又是自己设置音乐的<code>url</code>,<code>歌词</code>等等,但是很致命的问题是并不是音乐平台上所有的歌曲都支持外链生成.比如:<br>更不要提啥时候这首歌在网易云就会变灰….所以这种依赖音乐平台自身的插入BGM的方法在这里并不适合我<br>所以接下来我们考虑第二种</p>
+<h2 id="hexo-tag-player插件"><a href="#hexo-tag-player插件" class="headerlink" title="hexo-tag-player插件"></a>hexo-tag-player插件</h2><p><code>hexo-tag-player</code>本质上就是我们第三种方法的一个插件,<a href="https://github.com/MoePlayer/hexo-tag-aplayer" target="_blank" rel="noopener">GitHub项目地址</a>送上.<br>首先我们要在博客的目录下面打开<code>git bash</code>,输入<code>npm install --save hexo-tag-aplayer</code>指令来安装这款插件,如果是在Linux系统下面就应该是要打开终端了.不过使用这个功能的前提是<code>Aplayer.js</code>的版本要高于<code>1.8.0</code>,<code>Meting.js</code>的版本要高于<code>1.1.1</code>.(Meting属于后面的扩展内容.不是必须项).然后就可以在<strong>博客的正文的markdown里面</strong>,插入下面的神奇代码,来实现背景音乐播放<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% aplayer title author url [picture_url, narrow, autoplay, width:xxx, lrc:xxx] %&#125;</span><br></pre></td></tr></table></figure><br>这里稍稍解释下标签参数,GitHub文档中都有很详细的描述.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td>曲目标题</td>
+</tr>
+<tr>
+<td><code>author</code></td>
+<td>曲目作者</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>音乐文件 URL 地址</td>
+</tr>
+<tr>
+<td><code>picture_url</code></td>
+<td>(可选) 音乐对应的图片地址</td>
+</tr>
+<tr>
+<td><code>narrow</code></td>
+<td>(可选) 播放器袖珍风格</td>
+</tr>
+<tr>
+<td><code>autoplay</code></td>
+<td>(可选) 自动播放，移动端浏览器暂时不支持此功能</td>
+</tr>
+<tr>
+<td><code>width:xxx</code></td>
+<td>(可选) 播放器宽度 (默认: 100%)</td>
+</tr>
+<tr>
+<td><code>lrc:xxx</code></td>
+<td>(可选)歌词文件 URL 地址</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>同样,歌词标签和播放列表GitHub的<a href="https://github.com/MoePlayer/hexo-tag-aplayer/blob/master/docs/README-zh_cn.md" target="_blank" rel="noopener">文档</a>里都有写.不过这个地方我真的要吐槽一下.文档虽然写的很翔实各种参数都给你标注出来了但是你<sup>TM</sup> 都不告诉我在那里插入这段神奇代码的吗?不说谁知道是插入在布局的swig文件还是markdown还是别的啥地方啊.(来自一个一点都不会前端的菜鸡深深的怨念).<br>不过这种方法也有缺点,就是必须在写文章的时候插入.这就不符合我的全局的要求.所以我们转向它的本尊-Aplayer</p>
+<h2 id="APlayer"><a href="#APlayer" class="headerlink" title="APlayer"></a>APlayer</h2><p>同样,还是先贴<a href="https://github.com/MoePlayer/APlayer" target="_blank" rel="noopener">GitHub项目地址</a>.要使用Aplayer首先需要<code>npm install aplayer --save</code>安装.<a href="https://aplayer.js.org/#/zh-Hans/" target="_blank" rel="noopener">中文文档</a>在这里.然后从它的仓库clone下来它的代码,把其中的<code>dist</code>文件夹拷贝到<code>themes\next\source</code> 下面,再在<code>dist</code>文件夹中新建一个<code>music.js</code>.然后把这段代码拷贝进去<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> ap = <span class="keyword">new</span> APlayer(&#123;</span><br><span class="line">    container: <span class="built_in">document</span>.getElementById(<span class="string">'aplayer'</span>),</span><br><span class="line">    audio: [&#123;</span><br><span class="line">        name: <span class="string">'name'</span>,</span><br><span class="line">        artist: <span class="string">'artist'</span>,</span><br><span class="line">        url: <span class="string">'url.mp3'</span>,</span><br><span class="line">        cover: <span class="string">'cover.jpg'</span></span><br><span class="line">    &#125;]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这里就不一一列举参数了,就捡几个主要的说</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>container</code></td>
+<td>document.querySelector(‘.aplayer’)</td>
+<td>播放器容器元素</td>
+</tr>
+<tr>
+<td><code>fixed</code></td>
+<td>false</td>
+<td>开启吸底模式</td>
+</tr>
+<tr>
+<td><code>mini</code></td>
+<td>false</td>
+<td>开启迷你模式</td>
+</tr>
+<tr>
+<td><code>autoplay</code></td>
+<td>false</td>
+<td>音频自动播放</td>
+</tr>
+<tr>
+<td><code>theme</code></td>
+<td>‘#b7daff’</td>
+<td>主题色</td>
+</tr>
+<tr>
+<td><code>loop</code></td>
+<td>‘all’</td>
+<td>音频循环播放, 可选值: ‘all’, ‘one’, ‘none’</td>
+</tr>
+<tr>
+<td><code>order</code></td>
+<td>‘list’</td>
+<td>音频循环顺序, 可选值: ‘list’, ‘random’</td>
+</tr>
+<tr>
+<td><code>preload</code></td>
+<td>‘auto’</td>
+<td>预加载，可选值: ‘none’, ‘metadata’, ‘auto’</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>一段成熟的代码应该像下面这个亚子</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> ap = <span class="keyword">new</span> APlayer(&#123;</span><br><span class="line">    container: <span class="built_in">document</span>.getElementById(<span class="string">'player'</span>),</span><br><span class="line">    mini: <span class="literal">false</span>,</span><br><span class="line">    autoplay: <span class="literal">false</span>,</span><br><span class="line">    theme: <span class="string">'#FADFA3'</span>,</span><br><span class="line">    loop: <span class="string">'all'</span>,</span><br><span class="line">    order: <span class="string">'random'</span>,</span><br><span class="line">    preload: <span class="string">'auto'</span>,</span><br><span class="line">    volume: <span class="number">0.7</span>,</span><br><span class="line">    mutex: <span class="literal">true</span>,</span><br><span class="line">    listFolded: <span class="literal">false</span>,</span><br><span class="line">    listMaxHeight: <span class="number">90</span>,</span><br><span class="line">    lrcType: <span class="number">3</span>,</span><br><span class="line">    audio: [</span><br><span class="line">        &#123;</span><br><span class="line">            name: <span class="string">'name1'</span>,</span><br><span class="line">            artist: <span class="string">'artist1'</span>,</span><br><span class="line">            url: <span class="string">'url1.mp3'</span>,</span><br><span class="line">            cover: <span class="string">'cover1.jpg'</span>,</span><br><span class="line">            lrc: <span class="string">'lrc1.lrc'</span>,</span><br><span class="line">            theme: <span class="string">'#ebd0c2'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            name: <span class="string">'name2'</span>,</span><br><span class="line">            artist: <span class="string">'artist2'</span>,</span><br><span class="line">            url: <span class="string">'url2.mp3'</span>,</span><br><span class="line">            cover: <span class="string">'cover2.jpg'</span>,</span><br><span class="line">            lrc: <span class="string">'lrc2.lrc'</span>,</span><br><span class="line">            theme: <span class="string">'#46718b'</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>将上面这段完整的代码写进<code>music.js</code>,其他的选项可以自己设定.提一下,在Aplayer的官方文档中似乎没有提到可以利用资源文件夹的操作,所以在填写url链接的时候需要注意.有兴趣的小伙伴可以试一试利用本地资源的方法.在我自己的代码我是采用外链的方法.虽然我觉得这个外链的获取方式堪称奇技淫巧,但它偏偏就是有效(摊手).<br>还是到网易云,找到想听的歌.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/InsertBGM/%E7%BD%91%E6%98%93%E4%BA%91%E6%89%BE%E6%AD%8C.png" alt=""></p>
+<p>然后复制地址栏中的链接，粘贴到上面的<code>url</code>字段,然后修改一下.让我来举个🍒.</p>
+<p>从网易云音乐上复制下来的<code>Skylark</code>的链接为<code>https://music.163.com/#/song?id=32320830</code>,只需要把它魔改成<code>https://music.163.com/song/media/outer/url?id=32320830.mp3</code>.一个有效的url链接就诞生了.</p>
+<p>别问我原理是啥….我也不清楚.But it does work.所以对于任何网易云音乐上的歌(只要它收录了),我们都可以采用这种方式来获取它的<code>url</code>.至于其他的音乐平台,如QQ,虾米,这种方式我还没有试过.欢迎试过的同学在评论区讨论一下吼~.至于如何获取专辑的图片.只需要在网页专辑右键,然后选择<code>检查</code>项.找到其中的后缀为<code>png</code>或者<code>jpg</code>的链接即可.就像下面这样.<img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/InsertBGM/%E8%8E%B7%E5%8F%96%E4%B8%93%E8%BE%91%E5%B0%81%E9%9D%A2.png" alt=""></p>
+<p>右上角第一个箭头和第二个箭头指向的路径其实是一个(<del>那你画两个箭头干嘛</del>),只不过第一个路径相比第二个路径在他的jpg后面多了一串代码.至此我们的准备工作就差不多结束了.万事俱备,只欠东风.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"/dist/APlayer.min.css"</span>&gt;</span><br><span class="line">&lt;div id=<span class="string">"aplayer"</span>&gt;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;script type="text/</span>javascript<span class="string">" src="</span>/dist/APlayer.min.js<span class="string">"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;script type="</span>text/javascript<span class="string">" src="</span>/dist/music.js<span class="string">"&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>打开<br><code>theme/next/layout</code>路径下面的<code>_layout.swig</code>文件.<img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/InsertBGM/_layout.swig%E6%96%87%E4%BB%B6.png" alt="">.把上面那段代码插入到<code>&lt;body itemscope...&gt;</code>之后,<code>&lt;/body&gt;</code>之前即可(<code>&lt;/body&gt;</code>没有在截图中显示出来).我是直接插入在了第13行.然后重新部署我们的博客,重启,大功告成!在博客的左下角即可看到我们附底模式的Aplayer<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/InsertBGM/%E5%A4%A7%E5%8A%9F%E5%91%8A%E6%88%90.png" alt=""></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://helloblack2017.github.io/2018/04/22/use-hexo-tag-aplayer/" target="_blank" rel="noopener">Hugo Black的Blog</a><br><a href="https://mackvord.github.io/aplayer-dplayer/547187035.html" target="_blank" rel="noopener">Mackvord’s Blog</a><br><a href="https://hakurei.red/2019/11/25/%E4%B8%BAHexo%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E5%85%A8%E5%B1%80APlayer%E6%92%AD%E6%94%BE%E5%99%A8/" target="_blank" rel="noopener">博丽吹笛分社 - 为Hexo博客添加全局APlayer播放器 </a></p>
+]]></content>
+      <tags>
+        <tag>hexo</tag>
+        <tag>Blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>操作系统原理笔记</title>
+    <url>/2020/03/02/OS/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h1 id="Operating-System"><a href="#Operating-System" class="headerlink" title="Operating System"></a>Operating System</h1><ul>
+<li>没有安装操作系统,计算机<strong>依然可以运行程序</strong></li>
+<li>普通用户不能正常使用</li>
+</ul>
+<a id="more"></a>
+<h4 id="操作系统功能和定义"><a href="#操作系统功能和定义" class="headerlink" title="操作系统功能和定义"></a>操作系统功能和定义</h4><ol>
+<li>进程管理(CPU管理)</li>
+</ol>
+<ul>
+<li>进程控制: 创建,暂停,唤醒,撤销</li>
+<li>进程调度: 调度策略,优先级</li>
+<li>进程通信: 进程间通信</li>
+</ul>
+<ol>
+<li>内存管理</li>
+</ol>
+<ul>
+<li>内存分配</li>
+<li>内存共享</li>
+<li>内存保护</li>
+<li>虚拟内存</li>
+</ul>
+<ol>
+<li>设备管理</li>
+</ol>
+<ul>
+<li>设备管理和调度</li>
+<li>设备无关性</li>
+<li>设备传输控制</li>
+<li>设备驱动</li>
+</ul>
+<ol>
+<li>文件管理</li>
+</ol>
+<ul>
+<li>存储空间操作</li>
+<li>文件操作</li>
+<li>目录操作</li>
+<li>文件和目录存取权限的管理</li>
+</ul>
+<h4 id="操作系统定义"><a href="#操作系统定义" class="headerlink" title="操作系统定义"></a>操作系统定义</h4><ul>
+<li>提供用户<strong>接口</strong></li>
+<li>负责为应用程序<strong>分配和调度软硬件资源</strong>, 控制与协调程序并发活动,帮助用户存取等等</li>
+</ul>
+<h4 id="操作系统的特性"><a href="#操作系统的特性" class="headerlink" title="操作系统的特性"></a>操作系统的特性</h4><ul>
+<li>并发性: 同时处理多个任务的能力</li>
+<li>共享性: 为多个并发任务提供资源共享</li>
+<li>不确定性: 具有处理随机事件的能力,例如处理终端,自动化处理能力</li>
+</ul>
+<h4 id="操作系统历史"><a href="#操作系统历史" class="headerlink" title="操作系统历史"></a>操作系统历史</h4><p><strong>用户需求提升</strong>和<strong>硬件技术进步</strong>是操作系统发展两大动力<br><strong>计算机硬件发展</strong>的四个典型阶段:</p>
+<ol>
+<li>电子管</li>
+<li>晶体管</li>
+<li>集成电路</li>
+<li>大规模集成电路</li>
+</ol>
+<p><strong>操作系统</strong>发展的四个典型阶段</p>
+<p>每一类操作系统是如何<strong>提升CPU/设备利用率的</strong></p>
+<ol>
+<li>手工</li>
+<li>单道批处理系统(批量,自动,单道)<br>将多个作业输入到磁盘形成作业队列<br>操作系统依次自动处理队列中的每个作业<br>外设和CPU交替空闲和忙碌,利用效率低</li>
+<li>多道批处理系统(多道,并行(宏观),串行(微观))<br>存放<strong>多道程序</strong><br>缺点:作业处理时间长,交互能力差,运行时间不确定</li>
+<li>分时系统</li>
+</ol>
+<h4 id="分时技术与分时操作系统"><a href="#分时技术与分时操作系统" class="headerlink" title="分时技术与分时操作系统"></a>分时技术与分时操作系统</h4><ul>
+<li>中断技术, 通道技术: 专门处理外设与内存之间数据传输的处理机(通道)<br>多终端计算机: <ul>
+<li>高性能主机 + 多个终端<ul>
+<li>主机:运算,CPU强大,大容量内存</li>
+<li>终端: 输入和显示,通过串口线远程连接至主机<br>采用分时技术轮流为每个终端服务</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>分时技术</strong>:    主机以<strong>很短</strong>的<strong>时间片</strong>为单位,把CPU轮流分给每个终端使用,直到作业全被执行完.由于<strong>时间片</strong>很短,每个终端都能很快重新获得CPU,得到及时响应.</p>
+<p><strong>等待周期</strong> = <strong>时间片</strong> $\times$ 终端数量</p>
+<h5 id="分时系统的特点"><a href="#分时系统的特点" class="headerlink" title="分时系统的特点"></a>分时系统的特点</h5><ul>
+<li>多路调制性:<strong>多用户</strong>联机使用同一台计算机</li>
+<li>交互性: 及时响应</li>
+<li><p>独占性: 用户感觉独占计算机</p>
+</li>
+<li><p>大型分时系统的实践:Multics</p>
+</li>
+</ul>
+<h5 id="UNIX"><a href="#UNIX" class="headerlink" title="UNIX"></a>UNIX</h5><ul>
+<li>第一个<strong>实用化</strong>的分时操作系统</li>
+<li>实现了操作系统的<strong>可移植性</strong></li>
+<li>实现了硬件无关性</li>
+<li>引进了特殊文件的概念:<br>把外设看作文件,实现统一管理</li>
+</ul>
+<h4 id="典型操作系统类型"><a href="#典型操作系统类型" class="headerlink" title="典型操作系统类型"></a>典型操作系统类型</h4><ul>
+<li>微机操作系统</li>
+<li>多处理机</li>
+<li>网络</li>
+<li>实时</li>
+<li>嵌入式</li>
+<li>分布式</li>
+</ul>
+<h5 id="微机系统"><a href="#微机系统" class="headerlink" title="微机系统"></a>微机系统</h5><p>Control Program Microprocessor </p>
+<ul>
+<li>良好的层次结构,<strong>BIOS</strong>将操作系统和硬件分隔<br>Mac OSxi</li>
+<li>最早使用图形界面和鼠标的操作系统<br>MS DOS</li>
+<li>磁盘操作系统</li>
+<li>单用户单任务<br>Windows</li>
+</ul>
+<h5 id="实时操作系统"><a href="#实时操作系统" class="headerlink" title="实时操作系统"></a>实时操作系统</h5><p>产生背景:某些任务<strong>优先紧急</strong>处理<br>强调作业完成时限</p>
+<h5 id="嵌入式"><a href="#嵌入式" class="headerlink" title="嵌入式"></a>嵌入式</h5><p>约等于实时操作系统,实时OS可以看作嵌入式OS的一个分支</p>
+<ul>
+<li>软硬件可以裁剪,软硬件一体化,考虑成本造价需求等自己选择硬件和OS.</li>
+<li>典型的嵌入式操作系统:Linux,ucOS</li>
+</ul>
+<h5 id="网络操作系统"><a href="#网络操作系统" class="headerlink" title="网络操作系统"></a>网络操作系统</h5><p>在普通操作系统的基础上增加了网络通信和网络服务的功能,常见的操作系统都是网络操作系统UNIX,LINUX,WINDOWS</p>
+<ul>
+<li>网络资源透明存取</li>
+<li>存取控制</li>
+</ul>
+<h3 id="操作系统评价指标"><a href="#操作系统评价指标" class="headerlink" title="操作系统评价指标"></a>操作系统评价指标</h3><ul>
+<li>吞吐率: 单位时间处理信息的能力</li>
+<li>响应能力: 从接收数据到输出结果的时间间隔</li>
+<li>资源利用率: 设备的使用频度(CPU,内存等等),以更优化的调度和管理方式让CPU尽可能的忙碌.</li>
+<li>可移植性:改变硬件环境仍能正常工作的能力(<strong>代码修改量</strong>)</li>
+<li>可靠性:发现,诊断和恢复系统故障的能力</li>
+</ul>
+<h3 id="操作系统逻辑结构"><a href="#操作系统逻辑结构" class="headerlink" title="操作系统逻辑结构"></a>操作系统逻辑结构</h3><ul>
+<li>设计逻辑和实现思路</li>
+</ul>
+<ol>
+<li>整体式</li>
+<li>层次式</li>
+<li>微内核式</li>
+</ol>
+<h5 id="整体式"><a href="#整体式" class="headerlink" title="整体式"></a>整体式</h5><p>以<strong>模块</strong>为基本单位构建</p>
+<p>特点：</p>
+<ul>
+<li>模块设计，编码，调试独立</li>
+<li>模块调度自由</li>
+<li>通信多以<strong>全局变量</strong>完成，</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>信息传递随意，维护和更新困难</li>
+</ul>
+<h5 id="层次式"><a href="#层次式" class="headerlink" title="层次式"></a>层次式</h5><p>TCP/IP协议栈，越往底层和硬件联系越紧密，越往上层和用户联系越紧密</p>
+<p>分层原则：</p>
+<ul>
+<li>硬件相关——最底层</li>
+<li>外部特性——最外层</li>
+<li>中间层——调用次序或消息传递顺序</li>
+<li>共性的服务——较低层</li>
+<li>活跃功能——较低层</li>
+</ul>
+<p>优点： </p>
+<ul>
+<li>结构清晰，避免循环调用</li>
+<li>整体问题局部化，系统的正确性容易保证</li>
+<li>有利于操作系统的扩充，维护和移植</li>
+</ul>
+<h5 id="Linux内核"><a href="#Linux内核" class="headerlink" title="Linux内核"></a>Linux内核</h5><p>Linux = 内核 + shell + X Windows+ 应用程序<br>宏内核结构<br>将图形,设备驱动,及文件系统全部功能都在内核实现.</p>
+<ul>
+<li>优点: 减少通信和状态切换开销,运行效率较高</li>
+<li></li>
+</ul>
+<h5 id="微内核-客户-服务器结构"><a href="#微内核-客户-服务器结构" class="headerlink" title="微内核(客户/服务器结构)"></a>微内核(客户/服务器结构)</h5><p>微内核 + 核外服务器</p>
+<p>微内核： 提供os最基本的核心功能和服务</p>
+<ul>
+<li>优点: 内核便于裁剪和移植,稳定性和安全性较高.</li>
+<li>实现与硬件紧密相关的处理</li>
+<li>实现一些较基本的功能</li>
+<li>负责客服和服务器间的通信<br>核外服务器： 完成os的绝大部份服务功能，等待应用程序提出请求</li>
+<li>由若干服务器或者进程共同构成</li>
+</ul>
+<h3 id="CPU的态"><a href="#CPU的态" class="headerlink" title="CPU的态"></a>CPU的态</h3><p>支持OS最基本的硬件结构：</p>
+<ol>
+<li>CPU</li>
+<li>内存</li>
+<li>中断</li>
+<li>时钟</li>
+</ol>
+<h3 id="CPU态"><a href="#CPU态" class="headerlink" title="CPU态"></a>CPU态</h3><p>CPU的工作状态，也是一种对资源和指令使用权限的描述</p>
+<p>态主要可分为3类：</p>
+<ol>
+<li>核态（kernel mode), 可访问所有资源，使用所有指令，管理程序或OS内核</li>
+<li>用户态(User mode)，可访问部分资源，权限受限，用户程序</li>
+<li>管态(Supervisor mode)，介于二者之间</li>
+</ol>
+<h4 id="用户态和核态的相互转换"><a href="#用户态和核态的相互转换" class="headerlink" title="用户态和核态的相互转换"></a>用户态和核态的相互转换</h4><p>用户态向核态转换：</p>
+<ul>
+<li>用户请求OS提供服务</li>
+<li>发生中断</li>
+<li>用户进程产生错误（产生中断）</li>
+<li>用户态企图执行特权指令</li>
+</ul>
+<p>核态向用户态转换：</p>
+<ul>
+<li>中断返回：IRET</li>
+</ul>
+<h4 id="硬件和OS对CPU的观察"><a href="#硬件和OS对CPU的观察" class="headerlink" title="硬件和OS对CPU的观察"></a>硬件和OS对CPU的观察</h4><ul>
+<li>硬件按照<strong>态</strong>，核态或者用户态，来区分CPU的状态</li>
+<li>OS按<strong>进程</strong>来区分CPU的状态，进程A，进程B，还是进程C</li>
+</ul>
+<h5 id="Intel-CPU的态"><a href="#Intel-CPU的态" class="headerlink" title="Intel CPU的态"></a>Intel CPU的态</h5><ul>
+<li>Ring0～Ring3（0为最核心，3为最外层）</li>
+<li>程序A访问程序B时需要进行权限的检查，也就是对态的检查，比较DPL和RPL</li>
+<li>RPL描述程序段的属性</li>
+</ul>
+<h4 id="存储程序和数据的部件"><a href="#存储程序和数据的部件" class="headerlink" title="存储程序和数据的部件"></a>存储程序和数据的部件</h4><ul>
+<li><p>按照读写的工作方式： </p>
+<p>RAM</p>
+<p>ROM:固定在主板上,普通用户无法直接更新和拆除</p>
+</li>
+<li><p>按照与CPU的联系：<br>主存:直接与CPU交换信息<br>辅存:不能直接与CPU交换信息</p>
+</li>
+</ul>
+<h5 id="分级存储系统的工作原理"><a href="#分级存储系统的工作原理" class="headerlink" title="分级存储系统的工作原理"></a>分级存储系统的工作原理</h5><p>CPU读取指令或数据时访问顺序：</p>
+<ol>
+<li>首先访问高速缓存Cache中的数据，如果需要访问的数据在Cache中，称之为命中</li>
+<li>如果没有命中，则CPU会到主存中访问，如果没有，则MISS</li>
+<li>再到辅存中访问，如果辅存中也没有，则称之为缺页</li>
+</ol>
+<h3 id="中断机制"><a href="#中断机制" class="headerlink" title="中断机制"></a>中断机制</h3><ul>
+<li>CPU对突发外部事件反应过程或机制</li>
+<li>CPU收到<strong>外部信号</strong>(中断信号),停止当前工作,转去处理该<strong>外部信号</strong>,处理完毕之后回到原来工作的<strong>中断处</strong>(断点)继续原来的工作</li>
+<li>引入中断的目的<ol>
+<li>实现并发活动</li>
+<li>实现实时处理</li>
+<li>故障自动处理</li>
+</ol>
+</li>
+</ul>
+<h4 id="中断的一些基本概念"><a href="#中断的一些基本概念" class="headerlink" title="中断的一些基本概念"></a>中断的一些基本概念</h4><p>中断源: 引起系统中断的事件</p>
+<p>断点: 将要执行的下一指令的地址:<strong>CS:IP</strong></p>
+<p>现场: 程序运行所依赖的信息集合.</p>
+<p>中断类型: 强迫性中中断和自愿中断</p>
+<ul>
+<li>强迫性: 程序没有预期,例如: <strong>I/O</strong>,<strong>外部中断</strong></li>
+<li>自愿中断: 程序有预期的,例如: <strong>执行访管指令</strong></li>
+</ul>
+<p>外中断(<strong>中断</strong>)和内中断(<strong>俘获</strong>)</p>
+<ul>
+<li>外中断:由CPU外部事件引起, 例如:  <strong>I/O</strong>, 外部事情</li>
+<li>内中断: 由CPU内部事件引起. 例如: 访管中断,程序中断</li>
+</ul>
+<p>外中断: 不可屏蔽和可屏蔽</p>
+<ul>
+<li>不可屏蔽中断: 中断的原因很紧要,CPU必须响应</li>
+<li>可屏蔽中断: 中断的原因不很紧要,CPU可以不必响应</li>
+</ul>
+<p>断点: 程序将要执行的下一个指令的地址</p>
+<p>现场: 程序正确运行所依赖的信息集合</p>
+<ul>
+<li>相关寄存器的内容</li>
+</ul>
+<p>现场的<strong>两个</strong>处理过程</p>
+<ul>
+<li>现场的保护: 进入中断服务程序之前,将寄存器的值入栈</li>
+<li>现场的恢复: 退出中断服务程序之后,出栈</li>
+</ul>
+<h4 id="中断响应过程"><a href="#中断响应过程" class="headerlink" title="中断响应过程"></a>中断响应过程</h4><ol>
+<li>识别中断源</li>
+<li>保护断点和现场</li>
+<li>装入<strong>中断服务程序的入口地址</strong></li>
+<li>进入中断服务程序</li>
+<li>恢复现场和断点</li>
+<li>中断返回(<strong>IRET</strong>)</li>
+</ol>
+<h4 id="中断响应的实质"><a href="#中断响应的实质" class="headerlink" title="中断响应的实质"></a>中断响应的实质</h4><ul>
+<li>交换指令执行地址的过程(CS:IP发生变化,)</li>
+<li>交换了CPU的态:主程序在<strong>用户态</strong>完成,中断程序在<strong>核态</strong>完成</li>
+<li>工作:现场保护和恢复.通信</li>
+</ul>
+<h2 id="操作系统用户界面"><a href="#操作系统用户界面" class="headerlink" title="操作系统用户界面"></a>操作系统用户界面</h2><ul>
+<li>重点/难点</li>
+</ul>
+<ol>
+<li>操作系统启动过程</li>
+<li>操作系统生成过程</li>
+<li>系统调用机制</li>
+</ol>
+<h3 id="操作系统启动过程"><a href="#操作系统启动过程" class="headerlink" title="操作系统启动过程"></a>操作系统启动过程</h3><ol>
+<li>操作系统启动过程<br>实模式和保护模式</li>
+</ol>
+<ul>
+<li><p>实模式(REAL MODE,刚刚开机)</p>
+</li>
+<li><p>程序按照8086寻址方法,1MB空间</p>
+</li>
+<li><p>前面640K [00000~9FFFF]: 基本内存</p>
+</li>
+<li><p>中间128K [A0000~BFFFF]: 显卡显存</p>
+</li>
+<li><p>末尾256K [C0000~FFFFF]: BIOS</p>
+<ul>
+<li>显卡BIOS<ul>
+<li>IDE控制器BIOS</li>
+<li>系统<strong>BIOS</strong>(重点)</li>
+</ul>
+</li>
+<li>寻址方式: 物理地址(20位) = 段地址(16位):偏移地址(16位)</li>
+<li>CPU单任务运行</li>
+</ul>
+</li>
+<li><p>保护模式(内存模式,PROTECT MODE)</p>
+<ul>
+<li>寻址方式: 段(<strong>32位</strong>)和偏移量(<strong>32位</strong>),</li>
+<li>可寻址<strong>4GB</strong>空间</li>
+<li>段页式寻址机制</li>
+<li>虚拟地址,进程,封闭空间</li>
+<li>CPU支持多任务</li>
+<li>应用程序和操作系统的运行环境都被<strong>保护</strong>(保护了内存)</li>
+</ul>
+</li>
+</ul>
+<h4 id="系统BIOS"><a href="#系统BIOS" class="headerlink" title="系统BIOS"></a>系统BIOS</h4><ul>
+<li><p>系统启动配置</p>
+<ul>
+<li>基本设备IO服务</li>
+<li>系统加电自检和启动</li>
+</ul>
+<p>按下<strong>PowerOn</strong>或者Reset执行第一条指令</p>
+<ul>
+<li>执行FFFF0处的指令: <strong>JUMP POST</strong> ,跳转到<strong>加电自检</strong>处.</li>
+</ul>
+<p>加电自检Power On Self-Test</p>
+<ul>
+<li>初始化基本硬件(CPU,内存,显卡)</li>
+<li>自检正常不提示,错误则喇叭提示</li>
+</ul>
+<p>加电自检完成后:</p>
+<ul>
+<li>查找BIOS,调用显卡BIOS</li>
+<li>查找其他设备执行相应设备的BIOS</li>
+<li>显示启动画面</li>
+<li>读入OS,OS接管计算机 </li>
+</ul>
+</li>
+</ul>
+<h4 id="主启动记录"><a href="#主启动记录" class="headerlink" title="主启动记录"></a><a href="MBR">主启动记录</a></h4><ul>
+<li>存放在硬盘/软盘的首扇区<ul>
+<li>存放和OS启动的相关信息,如路径,需要的参数等</li>
+<li>512MB</li>
+<li>结束于0xAA55H</li>
+</ul>
+</li>
+</ul>
+<h5 id="MBR-硬盘分区-格式化"><a href="#MBR-硬盘分区-格式化" class="headerlink" title="MBR/硬盘分区/格式化"></a>MBR/硬盘分区/格式化</h5><p>硬盘的<strong>第一个扇区</strong>存放MBR, 即主启动扇区.剩下的分区的首扇区记录特殊的内容,称为<strong>分区启动信息</strong></p>
+<p>首扇区的最前面也有一块特殊的内容,称之为<a href="PBR">主启动扇区</a> , 用于启动操作系统和加载操作系统</p>
+<h6 id="BIOS和MBR程序运行过程"><a href="#BIOS和MBR程序运行过程" class="headerlink" title="BIOS和MBR程序运行过程"></a>BIOS和MBR程序运行过程</h6><ol>
+<li>POST $\rightarrow$ CMOS设置(硬盘启动) $\rightarrow$  读取MBR $\rightarrow$ 控制权交给MBR</li>
+<li>MBR读取<a href="Partion Table">分区表</a> $\rightarrow$ 找到<a href="Active Partion">活动分区</a> , 并确认其他分区都是不活动分区 $\rightarrow$ 读取活动分区的<a href="分区引导记录PBR">第一个分区</a> $\rightarrow$ 加载到内存</li>
+<li>PBR继续控制后面的引导过程</li>
+</ol>
+<h3 id="操作系统的启动"><a href="#操作系统的启动" class="headerlink" title="操作系统的启动"></a>操作系统的启动</h3><ul>
+<li>启动过程: 从<strong>加电</strong> 到<strong>用户工作环境</strong>准备好的过程</li>
+</ul>
+<ol>
+<li>初始引导</li>
+<li>核心初始化</li>
+<li>系统初始化</li>
+</ol>
+<h4 id="初始引导"><a href="#初始引导" class="headerlink" title="初始引导"></a>初始引导</h4><ul>
+<li><p>把OS核心(以文件的方式存在在硬盘上)装入内存,并使之开始工作接管操作系统</p>
+<ul>
+<li><p>加点,JUMP POST  </p>
+</li>
+<li><p>BIOS中的启动程序运行</p>
+</li>
+</ul>
+<p>启动程序: 读取<a href="0面0道第1扇区">MBR</a>的内容,加载MBR中的引导程序</p>
+<p>引导程序: 根据相关参数,读取硬盘指定位置的文件到内存</p>
+<p>加载硬盘上的OS内核,并初始化基本参数</p>
+</li>
+</ul>
+<h4 id="核心初始化"><a href="#核心初始化" class="headerlink" title="核心初始化"></a>核心初始化</h4><ul>
+<li>OS内核初始化系统的核心数据</li>
+<li>各种寄存器的初始化</li>
+<li>存储系统和页表的初始化</li>
+<li>核心进程的构建</li>
+</ul>
+<h4 id="系统初始化"><a href="#系统初始化" class="headerlink" title="系统初始化"></a>系统初始化</h4><ul>
+<li>为用户使用系统做准备,使系统处于待命状态</li>
+</ul>
+<h4 id="Windows启动"><a href="#Windows启动" class="headerlink" title="Windows启动"></a>Windows启动</h4><ol>
+<li>POST</li>
+</ol>
+<ul>
+<li>加电吼BIOS启动主机自检</li>
+</ul>
+<ol>
+<li>初始引导</li>
+</ol>
+<ul>
+<li>BIOS从MBR读入<strong>引导程序</strong>, 装入内存的特定位置</li>
+<li>引导程序启动DOS7.0,调入操作系统核心</li>
+<li>WINDOWS接管系统</li>
+</ul>
+<ol>
+<li>核心初始化</li>
+</ol>
+<ul>
+<li>资源状态,核心数据初始化</li>
+</ul>
+<ol>
+<li>系统初始化</li>
+</ol>
+<ul>
+<li>GUI界面生成, 系统处于待命/消息接受状态</li>
+</ul>
+<h3 id="操作系统生成"><a href="#操作系统生成" class="headerlink" title="操作系统生成"></a>操作系统生成</h3><ul>
+<li>满足特定硬件环境和用户需要，<strong>组装</strong>和<strong>构建</strong>操作系统的过程</li>
+</ul>
+<h4 id="主要步骤"><a href="#主要步骤" class="headerlink" title="主要步骤"></a>主要步骤</h4><ul>
+<li>根据硬件环境/用户配置功能模块和构造参数</li>
+<li><strong><a href="build">构建</a>OS的映像</strong></li>
+</ul>
+<h4 id="OS生成的前提"><a href="#OS生成的前提" class="headerlink" title="OS生成的前提"></a>OS生成的前提</h4><ul>
+<li>OS由可拆装模块构成</li>
+<li>有交互式配置工具（改变现有参数）</li>
+<li>有映像<a href="build">构建</a>工具，将第二步获得的源代码编译</li>
+</ul>
+<h5 id="LINUX"><a href="#LINUX" class="headerlink" title="LINUX"></a>LINUX</h5><ol>
+<li><p>获取Linux源代码</p>
+</li>
+<li><p>选择和启动内核配置程序</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make menuconfig</span><br></pre></td></tr></table></figure>
+<ol>
+<li>根据需要配置内核模块和参数</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Loadable module support	//设置对可加载模块的支持</span><br><span class="line">Processor <span class="built_in">type</span> and features	//设置CPU类型</span><br><span class="line">General setup	//对普通属性的一些设置</span><br><span class="line">Parallel port support //并口支持</span><br><span class="line">Plug and Play configuration //即插即用配置</span><br><span class="line">Block devices	//块设备支持的选项</span><br></pre></td></tr></table></figure>
+<ol>
+<li>重新编译新的内核</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make dep	//生成依赖dependency信息</span><br><span class="line">make clean	//清除旧的编译结果</span><br><span class="line">make bzImage	//二进制文件</span><br></pre></td></tr></table></figure>
+<ol>
+<li>编译和安装新的模块</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make modules</span><br><span class="line">make modules install	//模块被编译且安装到/usr/lib/内核版本号目录下</span><br></pre></td></tr></table></figure>
+<ol>
+<li>启动新内核</li>
+</ol>
+<h3 id="OS用户界面"><a href="#OS用户界面" class="headerlink" title="OS用户界面"></a>OS用户界面</h3><ul>
+<li>OS提供给用户控制计算机的机制，又称用户接口</li>
+</ul>
+<p>用户界面的分类：</p>
+<ul>
+<li>操作界面</li>
+<li>系统调用:系统功能调用,程序界面</li>
+</ul>
+<h4 id="操作界面"><a href="#操作界面" class="headerlink" title="操作界面"></a>操作界面</h4><ul>
+<li><p>图形用户接口（GUI,Graphic User Interface）</p>
+<p>包括窗口，图标，菜单，按钮，鼠标</p>
+</li>
+<li><p>键盘命令（COMMAND)</p>
+<ul>
+<li>在控制台下接受键盘输入的命令</li>
+<li>类型： 普通命令，批处理程序，shell</li>
+</ul>
+</li>
+</ul>
+<h4 id="Shell脚本编程"><a href="#Shell脚本编程" class="headerlink" title="Shell脚本编程"></a>Shell脚本编程</h4><p><a href="Script">脚本</a>通过类似程序的方式执行具有一定逻辑顺序的命令序列完成较复杂的功能和人机交互</p>
+<ul>
+<li>脚本程序保存在<strong>文本文件</strong>中</li>
+<li>脚本程序是Shell命令语句的集合</li>
+</ul>
+<p>mkdir:创建路径<br>ldconfig:使配置文件生效<br>rm: 删除文件<br>-rf(参数)表示删除文件夹中的一个子目录</p>
+<ul>
+<li>执行Shell脚本文件需要具有<a href="x">可执行属性</a><br><code>Chmod + x MyScript.sh</code>来添加可执行属性</li>
+</ul>
+<h5 id="运行脚本程序的三个方法"><a href="#运行脚本程序的三个方法" class="headerlink" title="运行脚本程序的三个方法"></a>运行脚本程序的三个方法</h5><ol>
+<li>直接运行(使用缺省版本的Shell运行)</li>
+<li>使用某个特定版本的Shell执行脚本</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ bash first_script</span><br></pre></td></tr></table></figure>
+<ul>
+<li>指定一个特定版本的shell版本(此例是<strong>bash</strong>)</li>
+<li>逐行执行脚本中的命令</li>
+<li>当脚本文件中的命令依次执行完毕,临时子shell<strong>自动结束运行</strong>,返回用户原来使用的shell</li>
+</ul>
+<ol>
+<li>在脚本文件<strong>首行</strong>指定shell</li>
+</ol>
+<ul>
+<li>在脚本文件开头增加一行``#!/bin/bash —#!必须顶格,后面接shell全路径</li>
+<li>可以从/etc/shell获知所有可用shell及其绝对路径</li>
+</ul>
+<h4 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h4><ul>
+<li>操作系统<strong>内核</strong>为应用程序提供的<strong>服务</strong>/<strong>函数</strong></li>
+</ul>
+<p>特点: </p>
+<ol>
+<li>一般涉及核心资源或硬件的操作</li>
+<li>运行于核态</li>
+<li>每个系统调用具有<strong>唯一的编号</strong></li>
+<li>调用过程中会产生<strong>中断</strong>.自愿中断</li>
+</ol>
+<h5 id="Linux利用INT-80H中断实现系统调用"><a href="#Linux利用INT-80H中断实现系统调用" class="headerlink" title="Linux利用INT 80H中断实现系统调用"></a>Linux利用INT 80H中断实现系统调用</h5><ul>
+<li>利用<strong>EAX寄存器</strong>存放系统调用的编号</li>
+</ul>
+<h5 id="隐式系统调用"><a href="#隐式系统调用" class="headerlink" title="隐式系统调用"></a>隐式系统调用</h5><ul>
+<li>类似API函数</li>
+<li>在高级语言中使用</li>
+<li>在系统内部转换为包含<strong>INT 80H</strong>的指令,执行相应的系统调用</li>
+</ul>
+<h5 id="Linux系统调用的工作原理"><a href="#Linux系统调用的工作原理" class="headerlink" title="Linux系统调用的工作原理"></a>Linux系统调用的工作原理</h5><h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><ul>
+<li>重点掌握<strong>线程</strong>,<strong>同步和P-V操作</strong>, <strong>Windows和Linux同步机制</strong>,<strong>进程通信</strong></li>
+</ul>
+<p>OS区别与应用软件最核心的功能在于OS有进程管理功能和内存管理功能，如果一个应用软件具有上述两个功能我们可以把他看做一个OS</p>
+<h3 id="进程概念"><a href="#进程概念" class="headerlink" title="进程概念"></a>进程概念</h3><h4 id="进程的基本概念"><a href="#进程的基本概念" class="headerlink" title="进程的基本概念"></a>进程的基本概念</h4><ul>
+<li>程序在并发环境中的问题:</li>
+</ul>
+<ol>
+<li>运行过程不确定,一个程序什么时候暂停什么时候继续,程序员无法控制.完全由操作系统控制</li>
+<li>结果不可再现.可能受到干扰,干扰的结果不可确定<br>解决方案: 对运行过程施加相互约束</li>
+</ol>
+<ul>
+<li>新的概念:进程<br>描述和管理程序<strong>运行过程</strong><br>程序在某个数据集合上的<strong>一次</strong> <strong>运行活动</strong></li>
+<li>数据集合: 软/硬件环境,多个进程共存/共享的环境</li>
+<li>进程的特性:</li>
+</ul>
+<ol>
+<li>动态性<br>进程是程序的一次执行过程,动态地产生/消亡</li>
+<li>并发性<br>进程同其他进程一起向前推进</li>
+<li>异步性<br>进程按照各自的速度向前推进</li>
+<li>独立性<br>进程是OS分配资源和调度CPU的单位</li>
+</ol>
+<h6 id="进程和程序的区别"><a href="#进程和程序的区别" class="headerlink" title="　进程和程序的区别"></a>　进程和程序的区别</h6><ul>
+<li>静态和动态</li>
+</ul>
+<ol>
+<li>进程是动态的:程序的一次执行过程</li>
+<li>程序是静态的:一组指令的有效集合</li>
+</ol>
+<ul>
+<li>暂存和长存</li>
+</ul>
+<ol>
+<li>进程是暂存的: 在<strong>内存</strong>上驻留</li>
+<li>程序是长存的: 在介质上长期保存</li>
+</ol>
+<ul>
+<li>程序和进程的对应<br>一个程序可能有多个进程</li>
+</ul>
+<h5 id="进程的类型"><a href="#进程的类型" class="headerlink" title="进程的类型"></a>进程的类型</h5><ul>
+<li>按照使用资源的权限</li>
+</ul>
+<ol>
+<li>系统进程:指系统内核相关和进程</li>
+<li>用户进程: 指运行于用户态的进程</li>
+</ol>
+<ul>
+<li>按对CPU的依赖性</li>
+</ul>
+<ol>
+<li>偏CPU进程: 计算型进程: 如科学计算等</li>
+<li>偏I/O进程: 侧重于I/O的进程</li>
+</ol>
+<h4 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h4><ul>
+<li>运行状态(Running)<br>进程已经占有CPU,在CPU上运行,对于大多数计算机来说只有一个CPU所以只有一个进程能够真正的占用CPU</li>
+<li>就绪状态(Ready)<br>具备运行条件,但由于<strong>无CPU</strong>,暂时不能运行</li>
+<li>阻塞状态(Block)或等待状态(Wait)<br>因为等待某项服务完成或信号不能运行的状态,如等待: 系统调用, I/O操作, 合作进程信号</li>
+</ul>
+<h5 id="支持挂起-suspend-和解挂-resume-操作"><a href="#支持挂起-suspend-和解挂-resume-操作" class="headerlink" title="支持挂起(suspend)和解挂(resume)操作"></a>支持挂起(suspend)和解挂(resume)操作</h5><ul>
+<li>挂起: 用户或者OS将进程有意暂停</li>
+<li>解挂: 将挂起的进程继续</li>
+<li>阻塞: 活动阻塞(正常阻塞)和静止阻塞(阻塞时挂起)</li>
+<li>就绪: 活动就绪(正常就绪)和静止就绪(就绪时挂起)</li>
+</ul>
+<h5 id="进程状态的变迁"><a href="#进程状态的变迁" class="headerlink" title="　进程状态的变迁"></a>　进程状态的变迁</h5><p>进程的状态可以依据一定的条件相互转化．</p>
+<ol>
+<li><p>就绪$ \rightarrow$ 运行<br>进程调度</p>
+<ol>
+<li>运行$ \rightarrow$ 就绪<br>时间片到了,或者优先级更高的进程抢占了CPU</li>
+<li>运行$ \rightarrow$ 阻塞<br>请求OS提供服务,等待某个信号的到来</li>
+<li>阻塞$ \rightarrow$ 就绪<br>等待的服务完成 了,等待的信号到来了</li>
+</ol>
+<h4 id="进程控制块-Process-Control-Block"><a href="#进程控制块-Process-Control-Block" class="headerlink" title="进程控制块(Process Control Block)"></a>进程控制块(Process Control Block)</h4><ul>
+<li>描述进程状态,资源,和相关进程关系的<strong>数据结构</strong></li>
+<li>PCB是进程的<strong>标志</strong></li>
+<li>创建进程时创建PCB,进程撤销后PCB同时撤销</li>
+</ul>
+</li>
+</ol>
+<p>进程= 程序 + PCB. 程序包含代码和数据</p>
+<h6 id="PCB的数据结构"><a href="#PCB的数据结构" class="headerlink" title="PCB的数据结构"></a>PCB的数据结构</h6><ol>
+<li>name(ID): 进程名称,标识符</li>
+<li>status: 状态</li>
+<li>next: 指向下一个PCB的指针</li>
+<li>start_addr: 程序地址</li>
+<li>priority: 优先级</li>
+<li>cpu_status: 现场保留区(堆栈)</li>
+<li>comm_info: 进程通信</li>
+<li>process_family: 家族</li>
+<li>own_resource: 资源</li>
+</ol>
+<h5 id="进程的切换"><a href="#进程的切换" class="headerlink" title="进程的切换"></a>进程的切换</h5><ul>
+<li>进程的上下文:Context,进程的运行环境,CPU环境<br>进程的切换过程</li>
+<li>换入进程的上下文进入CPU,从<strong>栈</strong>上读入,同时更新寄存器的信息</li>
+<li>换出进程的上下文离开CPU,保存到<strong>栈</strong>中,将来CPU重新读取进程的时候就从栈上读取</li>
+</ul>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
+<h3 id="进程控制"><a href="#进程控制" class="headerlink" title="进程控制"></a>进程控制</h3><ul>
+<li>进程生存期间对其全部行为的控制</li>
+</ul>
+<p>四个典型控制行为: </p>
+<ol>
+<li>创建进程</li>
+<li>撤销进程</li>
+<li>阻塞进程</li>
+<li>唤醒进程</li>
+</ol>
+<h4 id="进程创建"><a href="#进程创建" class="headerlink" title="进程创建"></a>进程创建</h4><ul>
+<li>功能: 创建一个具有指定标识的进程</li>
+<li>参数: 进程标识,优先级,进程起始地址,CPU初始状态,资源清单</li>
+</ul>
+<h6 id="创建进程的过程"><a href="#创建进程的过程" class="headerlink" title="创建进程的过程"></a>创建进程的过程</h6><ol>
+<li>创建一个空的PCB</li>
+<li>获得并赋予进程标识符ID</li>
+<li>为进程分配空间</li>
+<li>初始化PCB的成员变量</li>
+<li>插入相应的进程队列(新进程插入就绪队列)<br>我们总是默认新创建的进程是<strong>就绪的</strong> ,只要给他CPU立刻就可以运行</li>
+</ol>
+<h4 id="进程撤销"><a href="#进程撤销" class="headerlink" title="进程撤销"></a>进程撤销</h4><ul>
+<li>功能: 撤销一个指定的进程,收回进程所占有的资源,撤销该进程的PCB</li>
+<li>撤销进程的时机/事件</li>
+</ul>
+<ol>
+<li>正常结束</li>
+<li>异常结束</li>
+<li>外界干预</li>
+</ol>
+<ul>
+<li>参数: 被撤销的进程ID</li>
+</ul>
+<h6 id="撤销的过程"><a href="#撤销的过程" class="headerlink" title="撤销的过程"></a>撤销的过程</h6><ol>
+<li>在PCB队列中检索出该PCB</li>
+<li>获取该进程的状态</li>
+<li>若该进程处在运行态,立即终止该进程<br>这里我们需要注意,在OS中,一个操作系统可能有<strong>父进程</strong>也可能有<strong>子进程</strong>,如果要被撤销的进程存在<strong>子进程</strong>,那么我们需要先撤销他的<strong>子进程</strong>(递归过程)</li>
+<li>释放进程所占有的资源</li>
+<li>将进程从PCB队列移除</li>
+</ol>
+<h5 id="进程阻塞"><a href="#进程阻塞" class="headerlink" title="进程阻塞"></a>进程阻塞</h5><ul>
+<li>功能: 停止进程的执行.变为阻塞</li>
+<li>阻塞的时间/事件</li>
+</ul>
+<ol>
+<li>请求系统服务:由于某种原因,OS不能立即满足进程的要求</li>
+<li>启动某种操作: 进程启动某种操作,阻塞等待该进程执行完毕</li>
+<li>新数据尚未到达: A进程需要获得B进程的<strong>中间结果</strong> A进程等待</li>
+<li>无新工作可做: 进程完成任务后,<strong>自我阻塞</strong> 等待新任务到达</li>
+</ol>
+<ul>
+<li>参数: <strong>阻塞原因</strong>, 不同的阻塞原因构建不同的阻塞队列</li>
+</ul>
+<h5 id="阻塞的实现"><a href="#阻塞的实现" class="headerlink" title="阻塞的实现"></a>阻塞的实现</h5><ol>
+<li>停止运行</li>
+<li>将PCB<strong>运行态</strong>改为<strong>阻塞态</strong></li>
+<li>插入相应原因的阻塞队列</li>
+<li>转调度程序</li>
+</ol>
+<h4 id="进程唤醒"><a href="#进程唤醒" class="headerlink" title="进程唤醒"></a>进程唤醒</h4><ul>
+<li>功能: 唤醒处于<strong>阻塞队列</strong>当中的某个进程</li>
+<li>参数: 被唤醒进程的ID</li>
+<li>引起唤醒的时机/事件</li>
+</ul>
+<ol>
+<li>系统服务由不满到满足</li>
+<li>I/O完成</li>
+<li>新数据到达</li>
+<li>进程提出新请求(服务)</li>
+</ol>
+<h4 id="进程控制原语"><a href="#进程控制原语" class="headerlink" title="进程控制原语"></a>进程控制原语</h4><ul>
+<li>由若干指令构成的具有特定功能的函数</li>
+<li>具有<strong>原子性</strong>,操作不可分割,要么执行成功,要么执行失败,中途不可停下</li>
+</ul>
+<p>进程控制原语:</p>
+<ol>
+<li>创建</li>
+<li>撤销</li>
+<li>阻塞</li>
+<li>唤醒</li>
+</ol>
+<h3 id="Windows控制进程"><a href="#Windows控制进程" class="headerlink" title="Windows控制进程"></a>Windows控制进程</h3><ul>
+<li>创建进程的方法: 点击图标,启动/创建进程</li>
+</ul>
+<h3 id="Linux进程控制"><a href="#Linux进程控制" class="headerlink" title="Linux进程控制"></a>Linux进程控制</h3><ul>
+<li>创建进程fork(),返回一个pid_t的整形值<br>例如,<code>pid_t pid = fork()</code></li>
+<li>新建进程是当前进程的<strong>子进程</strong>,在Linux中所有的进程都具有家族关系</li>
+<li>父进程与子进程<br>父进程: fork()的调用者<br>子进程: 新建的进程</li>
+<li>子进程是父进程的复制,具有和父进程相同的代码,数据,堆栈,差别在于<strong>ID</strong>号不一样,与时间有关的信息不一样</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> 	fork();</span><br><span class="line"> 	<span class="built_in">printf</span>(<span class="string">"Hello World\n"</span>);</span><br><span class="line"> 	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在屏幕上会输出两个Hello World的字符串</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">pid_t</span> pid;</span><br><span class="line">    pid = fork();</span><br><span class="line">    <span class="keyword">if</span>(pid == <span class="number">0</span>)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Hello World\n"</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(pid &gt; <span class="number">0</span>)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"How are you\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时在屏幕上输出一行<code>Hello World</code>与一行<code>How are you</code>.<br>在子进程中,<code>pid=0</code>,在父进程中<code>pid&gt;0</code>(子进程ID),如果执行出错,返回-1<br>但是父进程,子进程是<strong>并发的</strong>,所以字符串输出顺序<strong>不确定</strong>.不会无限循环和递归创建子进程.</p>
+<h4 id="子进程和父进程的并发"><a href="#子进程和父进程的并发" class="headerlink" title="子进程和父进程的并发"></a>子进程和父进程的并发</h4><p>当父进程中的<code>pid = fork()</code>指令执行时,复制相同的代码到子进程.<code>fork()</code>指令之前的指令<strong>不再执行</strong>,从指令后面的语句并发.</p>
+<h4 id="fork函数的实现"><a href="#fork函数的实现" class="headerlink" title="fork函数的实现"></a>fork函数的实现</h4><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">do_fork</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	<span class="keyword">unsigned</span> <span class="keyword">long</span> clone_flags,</span></span></span><br><span class="line"><span class="function"><span class="params">	<span class="keyword">unsigned</span> <span class="keyword">long</span> stack_start,</span></span></span><br><span class="line"><span class="function"><span class="params">	struct pt_regs *regs,</span></span></span><br><span class="line"><span class="function"><span class="params">	<span class="keyword">unsigned</span> <span class="keyword">long</span> stack_size</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line"><span class="keyword">int</span> do_fork&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> *<span class="title">p</span>;</span></span><br><span class="line">    p = alloc_task_struct();<span class="comment">//分配存放位置的内存</span></span><br><span class="line">    ......</span><br><span class="line">    copy_files(clone_flags,p);</span><br><span class="line">    copy_fs(clone_flags,p);</span><br><span class="line">    copy_mm(clone_flags,p);<span class="comment">//拷贝进程所有信息</span></span><br><span class="line">    ......</span><br><span class="line">    wake_up_process(p);<span class="comment">//唤醒进程,挂入可执行队列等待被调度</span></span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Linux启动以后的第一个进程是<strong>init进程</strong>,所有其他进程都是init的子孙</li>
+</ul>
+<h4 id="exec函数簇"><a href="#exec函数簇" class="headerlink" title="exec函数簇"></a>exec函数簇</h4><ul>
+<li>装入一个<strong>指定的可执行程序</strong>运行</li>
+<li><strong>使子进程具有和父进程完全不同的新功能</strong></li>
+</ul>
+<p>步骤:</p>
+<ul>
+<li>根据文件名找到相应的可执行程序</li>
+<li>将可执行程序的内容填入子进程的地址空间</li>
+<li>进入新进程执行且不再返回</li>
+</ul>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><h4 id="线程概念"><a href="#线程概念" class="headerlink" title="线程概念"></a>线程概念</h4><ul>
+<li>由CPU可以直接运行的实体,程序内部的执行路径</li>
+<li>一个进程可以创建多个线程</li>
+<li>多个线程<strong>共享</strong>CPU可以实现并发运行</li>
+</ul>
+<ul>
+<li>CreateThread()<br>把一个函数创建为一个线程</li>
+</ul>
+<h5 id="单线程程序和多线程程序"><a href="#单线程程序和多线程程序" class="headerlink" title="单线程程序和多线程程序"></a>单线程程序和多线程程序</h5><ul>
+<li>单线程: 整个进程只有一个线程,Windows程序默认只有一个线程(主线程:main线程)</li>
+<li>多线程:整个进程至少有两个线程,<strong>主线程</strong>和<strong>至少一个用户线程</strong></li>
+</ul>
+<h4 id="线程典型应用场景"><a href="#线程典型应用场景" class="headerlink" title="线程典型应用场景"></a>线程典型应用场景</h4><ol>
+<li>程序的多个功能需要并发运行<br>例如同时画圆和画方, 暴风影音(在线看电影)(视频解码,音频解码,网络接收)<br>为每一个功能创建为一个线程,从而实现多功能的并发</li>
+<li>提高<strong>窗口程序</strong>的交互性</li>
+<li>需要改善程序结构的地方</li>
+<li>多核CPU上的应用</li>
+</ol>
+<h5 id="创建线程的补充说明"><a href="#创建线程的补充说明" class="headerlink" title="创建线程的补充说明"></a>创建线程的补充说明</h5><ul>
+<li>Win32库创建线程: CreateThread(线程函数,参数)</li>
+<li>MFC创建线程: AfxBeginThread(线程函数,参数)</li>
+<li>创建远程线程: CreateRemoteThread(进程,线程函数,参数)<strong>这个创建的线程不是在当前控制的进程中</strong></li>
+<li>Linux创建线程:pthread_create(线程函数,参数)</li>
+</ul>
+<h3 id="临界区和锁"><a href="#临界区和锁" class="headerlink" title="临界区和锁"></a>临界区和锁</h3><h4 id="临界资源和临界区"><a href="#临界资源和临界区" class="headerlink" title="临界资源和临界区"></a>临界资源和临界区</h4><ul>
+<li>临界资源(Critical Resource): 一次只允许<strong>一个进程</strong>独占访问的资源</li>
+<li><p>临界区(Critical Section): 进程中访问临界资源的<strong>程序段</strong></p>
+</li>
+<li><p>临界区和临界资源的访问特点:</p>
+<ul>
+<li>具有排他性</li>
+<li>并发进程不能<strong>同时进入</strong>临界区</li>
+</ul>
+</li>
+</ul>
+<h5 id="设计临界区访问机制的四个原则"><a href="#设计临界区访问机制的四个原则" class="headerlink" title="设计临界区访问机制的四个原则"></a>设计临界区访问机制的四个原则</h5><ul>
+<li>忙则等待: 当临界区忙时,其他进程必须在临界区外等待</li>
+<li>空闲让进: 当无进程处于临界区时,任何有权进程可以进入临界区</li>
+<li>有限等待: 进程进入临界区的请求应该在<strong>有限时间</strong>内得到满足</li>
+<li>让权等待: 等待进程放弃CPU,(让其他进程有机会得到CPU)</li>
+</ul>
+<h5 id="临界区的大小设置"><a href="#临界区的大小设置" class="headerlink" title="临界区的大小设置"></a>临界区的大小设置</h5><p>临界区既不能设置的<strong>过大</strong>,也不能设置的<strong>过小</strong></p>
+<p>设置的过大程序等待的时间会变长,过小则达不到设置临界区的目的</p>
+<h4 id="锁机制"><a href="#锁机制" class="headerlink" title="锁机制"></a>锁机制</h4><ul>
+<li>基本原理: 设置一个标志”S”，表明临界资源<strong>可用</strong>或者<strong>不可用</strong><ol>
+<li>进入临界区之前检查标志是否<strong>可用</strong></li>
+<li>如果不可用状态,进程在临界区之外<strong>等待</strong></li>
+<li>如果可用,访问临界资源,并且设置标志为<strong>不可用</strong></li>
+<li>退出临界区时将标志设为可用</li>
+</ol>
+</li>
+</ul>
+<h5 id="上锁操作"><a href="#上锁操作" class="headerlink" title="上锁操作"></a>上锁操作</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line">LOCK(S)		<span class="comment">//上锁操作</span></span><br><span class="line">&#123;</span><br><span class="line">    test: <span class="keyword">if</span>(S==<span class="number">0</span>)	</span><br><span class="line">        <span class="keyword">goto</span> test;	<span class="comment">//测试锁标志,内部循环</span></span><br><span class="line">    	<span class="keyword">else</span> <span class="comment">//S==1</span></span><br><span class="line">            S=<span class="number">0</span>;	<span class="comment">//上锁</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="开锁操作"><a href="#开锁操作" class="headerlink" title="开锁操作"></a>开锁操作</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line">UnLock(S)</span><br><span class="line">&#123;</span><br><span class="line">    S = <span class="number">1</span>;	<span class="comment">//开锁</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>开锁原语</strong></p>
+<h5 id="锁机制访问临界区"><a href="#锁机制访问临界区" class="headerlink" title="锁机制访问临界区"></a>锁机制访问临界区</h5><ol>
+<li>初始化锁状态S=1(可用)</li>
+<li>进入临界区之前执行<strong>上锁</strong>操作</li>
+<li>退出临界区之后执行<strong>开锁</strong>操作</li>
+</ol>
+<p>锁机制是否满足四个设计原则?</p>
+<p>不满足让权等待</p>
+<h4 id="同步和P-V操作-重点"><a href="#同步和P-V操作-重点" class="headerlink" title="同步和P-V操作(重点)"></a>同步和P-V操作(重点)</h4><h5 id="同步和互斥的概念"><a href="#同步和互斥的概念" class="headerlink" title="同步和互斥的概念"></a>同步和互斥的概念</h5><p>进程的<strong>互斥</strong>关系: 多个进程由于共享了独占性资源,必须协调各进程对资源的存取顺序,确保没有任何两个或者以上的进程同时进行<strong>存取操作</strong></p>
+<ul>
+<li>互斥和资源共享相关</li>
+<li>资源: 临界资源</li>
+<li>存取操作区域: 临界区<br>进程的<strong>同步</strong>关系: 若干<strong>合作进程</strong>为了完成一个共同的任务,需要相互协调运行步伐,<strong>一个进程</strong>开始某个操作<strong>之前</strong>,必须要求<strong>另一个进程</strong>已经完成了某个操作,否则前面的进程只能<strong>等待</strong></li>
+<li>合作关系的另一种解释: 合作进程中的某些操作之间需要满足某种<strong>先后关系</strong>或某个操作能否进程需要满足某个<strong>前提条件</strong>,否则只能等待</li>
+<li>互斥关系属于特殊的同步关系</li>
+</ul>
+<h5 id="P-V操作的概念"><a href="#P-V操作的概念" class="headerlink" title="P-V操作的概念"></a>P-V操作的概念</h5><h6 id="信号灯的概念"><a href="#信号灯的概念" class="headerlink" title="信号灯的概念"></a>信号灯的概念</h6><ul>
+<li>一种进程同步机制</li>
+</ul>
+<p>进程在运行过程中<strong>受信号灯状态控制</strong>, 并能<strong>改变信号灯状态</strong></p>
+<ul>
+<li>信号灯的状态可以<strong>阻塞</strong>或者<strong>唤醒</strong>进程</li>
+<li>信号灯的状态可以被进程改变</li>
+</ul>
+<h6 id="信号灯的数据结构"><a href="#信号灯的数据结构" class="headerlink" title="信号灯的数据结构"></a>信号灯的数据结构</h6><ul>
+<li>定义为一个二元矢量(S,q)</li>
+<li>S: 整数,初值非负(S又称信号量,不与信号灯做区分)</li>
+<li>q: PCB队列,初值为空集</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SEMAPHORE</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> S;	<span class="comment">//整数,初值非负</span></span><br><span class="line">	pointer_PCB q; 	<span class="comment">//队列:进程PCB指针,初值空集</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>两个操作:</p>
+<ol>
+<li>P操作: 通过(Passeren)</li>
+<li>V操作: 释放</li>
+</ol>
+<ul>
+<li>P操作原理</li>
+</ul>
+<ol>
+<li>S减一</li>
+<li>如果<strong>差</strong> $\geq$ 0,该进程继续</li>
+<li>如果<strong>差</strong> $\leq$ 0.则该进程阻塞,并加入队列q中,转调度函数</li>
+</ol>
+<ul>
+<li>Q操作原理</li>
+</ul>
+<ol>
+<li>S加一</li>
+<li>如果<strong>和</strong> $\geq$ 0,该进程继续</li>
+<li>如果<strong>和</strong> $\leq$ 0.则该进程<strong>继续</strong>, 同时从q中<strong>唤醒</strong>一个进程</li>
+</ol>
+<h5 id="P-V操作解决互斥问题"><a href="#P-V操作解决互斥问题" class="headerlink" title="P-V操作解决互斥问题"></a>P-V操作解决互斥问题</h5><ul>
+<li>本质: 实现对临界区的互斥访问</li>
+<li>应用过程:<ol>
+<li>进入临界区之前执行P操作</li>
+<li>离开临界区之后再执行V操作</li>
+</ol>
+</li>
+<li>S的初值设置合理(似乎s的初值只能设为1)</li>
+</ul>
+<h5 id="P-V操作解决同步问题"><a href="#P-V操作解决同步问题" class="headerlink" title="P-V操作解决同步问题"></a>P-V操作解决同步问题</h5><ul>
+<li>同步机制实质: 运行条件不满足时,能让进程暂停;条件满足时能让进程继续</li>
+<li>基本思路:</li>
+</ul>
+<ol>
+<li>暂停当前进程: 在关键操作<strong>之前</strong>执行<strong>P</strong>操作</li>
+<li>继续进程: 在关键操作<strong>之后</strong>执行<strong>V</strong>操作</li>
+<li>定义合适的信号量S,表示运行条件</li>
+</ol>
+<ul>
+<li>什么是关键操作:</li>
+</ul>
+<ol>
+<li>是否需要条件</li>
+<li>完成与否是否影响另外一个进程</li>
+</ol>
+<h4 id="Windows和Linux同步机制"><a href="#Windows和Linux同步机制" class="headerlink" title="Windows和Linux同步机制"></a>Windows和Linux同步机制</h4><h5 id="Windows同步机制"><a href="#Windows同步机制" class="headerlink" title="Windows同步机制"></a>Windows同步机制</h5><ul>
+<li>临界区</li>
+<li>互斥量</li>
+<li>信号量</li>
+<li>事件</li>
+<li>等待</li>
+</ul>
+<ol>
+<li>临界区</li>
+</ol>
+<ul>
+<li>在进程内使用,保证仅一个线程可以申请到该对象</li>
+<li>是临界资源的访问<br>等待函数<strong>WaitForXXXObject</strong>: 等待目标对象变成有信号状态就返回.线程结束的时候会变成有信号状态</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">DWORD WaitForMultipleObjects</span><br><span class="line">(	</span><br><span class="line">DWORD nCount,		<span class="comment">//等待目标对象数量</span></span><br><span class="line">CONST HANDLE *lpHandles,	<span class="comment">//目标对象的句柄数组</span></span><br><span class="line">BOOL fWaitAll,				<span class="comment">//等待方式</span></span><br><span class="line">DWORD dwMilliseconds);		<span class="comment">//等待时间</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">DWORD WaitForSingleObjects</span><br><span class="line">(	</span><br><span class="line">HANDLE hHandles,	<span class="comment">//目标对象的句柄</span></span><br><span class="line">DWORD dwMilliseconds);		<span class="comment">//等待时间</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>互斥量(Mutex)</li>
+</ol>
+<ul>
+<li>保证只有<strong>一个</strong>线程或者进程可以申请到资源</li>
+<li><strong>可以跨进程使用</strong></li>
+<li>可以有名称</li>
+<li>比临界区耗费更多资源</li>
+</ul>
+<ol>
+<li>信号量(Semaphore)</li>
+</ol>
+<ul>
+<li>允许指定数目的<strong>多个</strong>线程/进程访问临界区</li>
+<li>一种资源计数器.用于限制并发线程的数量</li>
+<li>初始值可设为n,则表示允许N个进程/线程<strong>并发访问资源</strong>.</li>
+<li>可以通过相应函数<strong>增</strong>或者<strong>减</strong>.WaitForSingleObject将信号量减一,ReleaseSemaphore将信号量增一</li>
+<li>信号量的值大于0时,有信号状态;小于等于0时,为无信号状态</li>
+</ul>
+<h5 id="Linux父子进程同步"><a href="#Linux父子进程同步" class="headerlink" title="Linux父子进程同步"></a>Linux父子进程同步</h5><h6 id="wait函数"><a href="#wait函数" class="headerlink" title="wait函数"></a>wait函数</h6><ul>
+<li>进程调用<strong>wait(int status)</strong>阻塞自己,阻塞到有子进程结束.如果没有则一直阻塞.<br>wait收集该子进程信息并彻底销毁</li>
+<li>保存进程退出时的状态,如果忽略退出信息,<code>pid = wait(NULL)</code> </li>
+</ul>
+<h6 id="exit函数"><a href="#exit函数" class="headerlink" title="exit函数"></a>exit函数</h6><ul>
+<li>终结进程,利用status传递进程结束时的状态</li>
+<li>变成<strong>僵尸状态</strong>,保留部分PCB信息.给<strong>wait</strong>收集</li>
+</ul>
+<ol>
+<li>正常结束还是异常结束</li>
+<li>占用系统CPU总时间</li>
+<li>缺页中断次数</li>
+</ol>
+<ul>
+<li>调用schedule,选择新进程运行</li>
+</ul>
+<h6 id="sleep函数"><a href="#sleep函数" class="headerlink" title="sleep函数"></a>sleep函数</h6><ul>
+<li>进程暂停执行nSecond秒</li>
+<li>系统暂停调度该进程</li>
+<li>相当于Windows的suspend,挂起若干秒</li>
+</ul>
+<h6 id="父子进程共享普通变量"><a href="#父子进程共享普通变量" class="headerlink" title="父子进程共享普通变量"></a>父子进程共享普通变量</h6><p>对于普通变量,父子进程各自操作变量副本.互不影响</p>
+<h6 id="父子进程共享文件资源"><a href="#父子进程共享文件资源" class="headerlink" title="父子进程共享文件资源"></a>父子进程共享文件资源</h6><p>对于文件,父子进程共享同一文件和读写指针</p>
+<h4 id="进程通信"><a href="#进程通信" class="headerlink" title="进程通信"></a>进程通信</h4><h5 id="Windows中的匿名管道通信"><a href="#Windows中的匿名管道通信" class="headerlink" title="Windows中的匿名管道通信"></a>Windows中的匿名管道通信</h5><ul>
+<li>管道定义: 进程间的一种通信机制.一个进程A可以通过管道把数据传输给另外一个进程B.前者向管道输入数据,后者向管道输出数据.</li>
+<li>工作原理:<br>有读/写两个句柄: <code>CreatePipe(Handle W, Handle R)</code><br>通过写 写句柄向管道中写数据<code>WriteFile(W,Buffer)</code>或者通过输出重定向 向写句柄写入<br>通过读 读句柄,从管道读取数据<code>ReadFile(R,Buffer)</code>.或者通过输入重定向从读句柄读出</li>
+<li>仅能用于<strong>父子</strong>或者<strong>兄弟</strong>进程通信</li>
+</ul>
+<ol>
+<li>父进程创建管道<code>CreatePipe(W,R)</code></li>
+<li>父进程创建子进程<code>CreateProcess()</code></li>
+<li>父进程写或读管道,子进程输入或者输出重定向到管道.</li>
+</ol>
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><h3 id="死锁的概念"><a href="#死锁的概念" class="headerlink" title="死锁的概念"></a>死锁的概念</h3><p>相邻的哲学家不可能同时吃饭.<br>用代码表示哲学家的生活就是如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">UINT Philosopher(int i)	&#x2F;&#x2F; 线程函数,i是哲学家的编号</span><br><span class="line">&#123;</span><br><span class="line">	while(true)</span><br><span class="line">	&#123;</span><br><span class="line">		思考;</span><br><span class="line">		休息;</span><br><span class="line">		P(S[i]);	&#x2F;&#x2F;取左手边的筷子</span><br><span class="line">		P(S[i+4]%5);&#x2F;&#x2F;取右手边的筷子</span><br><span class="line">		吃饭;</span><br><span class="line">		V(S[i+4]%5);&#x2F;&#x2F;放下右手边的筷子</span><br><span class="line">		V(S[i]);	&#x2F;&#x2F;放下左手边的筷子</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于上述程序,<strong>吃饭</strong>显然要访问公共资源,是属于临界操作,需要加以适当的P-V操作来限制.筷子是否可用就是<strong>信号量</strong>.</p>
+<ul>
+<li>死锁的定义: 两个或多个进程无限期的等待永远不会发生的条件的一种系统状态<br>死锁的结果就是每个进程都永远阻塞</li>
+</ul>
+<h3 id="死锁起因"><a href="#死锁起因" class="headerlink" title="死锁起因"></a>死锁起因</h3><h4 id="系统资源有限"><a href="#系统资源有限" class="headerlink" title="系统资源有限"></a>系统资源有限</h4><p>进程对资源的竞争产生死锁</p>
+<h4 id="并发进程推进顺序不当"><a href="#并发进程推进顺序不当" class="headerlink" title="并发进程推进顺序不当"></a>并发进程推进顺序不当</h4><p>进程<strong>请求</strong>或者<strong>释放</strong>资源的顺序不当,也可能导致死锁.<br>例如</p>
+<h4 id="关于死锁的一些结论"><a href="#关于死锁的一些结论" class="headerlink" title="关于死锁的一些结论"></a>关于死锁的一些结论</h4><ul>
+<li>参与死锁的进程至少是<strong>2</strong>个</li>
+<li>参与死锁的进程至少有<strong>2个已经占有资源</strong></li>
+<li>参与死锁的所有进程都在等待资源</li>
+<li>参与死锁的进程是当前系统中所有进程的子集.<br>死锁会浪费大量的系统资源,甚至导致系统崩溃.</li>
+</ul>
+<h3 id="预防死锁的策略"><a href="#预防死锁的策略" class="headerlink" title="预防死锁的策略"></a>预防死锁的策略</h3><h4 id="死锁的必要条件"><a href="#死锁的必要条件" class="headerlink" title="死锁的必要条件"></a>死锁的必要条件</h4><ul>
+<li>互斥条件: 资源具有独占性,进程互斥使用资源.</li>
+<li>不剥夺条件: 进程在释放资源前(即访问完)不能被其他进程剥夺</li>
+<li>部分分配条件: 进程所需要的资源逐步分配.需要时申请和分配.</li>
+<li>环路条件: 多个进程构成<strong>环路</strong>,环中每个进程已占用的资源被前一进程申请,自己所需要的新资源又被环中的后裔进程申请</li>
+</ul>
+<p>上述条件不需要全部满足,满足一个即可</p>
+<h4 id="解决死锁的策略"><a href="#解决死锁的策略" class="headerlink" title="解决死锁的策略"></a>解决死锁的策略</h4><ul>
+<li>通过设置某些限制条件,破坏死锁四个必要条件中的一个或者多个来防止死锁</li>
+</ul>
+<ol>
+<li>破坏互斥条件: 难</li>
+<li>破坏不剥夺条件: 代价大</li>
+<li>破坏部分分配条件: 预先静态分配</li>
+<li>破坏环路条件: 有序资源分配</li>
+</ol>
+<h2 id="进程调度"><a href="#进程调度" class="headerlink" title="进程调度"></a>进程调度</h2><h3 id="进程调度概念"><a href="#进程调度概念" class="headerlink" title="进程调度概念"></a>进程调度概念</h3><ul>
+<li>在合适的时候以<strong>一定的策略</strong>选择一个<strong>就绪</strong>进程运行.</li>
+</ul>
+<p>调度时机?调度策略?调度目标?</p>
+<h4 id="调度目标"><a href="#调度目标" class="headerlink" title="调度目标"></a>调度目标</h4><ol>
+<li>响应速度尽可能快,以更少的时间片进行切换</li>
+<li>进程处理时间尽可能短</li>
+<li>吞吐量尽可能大</li>
+<li>资源利用率尽可能高</li>
+<li>对所有进程要公平</li>
+<li>避免饥饿</li>
+<li>c</li>
+</ol>
+<p>但是上述部分原则之间存在自相矛盾的现象<br>例如1和2,要求响应速度尽可能快就要占用更多CPU资源,相应地用来处理进程的CPU资源就会减少,进程处理时间就会变长.<br>还有1和3.CPU更频繁切换,调度更频繁进行,和之前一样CPU的有效工作时间就会缩短.因此单位时间可以处理的cpu数量会少.<br>2和5.让一个进程处理时间缩短意味着其他进程获得CPU的概率降低了.是不公平的.<br>对于不同的操作系统满足不同的策略.</p>
+<ul>
+<li>可以量化的目标</li>
+</ul>
+<ol>
+<li>周转时间: 进程提交给计算机到最终完成所花费的时间.<br>t = t<sub>c</sub> - t<sub>s</sub><br>t<sub>c</sub>是进程完成时间,t<sub>s</sub>是进程开始时间</li>
+<li>平均周转时间:<br>t = (t<sub>1</sub> + t<sub>2</sub> + … +t<sub>n</sub>) / n<br>平均周转时间越短说明进程在系统内停留的时间也越短.系统吞吐量也就越大.资源利用率也就越高.</li>
+<li>带权周转时间w: 进程在系统中相对停留时间<br>w = t / t<sub>r</sub><br>t: 进程周转时间<br>t<sub>r</sub>进程运行时间</li>
+</ol>
+<h3 id="典型进程调度算法"><a href="#典型进程调度算法" class="headerlink" title="典型进程调度算法"></a>典型进程调度算法</h3><h4 id="FCFS-先来先服务"><a href="#FCFS-先来先服务" class="headerlink" title="FCFS(先来先服务)"></a>FCFS(先来先服务)</h4><p>按照作业进入系统时间先后挑选作业,先进优先被运行.<br>效率不高,只考虑作业等候时间,没考虑<strong>运行时间长短</strong>.不利于短作业</p>
+<h4 id="SJF-短作业优先调度算法"><a href="#SJF-短作业优先调度算法" class="headerlink" title="SJF(短作业优先调度算法)"></a>SJF(短作业优先调度算法)</h4><p>参考运行时间,选取运行时间最短的作业投入运行.<br>效率不高,忽视了作业等待时间,容易出现资源饥饿现象.</p>
+<h4 id="响应比高者优先调度"><a href="#响应比高者优先调度" class="headerlink" title="响应比高者优先调度"></a>响应比高者优先调度</h4><ul>
+<li>作业相应时间与运行时间的比值<br>响应比 = (等待时间 + 运行时间) / 运行时间.计算每个作业的响应比,选择响应比最高的作业优先投入运行.<br>有利于短作业,等候时间长的作业.</li>
+</ul>
+<h4 id="优先数调度算法"><a href="#优先数调度算法" class="headerlink" title="优先数调度算法"></a>优先数调度算法</h4><p>根据进程优先数,把CPU分配给最高的进程,进程优先数 = 静态优先数+ 动态优先数</p>
+<h5 id="静态优先数"><a href="#静态优先数" class="headerlink" title="静态优先数"></a>静态优先数</h5><p>在进程创建时确定,在整个进程运行期间不再更改.</p>
+<ul>
+<li>进程所需资源多少</li>
+<li>程序运行时间长短</li>
+<li>进程类型(IO/CPU,前台,后台,核心/用户.</li>
+</ul>
+<h5 id="动态优先数"><a href="#动态优先数" class="headerlink" title="动态优先数"></a>动态优先数</h5><p>可以改变</p>
+<ul>
+<li>CPU超过一定时长</li>
+<li>当进行I/O操作</li>
+<li>当进程等待超过一定时长.</li>
+</ul>
+<h4 id="循环轮转调度法"><a href="#循环轮转调度法" class="headerlink" title="循环轮转调度法"></a>循环轮转调度法</h4><p>把所有进程按先进先出的原则排成队列.新来进程加到队列末尾.<br>进程以时间片q为单位轮流使用CPU,,刚运行完一个时间片的进程排到队列末尾,等候下一轮运行.逻辑上是环形.</p>
+<ul>
+<li>优点: 平等机会获得CPU,等待固定时间就可以重新获得CPU<br>时间片:<br>如果q太大: 交互性差,甚至退化成FCFS算法<br>如果q的值太小: 进程切换频繁,系统开销增加<br>改进: 让时间片大小可变,组织多个就绪队列.</li>
+</ul>
+<h3 id="Linux进程调度"><a href="#Linux进程调度" class="headerlink" title="Linux进程调度"></a>Linux进程调度</h3><p>Linux进程类型: </p>
+<ol>
+<li><p>普通进程<br>采用动态优先级调度,调度程序<strong>周期性</strong>的修改优先级(避免饥饿)<br>只要进程占用CPU,优先级就随时间流失而不断下降.task_struct的counter表示优先级.系统调用<strong>sched_setscheduler()</strong>可以改变调度策略.实时进程子孙进程也是实时进程.</p>
+</li>
+<li><p>实时进程<br>采用静态优先级调度,由用户<strong>预先指定</strong>,以后不会改变<br>实时进程调度策略为FIFO或者RR(时间片轮转).当采用FIFO策略时,当前实时进程会一直占用CPU直到被<strong>阻塞</strong>或者<strong>被抢占</strong>或者<strong>退出</strong>.阻塞后再就绪时被添加到同优先级队列的末尾.当采用RR策略时,与其他实时进程共同使用CPU,确保同优先级的多个进程能共享CPU.</p>
+</li>
+</ol>
+<h4 id="调度时机"><a href="#调度时机" class="headerlink" title="调度时机"></a>调度时机</h4><ul>
+<li><p>中断处理过程中直接调用schedule().<br>时钟中断,I/O中断,系统调用和异常.<br>内核被动调度情形.</p>
+</li>
+<li><p>中断处理过程返回用户态时直接调用schedule()<br>必须根据need_resched标记来确定是否调用</p>
+</li>
+<li>内核线程可以直接调用schedule()<br>属于内核主动调度的情形</li>
+<li>用户态进程<strong>只能陷入内核后</strong>在中断处理过程中被动调用<br>同样也是必须根据need_resched标记.</li>
+</ul>
+<h4 id="进程切换"><a href="#进程切换" class="headerlink" title="进程切换"></a>进程切换</h4><ul>
+<li>内核挂起当前CPU上的进程并恢复之前挂起的某个进程,任务切换,上下文切换</li>
+<li>与中断上下文切换有差别<br>中断前后在同一进程上下文中,只是<strong>用户态</strong>转向<strong>内核态</strong>执行.</li>
+<li>进程上下文包含了进程执行需要的所有信息.</li>
+</ul>
+<ol>
+<li>用户地址空间:程序代码,数据,用户堆栈</li>
+<li>控制信息: 进程描述符,内核堆栈</li>
+<li>硬件上下文</li>
+</ol>
+<ul>
+<li>schedule()函数<br>选择新进程<code>next = pick_next_task(rq,prerv)</code>,进程调度算法<br>调用宏<code>context_switch(rq,prev,next)</code>切换进程上下文,在宏当中实际上是调用<code>switch_to(prev,next)</code>来切换上下文的.</li>
+</ul>
+<h2 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h2><h3 id="内存管理功能"><a href="#内存管理功能" class="headerlink" title="内存管理功能"></a>内存管理功能</h3><p>存储器功能需求: 容量足够大,速度足够快,信息永久保存,多道程序运行.</p>
+<ul>
+<li>共享: 代码和数据共享,节省内存</li>
+<li>保护: 不允许程序之间非法的相互访问.</li>
+</ul>
+<p>存储管理的功能: </p>
+<h4 id="地址映射"><a href="#地址映射" class="headerlink" title="地址映射"></a>地址映射</h4><p>把程序中的地址(虚拟/虚/逻辑)变换成内存中的真实地址的过程,方式有三种,固定地址映射,静态地址映射,动态地址映射.</p>
+<h5 id="固定地址映射"><a href="#固定地址映射" class="headerlink" title="固定地址映射"></a>固定地址映射</h5><p>在编程或者编译时确定逻辑地址和物理地址的映射关系,但是在程序加载的时候必须放在<strong>指定的内存区域</strong>,但是容易产生地址冲突,运行失败.</p>
+<h5 id="静态地址映射"><a href="#静态地址映射" class="headerlink" title="静态地址映射"></a>静态地址映射</h5><p>程序<strong>装入</strong>时由OS完成逻辑地址到物理地址的映射.设<strong>逻辑地址</strong>为VA,<strong>装入基址</strong>为BA,<strong>物理地址</strong>为MA.有</p>
+<script type="math/tex; mode=display">
+MA = BA + VA</script><ul>
+<li>程序运行之前确定映射关系</li>
+<li>程序装入之后不能移动,移动之后必须放回原来的位置</li>
+<li>程序占用连续的内存空间.</li>
+</ul>
+<h5 id="动态地址映射"><a href="#动态地址映射" class="headerlink" title="动态地址映射."></a>动态地址映射.</h5><p>在程序<strong>执行过程中</strong>把逻辑地址转换为物理地址.例如,<code>MOV AX,[500]</code>OS就会在访问500单元时执行地址转换.如果程序在过程中有移动,则可能产生新的BA,相应的MA也就需要重新计算.</p>
+<ul>
+<li>程序占用的内存空间可以动态变化,BA需要及时更新.</li>
+<li>不要求占用连续的内存空间,每段程序的BA应该知道</li>
+<li>便于多个进程共享代码</li>
+<li>需要硬件支持MMU(内存管理)</li>
+</ul>
+<h4 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h4><p>解决问题: 程序过多或者过大时,内存不够,不能运行.多个程序并发时地址冲突,不能运行.</p>
+<ul>
+<li>面向用户的虚拟封闭内存.</li>
+</ul>
+<ol>
+<li>线行地址空间</li>
+<li>容量4G</li>
+<li>封闭空间</li>
+<li>和物理地址分离(地址无冲突)</li>
+<li>程序员编程时使用线行虚拟地址</li>
+</ol>
+<h4 id="内存分配"><a href="#内存分配" class="headerlink" title="内存分配"></a>内存分配</h4><p>解决目标: 为程序运行分配足够的内存空间.<br>需要解决的问题:</p>
+<ol>
+<li>放置策略: 程序调入内存时将其放置在哪个内存区?</li>
+<li>调入策略: 何时把要运行的代码和要访问的数据存入内存</li>
+<li>淘汰策略: 内存空间不够时,迁出哪些代码或数据以腾出内存</li>
+</ol>
+<h4 id="存储保护"><a href="#存储保护" class="headerlink" title="存储保护"></a>存储保护</h4><p>解决目标: 保证在内存中的多道程序只在给定的存储区域中活动且互不干扰.防止访问越权和越界<br>使用<strong>界址寄存器</strong>来限制,程序访问内存时硬件自动将目的地址与下限寄存器和上限寄存器中存放的地址界限进行比较,判断是否越界.</p>
+<h3 id="物理内存管理"><a href="#物理内存管理" class="headerlink" title="物理内存管理"></a>物理内存管理</h3><h4 id="分区内存管理"><a href="#分区内存管理" class="headerlink" title="分区内存管理"></a>分区内存管理</h4><p>根据分区管理形式不同可以分为</p>
+<ul>
+<li>单一区存储管理</li>
+<li>分区存储管理,其中还可细分为固定分区和动态分区.</li>
+</ul>
+<h5 id="单一区存储管理"><a href="#单一区存储管理" class="headerlink" title="单一区存储管理"></a>单一区存储管理</h5><p>用户区不分区,完全被一个程序占用</p>
+<ul>
+<li>优点: 简单,不需要复杂的硬件支持,适于单用户单任务OS</li>
+<li>缺点: 程序运行占用整个内存,即使程序很小也是这样,内存浪费,利用率低</li>
+</ul>
+<h5 id="分区存储管理"><a href="#分区存储管理" class="headerlink" title="分区存储管理"></a>分区存储管理</h5><p>把用户区内存划分为若干大小不等的分区,供不同的程序使用,根据分区的<strong>时机</strong>分为固定分区和动态分区</p>
+<h6 id="固定分区"><a href="#固定分区" class="headerlink" title="固定分区"></a>固定分区</h6><p>把内存<strong>固定</strong>地划分为若干个大小不等的分区供程序使用,每个分区的<strong>位置</strong>和<strong>大小</strong>都固定.系统运行期间不再改变.用<strong>分区表</strong>记录分区的位置大小和使用情况.</p>
+<ul>
+<li>在程序装入前,内存已被分区,不再改变</li>
+<li>每个分区大小不相同,适应大小不同的程序</li>
+<li>系统要维护分区表</li>
+</ul>
+<p>缺点: 浪费内存,大程序可能无法运行.</p>
+<h6 id="动态分区"><a href="#动态分区" class="headerlink" title="动态分区"></a>动态分区</h6><p>在程序装入的时候创建分区,使分区的大小刚好和程序的大小相适应.存在内存碎片.</p>
+<h6 id="空闲区表如何排序"><a href="#空闲区表如何排序" class="headerlink" title="空闲区表如何排序"></a>空闲区表如何排序</h6><ul>
+<li>放置策略(空闲区表排序原则)<ol>
+<li>按空闲区位置(首址)递增排序.(首次适应法)</li>
+<li>按空闲区位置(首址)递减排序</li>
+<li>按空闲区大小的递增排序.</li>
+<li>按空闲区大小的递减排序</li>
+</ol>
+</li>
+</ul>
+<h6 id="首次适应法"><a href="#首次适应法" class="headerlink" title="# 首次适应法"></a># 首次适应法</h6><p>尽可能先使用<strong>低地址</strong>的内存,当需要较大分区时在高地址空间有较大的满足概率.</p>
+<h6 id="最佳适应法"><a href="#最佳适应法" class="headerlink" title="# 最佳适应法"></a># 最佳适应法</h6><p>尽可能使用<strong>较小</strong>的空闲区,保留大的空闲区,当需要较大分区时有较大满足可能性</p>
+<h6 id="最坏适应法"><a href="#最坏适应法" class="headerlink" title="# 最坏适应法"></a># 最坏适应法</h6><p>节省遍历时间.最大的分区切割以后还是一个较大的分区,还可能可以让程序运行.</p>
+<h5 id="分区的回收"><a href="#分区的回收" class="headerlink" title="分区的回收"></a>分区的回收</h5><p>回收程序释放的分区,登记到<strong>空闲区表</strong>中,以便再次分区.</p>
+<ul>
+<li>考虑释放区与现有空闲区<strong>是否相邻</strong></li>
+<li>如不相邻则直接插入空闲区表</li>
+<li>如果相邻则与<strong>空闲区合并</strong>后更新空闲区表.</li>
+</ul>
+<h4 id="内存覆盖技术"><a href="#内存覆盖技术" class="headerlink" title="内存覆盖技术"></a>内存覆盖技术</h4><ul>
+<li>在较小内存空间中运行较大程序<h5 id="内存分区"><a href="#内存分区" class="headerlink" title="内存分区"></a>内存分区</h5></li>
+<li>常驻区: 被某段单独且固定地占用,可以划分多个.</li>
+<li>覆盖区: 能被多段共用,可划分多个.</li>
+</ul>
+<h5 id="覆盖的缺点"><a href="#覆盖的缺点" class="headerlink" title="覆盖的缺点"></a>覆盖的缺点</h5><ul>
+<li>编程复杂,程序员划分程序模块并确定覆盖关系.</li>
+<li>程序执行时间长,从外存装入内存耗时.</li>
+</ul>
+<h4 id="内存交换技术"><a href="#内存交换技术" class="headerlink" title="内存交换技术"></a>内存交换技术</h4><p>在<strong>小内存</strong>中,<strong>并发</strong>的运行多个进程.</p>
+<ul>
+<li>原理: 在内存不够时将进程<strong>写入到磁盘</strong>,当进程要运行时重新写回内存.<h5 id="交换技术的缺点"><a href="#交换技术的缺点" class="headerlink" title="交换技术的缺点"></a>交换技术的缺点</h5></li>
+<li><strong>换入</strong>和<strong>换出</strong>增加CPU开销.</li>
+<li>交换单位太大<h5 id="需要考虑的问题"><a href="#需要考虑的问题" class="headerlink" title="需要考虑的问题"></a>需要考虑的问题</h5></li>
+<li>减少交换传送的信息量</li>
+<li>外存交换空间的管理办法</li>
+<li>程序换入时的地址重定位.</li>
+</ul>
+<h4 id="内存碎片"><a href="#内存碎片" class="headerlink" title="内存碎片"></a>内存碎片</h4><ul>
+<li>过小的空闲区,难以实际利用.降低内存有效利用率.</li>
+</ul>
+<p><strong>最佳适应法</strong>最容易产生内存碎片.</p>
+<h5 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h5><ul>
+<li>规定门限值,如果剩余部分少于门限值,则空闲区不进行分割,全部分配给用户.</li>
+</ul>
+<h5 id="方法二-碎片拼接"><a href="#方法二-碎片拼接" class="headerlink" title="方法二: 碎片拼接"></a>方法二: 碎片拼接</h5><ul>
+<li>将所有空闲区集中一起构成一个大的空闲区</li>
+<li>拼接的时机: </li>
+</ul>
+<ol>
+<li>释放区回收的时候(拼接频率过大,系统开销大)</li>
+<li>系统找不到足够大的空闲区的时候(空闲区的管理复杂)</li>
+<li>定期(空闲区的管理复杂)</li>
+</ol>
+<h6 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h6><ul>
+<li>消耗系统资源</li>
+<li>离线拼接,需要对所有作业进行离线,暂停作业进行拼接</li>
+<li>重新定义拼接,每个作业内存的大小,位置发生了变化,需要重新定义.</li>
+</ul>
+<h5 id="方法三-解除程序占用连续内存才能运行的限制"><a href="#方法三-解除程序占用连续内存才能运行的限制" class="headerlink" title="方法三: 解除程序占用连续内存才能运行的限制"></a>方法三: 解除程序占用连续内存才能运行的限制</h5><ul>
+<li>把程序<strong>分拆多个部分装入不同分区</strong>,充分利用碎片.</li>
+</ul>
+<h3 id="虚拟内存管理"><a href="#虚拟内存管理" class="headerlink" title="虚拟内存管理"></a>虚拟内存管理</h3><ul>
+<li>使得大的程序能在较小内存中运行</li>
+<li>多个程序可以在小内存中运行</li>
+<li>多个程序<strong>并发运行</strong>地址不冲突.</li>
+<li>无碎片</li>
+<li><p>实现思路: 只把当前必要的很小一部分代码和数据装入内存,其余代码和数据需要的时候再装入,不再运行的代码和数据从内存中删除.</p>
+</li>
+<li><p>程序运行的局部性: 在一个<strong>有限的</strong>时间段内访问的代码和数据往往集中在<strong>有限的地址范围内</strong>.</p>
+</li>
+<li>把程序的一部分装入内存在较大概率上也足够让其运行一小段时间.<h4 id="页式虚拟存储管理"><a href="#页式虚拟存储管理" class="headerlink" title="页式虚拟存储管理"></a>页式虚拟存储管理</h4></li>
+<li>把进程和内存都按一定大小(如1k,2K,4K等)划分成等大小的小片,进程的小片叫<strong>页</strong>,内存的小片叫<strong>页框</strong>,</li>
+</ul>
+<p>只把程序<strong>部分页</strong>装入内存即可运行.页在内存中占用的页框<strong>不必相邻</strong>.需要新页时,按需从硬盘调入内存.</p>
+<h4 id="页表和页式地址映射"><a href="#页表和页式地址映射" class="headerlink" title="页表和页式地址映射"></a>页表和页式地址映射</h4><p>虚拟地址(VA)可以被分解成<strong>页号P</strong>和<strong>页内偏移W</strong></p>
+<ul>
+<li>页号 = VA / 页的大小</li>
+<li>页内偏移 = VA % 页的大小</li>
+<li>计算页号和页内偏移的另一种方法: </li>
+</ul>
+<ol>
+<li>页号P = VA &gt;&gt; n, 其中n为页的大小2<sup>n</sup></li>
+<li>页内偏移W = VA &amp;&amp;(2<sup>n</sup>-1)</li>
+</ol>
+<ul>
+<li>页面映射表: 记录页与页框之间的对应关系.<h5 id="页式地址映射"><a href="#页式地址映射" class="headerlink" title="页式地址映射"></a>页式地址映射</h5>将虚拟地址(页式地址)映射到物理地址上.</li>
+</ul>
+<ol>
+<li>从VA中分离P和W</li>
+<li>查页表,以P为索引查页框号P’</li>
+<li>计算物理地址MA = P’ $\times$ 页面大小 + W</li>
+</ol>
+<h4 id="快表技术和页面共享技术"><a href="#快表技术和页面共享技术" class="headerlink" title="快表技术和页面共享技术"></a>快表技术和页面共享技术</h4><ul>
+<li>快表(Cache): 页表放在<strong>Cache</strong>中. 容量小,访问快,成本高,慢表部分内容复制,地址映射时优先访问快表.</li>
+<li>慢表: 页表放在内存中<br>如果在快表中找到了所需的数据,叫<strong>命中</strong>.没有命中访问慢表,同时更新快表.合理页面调度策略能够快表具有较高命中率</li>
+</ul>
+<h4 id="缺页中断"><a href="#缺页中断" class="headerlink" title="缺页中断"></a>缺页中断</h4><p>页表扩充: 带<strong>中断位</strong>的页表.</p>
+<ul>
+<li>定义: 访问的目的页<strong>不在内存</strong>,系统产生异常中断.</li>
+<li>缺页中断处理程序: 把所缺的页从页表指出的辅存地址调入内存中的某个页框中,并更新页表中对应的中断位为<strong>0</strong>.</li>
+<li>缺页率: 缺页次数 / 访问次数</li>
+</ul>
+<h4 id="页面淘汰"><a href="#页面淘汰" class="headerlink" title="页面淘汰"></a>页面淘汰</h4><ul>
+<li>选择淘汰<strong>哪一页</strong>的规则.</li>
+<li>页面抖动: 页面在<strong>内存</strong>和<strong>辅存</strong>间频繁交换的现象,降低系统效率.</li>
+</ul>
+<p>一个好的淘汰策略应该具有较低的缺页率,页面抖动较少.</p>
+<ul>
+<li>常用淘汰算法</li>
+</ul>
+<ol>
+<li>最佳算法(OPT): 淘汰以后<strong>不再需要</strong>或者<strong>最远的将来</strong>才会用到的页面.0</li>
+</ol>
+<p>理论上最佳,但实践中该算法<strong>无法实现</strong>,在进程访问完之前并不知道将来需要访问什么页面</p>
+<ol>
+<li>先进先出算法(FIFO): 淘汰在内存中<strong>停留时间最长</strong>的页面</li>
+</ol>
+<p>实现简单: 只有按顺序地址空间访问时才有较高命中率.</p>
+<ol>
+<li>最久未使用淘汰算法: 淘汰最长时间未被使用的页面(LRU)</li>
+</ol>
+<p>页面设置一个<strong>移位寄存器R</strong>,每当页面被访问则将其重置1. 周期性地将所有页面的R左移一位. 当需要淘汰页面时,选择R值最大的页(R值越大,对应页的未被使用时间也就越长.R的位数越多,位移周期越小就越精确.但硬件成本也就越高.</p>
+<ol>
+<li>最不经常用算法(LFU)</li>
+</ol>
+<p>选择到当前时间为止访问次数最少的页面.</p>
+<h3 id="段式和段页式虚拟内存"><a href="#段式和段页式虚拟内存" class="headerlink" title="段式和段页式虚拟内存"></a>段式和段页式虚拟内存</h3><p>把进程<strong>按逻辑意义</strong>分成多个段,每个段有<strong>段名</strong>,长度不定.有点像汇编里面的code segment stack segment</p>
+<ul>
+<li>以段为单位装入,每段分配连续的内存.段与段之间不需要相邻</li>
+</ul>
+<h4 id="段式地址映射机制"><a href="#段式地址映射机制" class="headerlink" title="段式地址映射机制"></a>段式地址映射机制</h4><p>段表: 记录每段在内存中的映射地址,包括<strong>段号</strong>,<strong>段长</strong>,<strong>基地址</strong>.</p>
+<ul>
+<li>段号: 段的编号(<strong>唯一</strong>)</li>
+<li>段长: 该段的长度</li>
+<li>基地址: 在内存中的首地址</li>
+</ul>
+<p>映射过程: </p>
+<ol>
+<li>由逻辑地址VA分离出(S,W)</li>
+<li>查询段表</li>
+<li>物理地址MA = B + W</li>
+</ol>
+<ul>
+<li>段的共享: </li>
+</ul>
+<ol>
+<li>在内存中只有一份存储</li>
+<li>共享段被多个进程映射到各自段表</li>
+<li>需要共享的模块可以设置为单独的段.</li>
+</ol>
+<ul>
+<li>缺点:</li>
+</ul>
+<ol>
+<li>需要连续空间</li>
+<li>最大尺寸受到内存大小限制</li>
+</ol>
+<h4 id="段式-VS-页式"><a href="#段式-VS-页式" class="headerlink" title="段式 VS 页式"></a>段式 VS 页式</h4><p>页式系统是一位地址空间,段式是二维.</p>
+<h4 id="段页式存储管理"><a href="#段页式存储管理" class="headerlink" title="段页式存储管理"></a>段页式存储管理</h4><p>地址构成: 段号,页号,页内偏移.</p>
+<h5 id="段页式地址的映射机构"><a href="#段页式地址的映射机构" class="headerlink" title="段页式地址的映射机构"></a>段页式地址的映射机构</h5><ul>
+<li>同时采用<strong>段表</strong>和<strong>页表</strong>实现地址映射</li>
+<li>系统为<strong>每一个进程</strong>建立一个<strong>段表</strong></li>
+<li>系统为<strong>每一个段</strong>建立一个<strong>页表</strong></li>
+<li>段表给出每段的<strong>页表基址</strong>和<strong>页表长度</strong></li>
+<li>页表给出每页对应的页框.</li>
+</ul>
+<h3 id="Intel-CPU和-Linux内存管理"><a href="#Intel-CPU和-Linux内存管理" class="headerlink" title="Intel CPU和 Linux内存管理"></a>Intel CPU和 Linux内存管理</h3><h4 id="Intel-CPU物理结构"><a href="#Intel-CPU物理结构" class="headerlink" title="Intel CPU物理结构"></a>Intel CPU物理结构</h4><h5 id="实模式"><a href="#实模式" class="headerlink" title="实模式"></a>实模式</h5><ul>
+<li>20位寻址能力</li>
+<li>地址表示方式:段地址(16位) : 偏移地址(16位)</li>
+<li>段地址4位对齐</li>
+<li>程序直接存储物理地址</li>
+</ul>
+<h5 id="保护模式"><a href="#保护模式" class="headerlink" title="保护模式"></a>保护模式</h5><ul>
+<li>32位地址: 4G内存</li>
+<li>支持多任务,任务切换,上下文保护</li>
+<li>进程隔离</li>
+<li>支持<strong>分段机制</strong>和<strong>分页机制</strong></li>
+</ul>
+<p>每个进程的运行结果只会影响自身.</p>
+<ul>
+<li>控制寄存器CR0<br>PE: 0 - 实模式 ; 1 - 保护模式<br>PG: 允许分页<br>PE和PG分别在寄存器的两头.</li>
+<li>控制寄存器CR2:<br>如果发生缺页,引发缺页的线性地址保存在CR2中</li>
+<li>控制寄存器CR3:<br>页目录基址(高20位)</li>
+</ul>
+<h5 id="x86-CPU架构下三种地址"><a href="#x86-CPU架构下三种地址" class="headerlink" title="x86 CPU架构下三种地址"></a>x86 CPU架构下三种地址</h5><ul>
+<li>逻辑地址(就是汇编里面最常用的那种地址</li>
+<li>线性地址: 由<strong>逻辑地址</strong>转换得到</li>
+<li>物理地址: 如果<strong>未分页</strong>则线性地址就是物理地址.如果分页那么线性地址不等于物理地址.</li>
+</ul>
+<h4 id="Intel-CPU段机制"><a href="#Intel-CPU段机制" class="headerlink" title="Intel CPU段机制"></a>Intel CPU段机制</h4><ul>
+<li>一段<strong>连续内存</strong></li>
+</ul>
+<h5 id="描述符"><a href="#描述符" class="headerlink" title="描述符"></a>描述符</h5><ul>
+<li>段基址: 32位(段基址1 + 段基址2)</li>
+<li>段界限: 20位(段界限1 + 段界限2)</li>
+<li>把逻辑地址转换到线性地址.</li>
+</ul>
+<p>描述段的属性.8字节:</p>
+<ul>
+<li>段基址</li>
+<li>段界限</li>
+<li>段属性</li>
+<li>段类型</li>
+<li>访问该段所需要的最小特权级</li>
+<li>是否在内存.<h5 id="描述符表"><a href="#描述符表" class="headerlink" title="描述符表"></a>描述符表</h5></li>
+<li>存放描述符的数组,长度为8字节的整数倍</li>
+</ul>
+<ol>
+<li>全局描述符表(GDT),包含所有进程可用的段的描述符,系统仅一个</li>
+<li>局部描述符表(LDT),包含与特定进程相关的描述符,一个进程一个</li>
+<li>中断描述符表(IDT),包含中断服务程序的描述符.</li>
+</ol>
+<h5 id="选择子-Selecto"><a href="#选择子-Selecto" class="headerlink" title="选择子(Selecto)"></a>选择子(Selecto)</h5><ul>
+<li>用于选择GDT/LDT中的某个描述符,存放在<strong>段寄存器</strong>中,高13位是整数索引.</li>
+<li>构成: </li>
+</ul>
+<ol>
+<li>索引域: 给出段描述符在GDT或者LDT中的位置</li>
+<li>TI域,GDT(0)或者LDT(T)</li>
+<li>特权级别域,两位.</li>
+</ol>
+<h4 id="硬件分页"><a href="#硬件分页" class="headerlink" title="硬件分页"></a>硬件分页</h4><ul>
+<li>大小: 4KB</li>
+<li>通过设置CR0的PG位开启分页功能.</li>
+</ul>
+<h5 id="普通页表实现问题"><a href="#普通页表实现问题" class="headerlink" title="普通页表实现问题:"></a>普通页表实现问题:</h5><p>32位OS(4G空间),</p>
+<ul>
+<li>每页<strong>4K</strong>,</li>
+<li>页表每个记录占<strong>4个字节</strong>.</li>
+<li>进程页数 = 4G / 4K = <strong>1M</strong> 个页</li>
+<li><strong>页表记录</strong>应该有<strong>1M</strong>条记录</li>
+<li>页表所占内存: 1M $\times$ 4字节 = 4M</li>
+<li>页表所占<strong>页框</strong>数 = 4M / 4K = 1K 页框</li>
+</ul>
+<p>问题: 难以找到<strong>连续1K个页框</strong>,页表全部装入<strong>过度消耗</strong>.<br>解决: 存储到离散页框.存部分. </p>
+<ul>
+<li>访问数组需要<strong>三次</strong>访问内存</li>
+<li>页目录调入内存</li>
+<li>页表按需要调入内存.<br>Linux实际上是二级页表,采用三级页表机制,增加对硬件的适应性.</li>
+</ul>
+<h4 id="Linux对段的支持"><a href="#Linux对段的支持" class="headerlink" title="Linux对段的支持."></a>Linux对段的支持.</h4><ul>
+<li>进程建立,段机制对寄存器的初始化: start_thread().</li>
+<li>Linux四个范围一样的段: 0 ~ 0xFFFFFFFF(4G)</li>
+<li>内核特权级为0,用户特权级为3</li>
+<li>利用段机制隔离用户数据和系统数据</li>
+<li>避免/简化虚拟地址到线性地址的转换.</li>
+</ul>
+<h2 id="设备管理"><a href="#设备管理" class="headerlink" title="设备管理"></a>设备管理</h2><h3 id="设备管理概念"><a href="#设备管理概念" class="headerlink" title="设备管理概念"></a>设备管理概念</h3><ol>
+<li>按交互对象</li>
+<li>按交互方向</li>
+<li>按外设特性</li>
+</ol>
+<p>设备管理的主要功能: </p>
+<ul>
+<li>设备分配: 按照一定策略,为申请设备的进程分配设备,记录设备的使用情况.(<strong>基本任务</strong>)</li>
+<li>设备映射: 设备管理模块将逻辑设备映射到物理设备的功能.</li>
+<li>设备独立性: 物理设备对用户透明,用户使用统一规范的方式使用设备.用户编程的时候使用设备逻辑名,由系统实现逻辑设备到物理设备的转换.</li>
+<li>设备驱动: 对物理设备进行控制实现I/O操作.</li>
+<li>设备驱动与硬件密切相关,每类设备配置特定的驱动程序,驱动程序一般由设备厂商根据OS来编写.OS仅对设备驱动的接口提出要求.</li>
+</ul>
+<h3 id="Spooling系统"><a href="#Spooling系统" class="headerlink" title="Spooling系统"></a>Spooling系统</h3><p>独占性设备包括<strong>所有的字符型设备</strong><br>共享性设备包括<strong>所有块型设备</strong></p>
+<h4 id="独占性设备的分配"><a href="#独占性设备的分配" class="headerlink" title="独占性设备的分配"></a>独占性设备的分配</h4><ol>
+<li>申请</li>
+<li>分配</li>
+<li>发送使用指令</li>
+<li>完成I/O传输</li>
+<li>释放设备</li>
+<li>回收设备</li>
+</ol>
+<p>在进程申请成功直到释放用完之前独占设备.</p>
+<h4 id="共享型设备"><a href="#共享型设备" class="headerlink" title="共享型设备"></a>共享型设备</h4><p><strong>不需要申请</strong>,不存在占用或者释放设备的问题.但是I/O期间只能有一个进程使用设备. </p>
+<h4 id="虚拟技术"><a href="#虚拟技术" class="headerlink" title="虚拟技术"></a>虚拟技术</h4><ul>
+<li>在一类物理设备模拟另一类物理设备的技术</li>
+<li>借助<strong>辅存部分区域</strong>模拟独占设备.将独占转换为共享设备</li>
+<li>虚拟设备: 用来模拟独占设备的区域. </li>
+<li>虚拟分配: 当进程需要与独占设备交换信息时,就采用虚拟技术将与该独占设备所对应的虚拟设备分配给他</li>
+</ul>
+<h5 id="SPOOL系统原理"><a href="#SPOOL系统原理" class="headerlink" title="SPOOL系统原理"></a>SPOOL系统原理</h5><p>任务执行前: 预先将程序和数据输入到输入井中</p>
+<p>任务运行时: 使用数据,从输入井中取出</p>
+<p>任务运行时: 输出数据时,把数据写入到输出井</p>
+<p>任务运行完: 外设空闲时输出全部数据和信息</p>
+<h3 id="Linux模块机制"><a href="#Linux模块机制" class="headerlink" title="Linux模块机制"></a>Linux模块机制</h3><ul>
+<li><p>LKM: 解决单体内核机制的不足</p>
+</li>
+<li><p>一种<strong>未经链接</strong>的可执行代码</p>
+</li>
+<li>经过装载(即<strong>链接</strong>)成为内核的一部分</li>
+<li>可以动态加载或者卸载. </li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#编译模块</span></span><br><span class="line">gcc -o _D_KERNEL_ -DMOUDLE hello.c <span class="comment">#两个参数提示GCC把hello.c编译为模块</span></span><br><span class="line"><span class="comment">#安装模块</span></span><br><span class="line">sudo insmod hellomodule.ko <span class="comment">#发现调用hello_init函数</span></span><br><span class="line"><span class="comment">#删除模块</span></span><br><span class="line">sudo rmmod module <span class="comment">#卸载模块调用hello_exit函数</span></span><br><span class="line"><span class="comment">#查看内核信息,输出函数不是printf是printk,所以在内核信息中查看</span></span><br><span class="line">dmesg</span><br><span class="line"><span class="comment"># 查看模块</span></span><br><span class="line">lsmod </span><br><span class="line"><span class="comment">#注册模块</span></span><br><span class="line">module_init(hello_init)</span><br><span class="line"><span class="comment">#卸载模块</span></span><br><span class="line">module_exit(hello_exit)</span><br></pre></td></tr></table></figure>
+<h4 id="带参数的模块"><a href="#带参数的模块" class="headerlink" title="带参数的模块"></a>带参数的模块</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">module_param(name, <span class="built_in">type</span>,perm);</span><br><span class="line"><span class="comment"># name: 模块参数的名称</span></span><br><span class="line"><span class="comment"># type: 模块参数的数据类型,int,bool等</span></span><br><span class="line"><span class="comment"># perm: 模块参数的权限</span></span><br></pre></td></tr></table></figure>
+<h3 id="Linux驱动程序-LDD"><a href="#Linux驱动程序-LDD" class="headerlink" title="Linux驱动程序(LDD)"></a>Linux驱动程序(LDD)</h3><ul>
+<li>应用程序通过<strong>驱动程序</strong>间接访问设备</li>
+<li>驱动程序工作在核态.<h4 id="设备分类"><a href="#设备分类" class="headerlink" title="设备分类"></a>设备分类</h4></li>
+<li>字符设备:以字节为单位逐个进行I/O操作.</li>
+<li>块设备: 存取通过buffer,cache来进行.例如硬盘.</li>
+<li>网络设备.</li>
+<li><p>设备文件: 硬件设备作为<strong>文件</strong>看待</p>
+</li>
+<li><p>主设备号</p>
+</li>
+</ul>
+<ol>
+<li>标识该设备种类,标识驱动程序</li>
+<li>主设备号范围: 0~255</li>
+<li>Linux内核支持动态分配主设备号</li>
+</ol>
+<ul>
+<li>次设备号</li>
+</ul>
+<ol>
+<li>同一设备驱动程序的不同硬件设备</li>
+<li>只在<strong>驱动程序内部</strong>使用.</li>
+</ol>
+<p>驱动程序的<strong>注册</strong>和<strong>注销</strong>一定要实现.</p>
+<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>Windows固定采用<strong>DriverEntry</strong>作为入口函数<br>给<strong>pDriverObject-&gt;DriverUnload</strong>赋值退出函数指针.</p>
+<h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><p>用户通过<strong>读写指针</strong>来读取信息项.</p>
+<h4 id="文件分类"><a href="#文件分类" class="headerlink" title="文件分类"></a>文件分类</h4><ol>
+<li>文件用途</li>
+<li>文件操作权限</li>
+<li>文件性质</li>
+</ol>
+<h4 id="文件属性"><a href="#文件属性" class="headerlink" title="文件属性"></a>文件属性</h4><p>指定文件类型,操作特性,存取保护等<strong>一组信息</strong>.放在文件所在目录的目录文件中.<br>在MS-DOS系统中,文件属性占目录项的<strong>一个字节</strong><br>00000001-只读属性<br>00000010-隐藏属性.</p>
+<h4 id="文件系统-1"><a href="#文件系统-1" class="headerlink" title="文件系统"></a>文件系统</h4><ul>
+<li>负责管理文件的机构</li>
+</ul>
+<h4 id="文件的逻辑结构"><a href="#文件的逻辑结构" class="headerlink" title="文件的逻辑结构"></a>文件的逻辑结构</h4><ul>
+<li>记录式文件: 记录结构化的数据</li>
+<li>流式文件: 信息项是<strong>字节</strong>,节省存储空间</li>
+</ul>
+<p>现代操作系统中文件都是流式文件.由应用程序去解释这些文件.</p>
+<h4 id="文件存取方法"><a href="#文件存取方法" class="headerlink" title="文件存取方法"></a>文件存取方法</h4><h5 id="顺序存取"><a href="#顺序存取" class="headerlink" title="顺序存取"></a>顺序存取</h5><p>按照文件信息项排列顺序依次存取.</p>
+<ul>
+<li>读写指针: 文件打开时,读写指针直向第一个信息项,每存取一个信息项,读写指针自动加一而指向下一个信息项.<h5 id="随机存取"><a href="#随机存取" class="headerlink" title="随机存取"></a>随机存取</h5></li>
+<li>直接存取,存取操作时<strong>指定存取的位置</strong></li>
+<li>对流式文件或者记录为<strong>定长</strong>的文件容易确定存取位置.<h3 id="文件物理结构"><a href="#文件物理结构" class="headerlink" title="文件物理结构"></a>文件物理结构</h3></li>
+<li>文件在存储设备上的存储方式</li>
+</ul>
+<h4 id="连续文件"><a href="#连续文件" class="headerlink" title="连续文件"></a>连续文件</h4><ul>
+<li>按<strong>逻辑块</strong>的顺序存放在硬盘连续的物理存储块中</li>
+<li>文件目录记录文件长度(块数)和第一个存储块的块号</li>
+</ul>
+<p>缺点: 不容易动态增长,不利于文件的插入和删除.需要预留空间</p>
+<h4 id="串联文件"><a href="#串联文件" class="headerlink" title="串联文件"></a>串联文件</h4><ul>
+<li>文件存放<strong>不连续的</strong>的存储块中,每个存储块有一个指针(next),指向下一个存储块.</li>
+<li>文件目录记录文件指明文件名和第一个存储块的块号</li>
+</ul>
+<p>缺点: 存取速度慢,不适合随机存取,next指针占用内存,适用于FAT系统.</p>
+<h3 id="FAT文件系统"><a href="#FAT文件系统" class="headerlink" title="FAT文件系统"></a>FAT文件系统</h3><ul>
+<li>串联文件应用.</li>
+<li>FAT将next有序集中放到FAT表中.<h4 id="文件访问过程"><a href="#文件访问过程" class="headerlink" title="文件访问过程:"></a>文件访问过程:</h4></li>
+</ul>
+<ol>
+<li>访问文件目录: 找0块的块号i</li>
+<li>访问FAT找下一块的块号: <code>FAT(i)</code>.i是当前的块号.<br>文件分配表的缺点: </li>
+<li>读文件时,先读FAT,<strong>影响使用效率</strong>.</li>
+<li>FAT占用存储空间.存储块越多,FAT元素越多.且元素位宽越长,占用更多额外的存储空间.</li>
+</ol>
+<p>如果存储块有$2^N$块,FAT有$2^N$个元素,每项只需要需要N位的宽度</p>
+<h4 id="扇区"><a href="#扇区" class="headerlink" title="扇区"></a>扇区</h4><ul>
+<li>磁盘上最小可寻址存储单元(512字节)<h4 id="簇-存储块"><a href="#簇-存储块" class="headerlink" title="簇 = 存储块"></a>簇 = 存储块</h4></li>
+<li>设备最小的存储单元,固定数量的扇区.<br>360K磁盘 簇 = 2个扇区(1024字节)<br>10MB硬盘 簇 = 8个扇区(4096字节)<br>2GB硬盘: 簇 = 64个扇区(32KB)<br>FAT元素数目和簇的数目一样多.<br>磁盘容量 = FAT长度 $\times$ 簇容量 = FAT长度 $\times$ 簇扇区数 $\times$ 512 字节.</li>
+</ul>
+<h3 id="文件存储和目录"><a href="#文件存储和目录" class="headerlink" title="文件存储和目录"></a>文件存储和目录</h3><p>记录磁盘空闲块的方法</p>
+<h4 id="空闲文件目录"><a href="#空闲文件目录" class="headerlink" title="空闲文件目录"></a>空闲文件目录</h4><ul>
+<li>把连续空闲区看成一个特殊文件,由多个空闲块构成<br>为空闲文件建立专门的目录: <strong>空闲文件目录</strong>,每个表项对应一个空闲文件.包括第一个空闲块号,空闲块个数.<h4 id="空闲块链"><a href="#空闲块链" class="headerlink" title="空闲块链"></a>空闲块链</h4></li>
+<li>把所有空闲块链接在一起</li>
+<li>当申请者需要空闲块时, 链头开始搜索所需要的空闲块</li>
+<li>当需要回收空闲块时,把释放的空闲块<strong>逐个</strong>加在链尾</li>
+</ul>
+<h4 id="位视图"><a href="#位视图" class="headerlink" title="位视图"></a>位视图</h4><p>从内存怒中划出若干个字节, 每个bit表示要给存储块空闲或者被占用.</p>
+<h4 id="文件目录管理"><a href="#文件目录管理" class="headerlink" title="文件目录管理"></a>文件目录管理</h4><ul>
+<li>文件名址录: 记录文件名和存放地址的目录表.</li>
+<li>具有将文件名转换为外存物理地址的功能</li>
+<li><strong>文件属性</strong>也记录在目录里面</li>
+</ul>
+<p>文件目录以文件形式存于外村,这个文件叫目录文件..</p>
+]]></content>
+      <tags>
+        <tag>Notes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>聚类</title>
+    <url>/2020/03/24/%E8%81%9A%E7%B1%BB/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h1 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h1><h2 id="聚类试图完成的任务"><a href="#聚类试图完成的任务" class="headerlink" title="聚类试图完成的任务"></a>聚类试图完成的任务</h2><p>面对一个样本集<strong>D</strong> = {x<sub>1</sub>,x<sub>2</sub>, x<sub>3</sub>, … , x<sub>m</sub>},聚类试图将D中的样本划分成若干个<strong>不相交的子集</strong>,每一个子集成为之一个<strong>簇</strong>(cluster).通过这样的划分,也许可以找出每个簇对应的一些潜在规律,例如第一个簇里面的样本都是”浅色瓜”,第二个簇里面的样本都是”深色瓜”,诸如此类.但是这些概念对于聚类算法而言是<strong>事先未知的</strong>.</p>
+<a id="more"></a>
+<h2 id="聚类用到的概念"><a href="#聚类用到的概念" class="headerlink" title="聚类用到的概念"></a>聚类用到的概念</h2><p>假定样本集<strong>D</strong>中包含m个无标记样本.每一个样本<strong>x<sub>i</sub></strong> = {x<sub>i1</sub>,x<sub>i2</sub>,x<sub>i3</sub>, … x<sub>in</sub>}都是一个<strong>n维特征向量</strong>,</p>
+<p>算法划分成的簇用<strong>C<sub>l</sub></strong>表示.假定划分成了k个簇,那么这k个簇两两之间的交集为空集,k个簇的并集为样本集<strong>D</strong>.</p>
+<p>用&lambda;<sub>j</sub> &isin; { 1, 2, 3, … k } 表示D中的样本x<sub>j</sub>的簇标记.即x<sub>j</sub> &isin; $C_{\lambda_j}$  </p>
+<h2 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h2><p>我们希望聚类结果的<strong>簇内相似度高</strong>,<strong>簇间相似度低</strong>.这一点其实很好理解,如果簇内的相似度太低则可能将无关样本也划分进来,如果簇间相似度高了则有可能将原本是一个簇的样本强行划分成了两个簇.</p>
+<p>评价一个聚类的性能度量大概有两类.</p>
+<ol>
+<li>将结果与某个参考模型进行比较,称为<strong>外部指标</strong></li>
+<li>直接考察聚类结果而不利用任何参考模型,称为<strong>内部指标</strong></li>
+</ol>
+<p>下面我们来考虑用外部指标进行性能度量的情况</p>
+<h3 id="外部指标"><a href="#外部指标" class="headerlink" title="外部指标"></a>外部指标</h3><p>假定对于上述给定的数据集<strong>D</strong>,通过<strong>聚类</strong>划分出的簇一共有k个,<strong>参考模型</strong>给出的簇一共有s个.将D中的样本两两配对考虑,且有如下定义:</p>
+<p>a = |SS|,|SS| = {(x<sub>i</sub>,x<sub>j</sub>) | &lambda;<sub>i</sub> = &lambda;<sub>j</sub>, &lambda;<sup>‘</sup> <sub>i</sub>= &lambda;<sup>‘</sup> <sub>j</sub>}<br>b = |SD|,|SD| = {(x<sub>i</sub>,x<sub>j</sub>) | &lambda;<sub>i</sub> = &lambda;<sub>j</sub>, &lambda;<sup>‘</sup> <sub>i</sub> &ne; &lambda;<sup>‘</sup> <sub>j</sub>}<br>c = |DS|,|DS| = {(x<sub>i</sub>,x<sub>j</sub>) | &lambda;<sub>i</sub> &ne; &lambda;<sub>j</sub>, &lambda;<sup>‘</sup> <sub>i</sub>= &lambda;<sup>‘</sup> <sub>j</sub>}<br>d = |DD|,|DD| = {(x<sub>i</sub>,x<sub>j</sub>) | &lambda;<sub>i</sub> &ne; &lambda;<sub>j</sub>, &lambda;<sup>‘</sup> <sub>i</sub>&ne; &lambda;<sup>‘</sup> <sub>j</sub>}</p>
+<p>基于上述定义我们导出如下的一些指标(虽然我并没有看懂它到底是怎么推出来的)</p>
+<ul>
+<li>Jaccard系数: JC = $ \frac{a}{a+b+c}$</li>
+<li>FM指数: FMI = $ \sqrt{\frac{a}{a+b}  \times \frac{a}{a+c} }$</li>
+<li>Rand指数: RI =  $ \frac {2(a+d)}{m(m-1)}$</li>
+</ul>
+<p>上述性能度量的结果在区间[0,1]内,越接近1越好,下面我们考虑聚类结果的簇划分$C$ = {C<sub>1</sub>, C<sub>2</sub>,C<sub>3</sub>…C<sub>k</sub>},定义如下概念:</p>
+<ul>
+<li>avg(C) = $ \frac{2}{|C|(|C| - 1)} \sum _{1 \leq i \le j \leq |C|} dist(x_i,x_j)$</li>
+<li>diam (C) = $max_{1 \leq i \le j \leq |C|} dist(x_i,x_j)$</li>
+<li>d$<em>{min}$($C_i,C_j$) = $min</em>{x_i \in C_i, x_j \in C_j} dist(x_i,x_j)$</li>
+<li>$d_{cen}{(C_i,C_j)} = dist( \mu_i, \mu_j)$</li>
+</ul>
+<p>其中dist用于计算两个样本之间的距离, $ \mu$ 代表簇$C$的中心点$ \mu = \frac{1}{|C|} \sum<em>{1 \leq i \leq |C|} x_i$.显然可以知道avg(C)对应的含义是簇C内样本的平均距离(当然我们希望avg的值越小越好).$d</em>{min}(C<em>i,C_j)$ 对应于簇$C_i$和簇$C_j$<strong>最近样本</strong>间的距离,$d</em>{cen}(C_i,C_j)$对应于簇$C_i$和簇$C_j$ <strong>中心点之间</strong>的距离.<br>同样的,根据以上定义我们可以导出下面常用的性能度量的内部指标</p>
+<ul>
+<li>DB指数: DBI = $ \frac{1}{k} \sum<em>{i = 1}^{k} max</em>{j \neq i}( \frac{avg(C<em>i) + avg(C_j)}{d</em>{cen}(\mu_i\mu_j)} $</li>
+<li>Dunn指数: DI = $min<em>{1 \leq i \leq k}{ min</em>{i \neq j}(\frac {d<em>{min}(C_i,C_j)}{max</em>{1 \leq l \leq k}diam(C_l)})}$</li>
+</ul>
+<p>显然DBI的值越小越好(对应簇内部样本距离越小,簇之间的中心距离越大),DI的值越大越好,这里就不再赘述</p>
+<h2 id="原型聚类"><a href="#原型聚类" class="headerlink" title="原型聚类"></a>原型聚类</h2><h3 id="k均值算法"><a href="#k均值算法" class="headerlink" title="k均值算法"></a>k均值算法</h3><p>给定样本集D=$ \left{ x_1, x_2, x_3…x_m \right}$,k均值算法针对聚类算法所得到的簇划分C = $ \left{C_1,C_2,C_3..C_k \right}$最小化平方误差</p>
+<script type="math/tex; mode=display">
+E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$是簇$C_i$的均值向量,从直观上来看E刻画的是簇内样本对簇$C_i$的围绕紧密程度.E值越小说明簇内样本相似度越高.最小化这个式子我们现在采用的是贪心策略,通过迭代优化来近似求解.</p>
+<p><img src="https://s1.ax1x.com/2020/03/25/8XkUEj.png" alt="8XkUEj.png"></p>
+<p>不过需要注意的是,在最开始初始化的过程中是<strong>随机选取</strong>样本作为初始的均值向量.</p>
+<ul>
+<li><p>对于每一个样本$x_j$,其中$j = 1, 2, 3, …m$</p>
+<ul>
+<li>计算样本与各个簇之间的距离</li>
+<li>根据距离最近的均值确定样本$x_j$的簇标记</li>
+<li>将样本$x<em>j$划入对应的簇:$C</em>{\lambda<em>j} = C</em>{\lambda_j} \cup \left{x_j \right}$</li>
+</ul>
+</li>
+<li><p>对于每一个簇$\mu_i$,其中$i = 1,2,3, … k$</p>
+<ul>
+<li>计算每一个簇内<strong>新的均值向量$\mu’$</strong></li>
+<li>如果新的均值向量$\mu’$和原有的均值向量$\mu$不相等,则将均值向量更新为新的均值向量$\mu’$.否则均值向量不更新</li>
+</ul>
+<p>重复上述操作,直到当前均值向量都未更新或者到达了最大运行轮次</p>
+</li>
+</ul>
+<h3 id="学习向量化-Learning-Vector-Quantization"><a href="#学习向量化-Learning-Vector-Quantization" class="headerlink" title="学习向量化(Learning Vector Quantization)"></a>学习向量化(Learning Vector Quantization)</h3><ul>
+<li>LVQ假设数据样本带有标记,学习过程利用这些监督信息辅助聚类</li>
+</ul>
+<p>给定样本集$D = \left{(x<em>1,y_1),(x_2,y_2),…,(x_m,y_m)\right}$.每个样本$x_j$是由n个属性描述的特征向量$(x</em>{j1} ;x<em>{j2};x</em>{j3}…x_{jn})$.LVQ的目标是<strong>$学习到一组n维原型向量\left{p_1,p_2,p_3…p_n\right}$</strong> ,每一个原型向量代表一个聚类簇.</p>
+<h4 id="学习向量化算法"><a href="#学习向量化算法" class="headerlink" title="学习向量化算法"></a>学习向量化算法</h4><ul>
+<li>初始化一组原型向量(这个西瓜书上并没有写的很清楚具体的初始化过程,只有很简单的一句话)</li>
+<li>从D中随机选取一个有标记的样本$(x_j,y_j)$,计算样本与每一个聚类簇$p_j$的距离.</li>
+<li>找出与样本最近的聚类簇$ p<em>{i’} $ ,如果样本的标记和聚类簇相等,则令原型向量向$x_j$的方向靠拢,$p’ = p</em>{i’} + \eta (x<em>j - p</em>{i’})$</li>
+<li>如果标记和聚类簇不相等,则令原型向量远离$x<em>j$,$p’ = p</em>{i’} + \eta (x<em>j - p</em>{i’})$</li>
+<li>将原型向量$p_{i’}$更新为$p’$,不断迭代,直到达到停止条件</li>
+</ul>
+<p>新的原型向量$p’$与原来样本$x<em>j$的距离为$||p’ - x_j|| = (1- \eta ) || p</em>{i’} - x_j||_2$ .令学习率 $\eta \in (0,1)$ .在更新为$p’$之后将更接近$x_j$.<br>当标记不同的时候也是类似.</p>
+<h2 id="密度聚类"><a href="#密度聚类" class="headerlink" title="密度聚类"></a>密度聚类</h2><p>假定聚类结构能够通过样本分布的紧密程度决定.基于<strong>可连接样本</strong>不断扩展聚类簇获得最终结果.</p>
+<ul>
+<li>$\epsilon$-邻域,对$x<em>j \in D$,其$\epsilon$-邻域包含样本集D中与$x_j$距离不大于$\epsilon$的样本,即 $N</em>{\epsilon}(x_j) = \left{x_i \in D |dist(x_i,x_j) \leq \epsilon \right}$</li>
+<li>核心对象,若$x_i$的$\epsilon$-邻域至少包含 MinPts个样本(具体数值由我们手动设置),则$x_i$是一个核心对象</li>
+<li>密度直达: 若$x_j$位于$x_i$的$\epsilon$-邻域中,且$x_i$是核心对象,则称$x_j$由$x_i$密度直达</li>
+<li>密度可达: 对$x<em>j$和$x_i$,如果存在样本序列$p_1$,$p_2$,$p_3$,…$p_n$,其中p=$p_1 = x_i,p_n = x_j,$,且$p</em>{i+1}$由$p_i$密度直达,则称$x_j$由$x_i$密度可达</li>
+<li>密度相连: 对$x_j$和$x_i$,如果存在$x_k$,使得$x_i$和$x_j$均由$x_k$密度可达,则称$x_i$与$x_j$密度相连</li>
+</ul>
+<p><a href="https://imgchr.com/i/8XUHOS" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/25/8XUHOS.png" alt="8XUHOS.png"></a></p>
+<p>基于以上概念,DBSCAN将<strong>簇</strong>定义为由密度可达关系导出的最大密度相连样本集合.</p>
+<h4 id="DBSCAN算法"><a href="#DBSCAN算法" class="headerlink" title="DBSCAN算法"></a>DBSCAN算法</h4><ul>
+<li>初始化核心对象集合$\Omega$为空集</li>
+<li>对于样本集D中的每一个样本$x_j$,确定它是否满足<strong>核心对象</strong>的条件如果满足,将该样本加入核心对象集合$\Omega$中</li>
+<li>记录当前未访问样本集合$\Gamma_{old} = \Gamma$ .</li>
+<li>初始化聚类簇数为0,未访问样本数集合$\Gamma$ = D</li>
+<li>当$\Omega$不为空集时,随机选取一个$\Omega$中的元素o,初始化队列Q = &lt; o &gt;</li>
+<li>将未访问样本集合$\Gamma$更新为$\Gamma$ \ { o }</li>
+<li>当Q不为空时,提出Q中的首个样本$q$,如果$q$是核心对象,令$\Delta$为$q$的$\epsilon$-邻域中的样本和未访问集合$\Gamma$中的交集</li>
+<li>将$\Delta$中的元素加入队列Q中.更新$\Gamma$为 $\Gamma = \Gamma \backslash \Delta$</li>
+<li>当Q中所有元素都被取出来之后, k自增一,生成聚类簇$C<em>k$     = $\Gamma</em>{old} \backslash \Gamma$, 更新核心对象集合$\Omega = \Omega \backslash C_k$</li>
+</ul>
+<h2 id="层次聚类"><a href="#层次聚类" class="headerlink" title="层次聚类"></a>层次聚类</h2><ul>
+<li>在不同层次对数据集进行划分,形成<strong>树形</strong>的聚类结构.可以采用自底向上的聚合策略,也可以采用自顶向下的分拆策略.<h3 id="AGNES"><a href="#AGNES" class="headerlink" title="AGNES"></a>AGNES</h3>将数据集中的每一个样本看作一个<strong>初始聚类簇</strong>,在算法运行的每一步找出距离最近的两个聚类簇进行合并.重复过程直到达到预设的簇的个数.</li>
+<li>簇之间距离的计算:</li>
+</ul>
+<ol>
+<li>最小距离: $d<em>{min}(C_i,C_j) = min</em>{x \in C_i, y \in C_j}dist(x,y)$</li>
+<li>最大距离: $d<em>{max}(C_i,C_j) = max</em>{x \in C_i, y \in C_j}dist(x,y)$</li>
+<li><p>平均距离: $d<em>{avg}(C_i,C_j) = \frac {1}{|C_i||C_j|} \sum</em>{x \in C<em>i} \sum</em>{y \in C_j}dist(x,y)$</p>
+<p><img src="https://s1.ax1x.com/2020/03/25/8vEA7F.png" alt="8vEA7F.png"></p>
+</li>
+</ol>
+<p>算法的1-9行对仅含一个样本的<strong>初始聚类簇</strong>和<strong>距离矩阵</strong>进行初始化.所以这也是为什么第七行会有$M(j,i) = M(i,j)$ .<br>第11-23行则是对这个矩阵不断进行更新操作.矩阵合并之后相应的距离矩阵也需要更新.</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>评论系统Valine的使用</title>
+    <url>/2020/03/07/%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9FValine%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h1 id="评论系统Valine的使用"><a href="#评论系统Valine的使用" class="headerlink" title="评论系统Valine的使用"></a>评论系统Valine的使用</h1><p><a href="https://ioliu.cn/2017/add-valine-comments-to-your-blog/" target="_blank" rel="noopener">@云淡风轻</a> 开发了一款轻量级的Blog评论应用,这里记录下Valine的使用和自定义过程</p>
+<a id="more"></a>
+<h2 id="获取App-ID和App-Key"><a href="#获取App-ID和App-Key" class="headerlink" title="获取App ID和App Key"></a>获取App ID和App Key</h2><p>在<a href="https://leancloud.cn/dashboard/applist.html#/apps" target="_blank" rel="noopener">LeanCloud的官网</a>上注册一个帐号,实名并邮箱验证通过之后可以<a href="https://leancloud.cn/dashboard/applist.html#/apps" target="_blank" rel="noopener">这里</a>创建一个应用.应用名可以随便取.</p>
+<p>在刚刚创建的应用的设置中选择<strong>应用Key</strong>,就可以看到这个应用的App ID和App Key了.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/TIM%E6%88%AA%E5%9B%BE20200307120352.png" alt="TIM截图20200307120352"></p>
+<h2 id="设置安全域名"><a href="#设置安全域名" class="headerlink" title="设置安全域名"></a>设置安全域名</h2><p>然后打开设置中的<strong>安全中心</strong>,在下面的<strong>Web安全域名</strong>中填入我们网站的域名,如下图<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E5%A1%AB%E5%86%99Web%E5%AE%89%E5%85%A8%E5%9F%9F%E5%90%8D.png" alt="填写Web安全域名"></p>
+<h2 id="在主题配置文件中填入相应字段"><a href="#在主题配置文件中填入相应字段" class="headerlink" title="在主题配置文件中填入相应字段"></a>在主题配置文件中填入相应字段</h2><p>打开博客所在目录,找到<strong>主题</strong>的配置文件,不是整个博客的.在文本中搜索”valine”,把刚才获取到的App ID和App Key填入进去.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png" alt="修改配置文件"><br>这里提一个坑,在复制App ID和App Key的时候注意不要<strong>激活了后面的注释</strong>,如果注释被视为了代码的一部分就会报一个</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Code : undefined [410 GET https:&#x2F;&#x2F;avoscloud.com&#x2F;1.1&#x2F;classes&#x2F;Comment]</span><br></pre></td></tr></table></figure>
+<p>的错误,这个时候就应该检查一下是否配置文件中的注释出现了问题<br>另外在这个过程中还可能出现其他的问题,比如<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Code 403: 访问被api域名白名单拒绝，请检查你的安全域名设置</span><br></pre></td></tr></table></figure><br>就要检查在第二步<strong>设置安全域名</strong>的过程中是否漏掉了网址最后的”/“,比如原来的网址是<code>https://godlowd.github.io/</code>,但是填写进去的时候是<code>https://godlowd.github.io</code>.建议还是直接复制浏览器地址栏中的地址,再粘贴进去,就可以避免类似问题<br>重新部署我们的Blog之后打开就可以看到评论功能了.不过这个时候还处于一个比较基本的状态.要进行更深层次的定制还需要进一步优化.</p>
+<h2 id="打开评论邮件提醒系统"><a href="#打开评论邮件提醒系统" class="headerlink" title="打开评论邮件提醒系统"></a>打开评论邮件提醒系统</h2><p>首先贴一下<a href="https://github.com/zhaojun1998/Valine-Admin" target="_blank" rel="noopener">大佬的GitHub项目地址</a>,这是一个Valine的拓展应用,可以用来通知站长新评论,而且支持自定义邮件主题(有一说一,彩虹色的还蛮好康的嗷).下面就让我来康康这个玩意是怎么整的</p>
+<h3 id="设置代码库"><a href="#设置代码库" class="headerlink" title="设置代码库"></a>设置代码库</h3><p>首先我们需要在Lean Cloud的<strong>云引擎</strong>的<strong>设置</strong>中把上面大佬的项目地址添加进去并保存<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%A0%81%E5%BA%93.png" alt="设置代码库"></p>
+<h3 id="自定义环境变量"><a href="#自定义环境变量" class="headerlink" title="自定义环境变量"></a>自定义环境变量</h3><p>光有了大佬的代码还不够,我们还需要知道有了新评论如何登录一个邮箱并且把通知发送到站长的邮箱不是?,所以我们需要在<strong>环境变量</strong>这个地方设置好这些东西</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>环境变量名</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SITE_NAME</td>
+<td>网站名称,就是在博客的配置文件中的<strong>title</strong>项</td>
+</tr>
+<tr>
+<td>SITE_URL</td>
+<td>网站的地址,<strong>最后不要加 / </strong>,和上面的安全域名略有不同</td>
+</tr>
+<tr>
+<td>SMTP_USER</td>
+<td>SMTP 服务用户名，一般为邮箱地址。</td>
+</tr>
+<tr>
+<td>SMTP_PASS</td>
+<td>SMTP密码,这个可以自行查询对应邮件服务商的获取方式,不是登录密码</td>
+</tr>
+<tr>
+<td>SMTP_SERVICE</td>
+<td>邮件服务提供商,支持<code>QQ</code>、<code>163</code>、<code>126</code>、<code>Gmail</code>、<code>Yahoo</code></td>
+</tr>
+<tr>
+<td>SENDER_NAME</td>
+<td>寄件人名称</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png" alt="SENDER_NAME"></p>
+<p>另外还有一些环境变量是这样子的:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>环境变量名</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TO_EMAIL</td>
+<td>指定<strong>收信信箱</strong>,默认为SITE_USER.用于SITE_USER发件人和收件人不一致的情况下使用</td>
+</tr>
+<tr>
+<td>TEMPLATE_NAME</td>
+<td>提醒邮件的模板,默认为default,目前支持rainbow</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>切换到<strong>部署</strong>页面,选择中间的Git源码部署,下面的分支或版本号填写<strong>master</strong>,,然后等待大概7-8分钟.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E9%83%A8%E7%BD%B2.png" alt="部署"><br>部署完成之后的页面应该是这个样子<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E9%83%A8%E7%BD%B22.png" alt="部署2"></p>
+<p>不过很奇怪的是部署完成之后我的web组栏下面并没有和<a href="https://11.tt/posts/2018/add-valine-to-your-blog/" target="_blank" rel="noopener">其他博主一样</a>出现实例的字样.这也导致了他们的重启实例我不知道在哪里运行.如果有知道的兄弟萌欢迎在评论区指出.</p>
+<p>不过困难总是可以克服的嘛.既然不能在实例里面重启,那我就在部署的生产环境里重启.反正都是重启不是?(此处手动贴吧滑稽).</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>上述工作完成之后,我们在主题的配置文件中选择将它的<code>notify</code>项设为<code>true</code>来打开邮件提醒,同时在评论区输入一条评论来测试一下.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C.PNG" alt="测试结果"><br>就测试结果来看.确实我收到了自己给自己发的邮件(因为之前在设置环境变量的时候设置的是这样子的嘛).而且发送邮件的主题也和我们在环境变量中定义的<code>rainbow</code>相同.我们可以认为Valine的邮件提醒功能算是成功启动了.</p>
+<p><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E5%A6%99%E5%95%8A.jpg" alt="妙啊"></p>
+<h2 id="Valine的其他功能"><a href="#Valine的其他功能" class="headerlink" title="Valine的其他功能"></a>Valine的其他功能</h2><p>时间关系,本人还需要苦逼的干活,所以不能一次性整完Valine的全部功能,目前在日程表上的计划(日程表: 我不是我没有你别瞎说)有更换自定义表情包,开辟专门的留言板页面.取消显示OS和浏览器型号,支持游客的留言被回复也可被通知,等等.辣么就下次再见啦</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://deserts.io/valine-admin-document/" target="_blank" rel="noopener">https://deserts.io/valine-admin-document/</a><br><a href="https://bestzuo.cn/posts/3307440964.html" target="_blank" rel="noopener">https://bestzuo.cn/posts/3307440964.html</a><br><a href="https://deserts.io/diy-a-comment-system/" target="_blank" rel="noopener">https://deserts.io/diy-a-comment-system/</a><br><a href="https://rightofriver.github.io/2019/10/30/ValineBug1/#fnref:3" target="_blank" rel="noopener">https://rightofriver.github.io/2019/10/30/ValineBug1/#fnref:3</a></p>
+]]></content>
+      <tags>
+        <tag>Blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>贝叶斯分类</title>
+    <url>/2020/03/25/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h1 id="贝叶斯分类"><a href="#贝叶斯分类" class="headerlink" title="贝叶斯分类"></a>贝叶斯分类</h1><p>假设有N种可能的类别标记,即$\Upsilon = \left{c<em>1,c_2, … ,c_N\right}$ ,$\lambda</em>{ij}$是将一个<strong>真实标记为$c_j$ 的样本</strong>误分类为$c_i$所产生的损失.根据后验概率(应该指的就是常说的条件概率),可以获得样本x分类产生的期望损失,也称为<strong>条件风险</strong></p>
+<script type="math/tex; mode=display">
+R(c_i|x) = \sum_{j = 1}^{N}\lambda_{ij}P(c_j|x)</script><p>我们的目标是找到一个判定准则h来将这个条件风险最小化.显然,如果对于<strong>每一个样本</strong>,h都能最小化条件风险$R(h(x)|x)$,那么总体风险$R(h)$也将会被最小化.</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Hexo博客导航栏美化与自定义</title>
+    <url>/2020/03/13/Hexo%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%BE%8E%E5%8C%96%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>最近几天闲来无事逛<a href="https://bestzuo.cn/" target="_blank" rel="noopener">别人的博客</a>的时候发现增加一个留言板的功能好像还蛮有意思的.于是就想自己也整一个.再把导航栏的图标换他一换<br><a id="more"></a><br>自己自定义导航栏其实还蛮简单的,相比之前在网页里面插入播放器而言.🤣🤣</p>
+<h3 id="打开主题配置文件"><a href="#打开主题配置文件" class="headerlink" title="打开主题配置文件"></a>打开主题配置文件</h3><p>我们首先打开位于<code>themes/next</code>文件夹下面的<code>_config.yml</code>配置文件.然后在其中搜索一下<code>menu</code>.定位到下图这个地方.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/menu.png" alt=""></p>
+<p>可以看到注释很详细的解释了<code>menu</code>自定义项的用法.前面的<font color="red">红字</font>部分就是导航栏的<strong>标题</strong>了.注释后面还提到<code>if the translation for this item is available, the translated text will be loaded, otherwise the Key name will be used.</code>这句话的意思就是如果红字部分有对应的翻译,那么对应的翻译就会在网页上自动加载,否则红字就是你的导航栏的名字.那么这个所谓的<code>translation</code>在什么地方呢.</p>
+<h3 id="添加对应的翻译"><a href="#添加对应的翻译" class="headerlink" title="添加对应的翻译"></a>添加对应的翻译</h3><p>打开<code>themes/next/language</code>文件夹.可以看到一排以语言名命名的文件夹.然后打开<code>zh-CN.yml</code><br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%AF%AD%E8%A8%80.png" alt=""></p>
+<p>添加对应的<code>Key</code>值和其翻译.注意翻译和冒号之间有一个空格.</p>
+<h3 id="选择好康的图标"><a href="#选择好康的图标" class="headerlink" title="选择好康的图标"></a>选择好康的图标</h3><p>再研读一下主题配置文件的注释.发现<code>next</code>主题的图标来自于一个叫做<code>Font Awesome icon</code>的东西.再观察一下原本<code>next</code>主题的icon名.<a href="https://fontawesome.dashgame.com/" target="_blank" rel="noopener"><code>Font Awesome icon</code></a>的官方网站在这里.里面有许多的图标以及使用他们对应的铭恒.我们直选哟调换一个好康的然后在<code>||</code>后面换上我们自己喜欢的icon就好了.同理,导航栏其他的图标如果看的不顺眼了我们也可以用相同的方法进行替换.修改名字的事而已.</p>
+<p>更多<code>Font Awesome icon</code>字体的使用可以参考<a href="http://masikkk.com/article/hexo-17-FontAwesome/" target="_blank" rel="noopener">这篇Blog</a></p>
+<h3 id="编写对应页面的Markdown"><a href="#编写对应页面的Markdown" class="headerlink" title="编写对应页面的Markdown"></a>编写对应页面的Markdown</h3><p>最后一步来辣.打开我们的git bash.在博客目录下面输入<code>hexo new pages title</code>.title是你的导航栏的名字.然后hexo会自动在<code>source/title</code>文件夹下生成一个名字为<code>index</code>的Markdown.注意这里生成的并不是以title名字命名的Markdown.然后<code>hexo clean&amp;&amp;hexo g&amp;&amp;hexo d</code>部署到我们的博客就大功告成了.最后的效果就像这样ヾ(•ω•`)o 完结撒花</p>
+<p><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C.png" alt=""></p>
+<p>如果觉得还不错的话就去留言板灌灌水吧(☞ﾟヮﾟ)☞</p>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://fontawesome.dashgame.com/" target="_blank" rel="noopener">Font Awesome</a><br><a href="http://masikkk.com/article/hexo-17-FontAwesome/" target="_blank" rel="noopener">Hexo博客使用FontAwesome字体图标</a><br><a href="https://www.dazhuanlan.com/2019/09/25/5d8b46019b218/?__cf_chl_jschl_tk__=766d3742af7c818f0336dfb67556abd3ea6e50ff-1584062596-0-AY5m5ilRK1fYdcrAawA_l54dqDIhhP1dJHNcFosS71ijE--n-5QJ1VVcv7wvvaRT3M_ixcHQDBj4zmsN4gk9ChzJesRzwm9ioZY7z0XDHkDb2u2T4IGQm0u2_RQU2YonIzoS6h8bzQ2hCm0-YsdU-rI_8LlqeyFe9ll0_x_JROHHGA-5fRkkPlUo9e-a5eVxOMrAeZyQXMrt1Cou4Xd9T_gMwPYbW7evNirisX4FeOLuMDGFFflyGBcUpih1A5jRsONFHY58UFFrF2IPDfbU3GJKZtvsL7dZNqDWEBXERwLJsYfVnxbzBBH4_FYcRatYkQ" target="_blank" rel="noopener">hexo菜单栏添加留言板-Valine</a><br><a href="https://bestzuo.cn/messageboard/" target="_blank" rel="noopener">Sanarous的Blog</a></p>
+]]></content>
+      <tags>
+        <tag>hexo</tag>
+        <tag>Blog</tag>
+        <tag>valine</tag>
+      </tags>
+  </entry>
+</search>
