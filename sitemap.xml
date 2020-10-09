@@ -58,14 +58,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/lib/three/package.json</loc>
+    <loc>http://yoursite.com/lib/three/renovate.json</loc>
     
     <lastmod>2020-03-07</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/lib/three/renovate.json</loc>
+    <loc>http://yoursite.com/lib/three/package.json</loc>
     
     <lastmod>2020-03-07</lastmod>
     
@@ -95,6 +95,27 @@
 
   
   <url>
+    <loc>http://yoursite.com/tags/hexo/</loc>
+    <lastmod>2020-10-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/tags/valine/</loc>
+    <lastmod>2020-10-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/tags/Blog/</loc>
+    <lastmod>2020-10-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/tags/%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2020-10-09</lastmod>
     <changefreq>daily</changefreq>
@@ -109,28 +130,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/hexo/</loc>
-    <lastmod>2020-10-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/tags/Blog/</loc>
-    <lastmod>2020-10-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/tags/Notes/</loc>
-    <lastmod>2020-10-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/tags/valine/</loc>
     <lastmod>2020-10-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

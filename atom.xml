@@ -96,9 +96,9 @@
     
     <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
     
-    <category term="Blog" scheme="http://yoursite.com/tags/Blog/"/>
-    
     <category term="valine" scheme="http://yoursite.com/tags/valine/"/>
+    
+    <category term="Blog" scheme="http://yoursite.com/tags/Blog/"/>
     
   </entry>
   
