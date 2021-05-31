@@ -1,27 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hexo博客导航栏美化与自定义</title>
-    <url>/2020/03/13/Hexo%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%BE%8E%E5%8C%96%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>最近几天闲来无事逛<a href="https://bestzuo.cn/" target="_blank" rel="noopener">别人的博客</a>的时候发现增加一个留言板的功能好像还蛮有意思的.于是就想自己也整一个.再把导航栏的图标换他一换<br><a id="more"></a><br>自己自定义导航栏其实还蛮简单的,相比之前在网页里面插入播放器而言.🤣🤣</p>
-<h3 id="打开主题配置文件"><a href="#打开主题配置文件" class="headerlink" title="打开主题配置文件"></a>打开主题配置文件</h3><p>我们首先打开位于<code>themes/next</code>文件夹下面的<code>_config.yml</code>配置文件.然后在其中搜索一下<code>menu</code>.定位到下图这个地方.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/menu.png" alt=""></p>
-<p>可以看到注释很详细的解释了<code>menu</code>自定义项的用法.前面的<font color="red">红字</font>部分就是导航栏的<strong>标题</strong>了.注释后面还提到<code>if the translation for this item is available, the translated text will be loaded, otherwise the Key name will be used.</code>这句话的意思就是如果红字部分有对应的翻译,那么对应的翻译就会在网页上自动加载,否则红字就是你的导航栏的名字.那么这个所谓的<code>translation</code>在什么地方呢.</p>
-<h3 id="添加对应的翻译"><a href="#添加对应的翻译" class="headerlink" title="添加对应的翻译"></a>添加对应的翻译</h3><p>打开<code>themes/next/language</code>文件夹.可以看到一排以语言名命名的文件夹.然后打开<code>zh-CN.yml</code><br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%AF%AD%E8%A8%80.png" alt=""></p>
-<p>添加对应的<code>Key</code>值和其翻译.注意翻译和冒号之间有一个空格.</p>
-<h3 id="选择好康的图标"><a href="#选择好康的图标" class="headerlink" title="选择好康的图标"></a>选择好康的图标</h3><p>再研读一下主题配置文件的注释.发现<code>next</code>主题的图标来自于一个叫做<code>Font Awesome icon</code>的东西.再观察一下原本<code>next</code>主题的icon名.<a href="https://fontawesome.dashgame.com/" target="_blank" rel="noopener"><code>Font Awesome icon</code></a>的官方网站在这里.里面有许多的图标以及使用他们对应的铭恒.我们直选哟调换一个好康的然后在<code>||</code>后面换上我们自己喜欢的icon就好了.同理,导航栏其他的图标如果看的不顺眼了我们也可以用相同的方法进行替换.修改名字的事而已.</p>
-<p>更多<code>Font Awesome icon</code>字体的使用可以参考<a href="http://masikkk.com/article/hexo-17-FontAwesome/" target="_blank" rel="noopener">这篇Blog</a></p>
-<h3 id="编写对应页面的Markdown"><a href="#编写对应页面的Markdown" class="headerlink" title="编写对应页面的Markdown"></a>编写对应页面的Markdown</h3><p>最后一步来辣.打开我们的git bash.在博客目录下面输入<code>hexo new pages title</code>.title是你的导航栏的名字.然后hexo会自动在<code>source/title</code>文件夹下生成一个名字为<code>index</code>的Markdown.注意这里生成的并不是以title名字命名的Markdown.然后<code>hexo clean&amp;&amp;hexo g&amp;&amp;hexo d</code>部署到我们的博客就大功告成了.最后的效果就像这样ヾ(•ω•`)o 完结撒花</p>
-<p><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C.png" alt=""></p>
-<p>如果觉得还不错的话就去留言板灌灌水吧(☞ﾟヮﾟ)☞</p>
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://fontawesome.dashgame.com/" target="_blank" rel="noopener">Font Awesome</a><br><a href="http://masikkk.com/article/hexo-17-FontAwesome/" target="_blank" rel="noopener">Hexo博客使用FontAwesome字体图标</a><br><a href="https://www.dazhuanlan.com/2019/09/25/5d8b46019b218/?__cf_chl_jschl_tk__=766d3742af7c818f0336dfb67556abd3ea6e50ff-1584062596-0-AY5m5ilRK1fYdcrAawA_l54dqDIhhP1dJHNcFosS71ijE--n-5QJ1VVcv7wvvaRT3M_ixcHQDBj4zmsN4gk9ChzJesRzwm9ioZY7z0XDHkDb2u2T4IGQm0u2_RQU2YonIzoS6h8bzQ2hCm0-YsdU-rI_8LlqeyFe9ll0_x_JROHHGA-5fRkkPlUo9e-a5eVxOMrAeZyQXMrt1Cou4Xd9T_gMwPYbW7evNirisX4FeOLuMDGFFflyGBcUpih1A5jRsONFHY58UFFrF2IPDfbU3GJKZtvsL7dZNqDWEBXERwLJsYfVnxbzBBH4_FYcRatYkQ" target="_blank" rel="noopener">hexo菜单栏添加留言板-Valine</a><br><a href="https://bestzuo.cn/messageboard/" target="_blank" rel="noopener">Sanarous的Blog</a></p>
-]]></content>
-      <tags>
-        <tag>hexo</tag>
-        <tag>valine</tag>
-        <tag>Blog</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>GCD源码阅读笔记-ONCE篇</title>
     <url>/2021/06/01/GCD%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0-ONCE%E7%AF%87Block%E6%9C%AC%E8%B4%A8/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h1 id="GCD源码阅读笔记-ONCE篇"><a href="#GCD源码阅读笔记-ONCE篇" class="headerlink" title="GCD源码阅读笔记-ONCE篇"></a>GCD源码阅读笔记-ONCE篇</h1><p>在使用单例的设计模式时我们常常会使用<code>dispatch_once</code>这个函数来保证单例模式中的单例只会执行一次。那么到底是如何保证只执行一次的呢。</p>
@@ -142,6 +121,491 @@
 ]]></content>
       <tags>
         <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo博客导航栏美化与自定义</title>
+    <url>/2020/03/13/Hexo%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%BE%8E%E5%8C%96%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>最近几天闲来无事逛<a href="https://bestzuo.cn/" target="_blank" rel="noopener">别人的博客</a>的时候发现增加一个留言板的功能好像还蛮有意思的.于是就想自己也整一个.再把导航栏的图标换他一换<br><a id="more"></a><br>自己自定义导航栏其实还蛮简单的,相比之前在网页里面插入播放器而言.🤣🤣</p>
+<h3 id="打开主题配置文件"><a href="#打开主题配置文件" class="headerlink" title="打开主题配置文件"></a>打开主题配置文件</h3><p>我们首先打开位于<code>themes/next</code>文件夹下面的<code>_config.yml</code>配置文件.然后在其中搜索一下<code>menu</code>.定位到下图这个地方.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/menu.png" alt=""></p>
+<p>可以看到注释很详细的解释了<code>menu</code>自定义项的用法.前面的<font color="red">红字</font>部分就是导航栏的<strong>标题</strong>了.注释后面还提到<code>if the translation for this item is available, the translated text will be loaded, otherwise the Key name will be used.</code>这句话的意思就是如果红字部分有对应的翻译,那么对应的翻译就会在网页上自动加载,否则红字就是你的导航栏的名字.那么这个所谓的<code>translation</code>在什么地方呢.</p>
+<h3 id="添加对应的翻译"><a href="#添加对应的翻译" class="headerlink" title="添加对应的翻译"></a>添加对应的翻译</h3><p>打开<code>themes/next/language</code>文件夹.可以看到一排以语言名命名的文件夹.然后打开<code>zh-CN.yml</code><br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%AF%AD%E8%A8%80.png" alt=""></p>
+<p>添加对应的<code>Key</code>值和其翻译.注意翻译和冒号之间有一个空格.</p>
+<h3 id="选择好康的图标"><a href="#选择好康的图标" class="headerlink" title="选择好康的图标"></a>选择好康的图标</h3><p>再研读一下主题配置文件的注释.发现<code>next</code>主题的图标来自于一个叫做<code>Font Awesome icon</code>的东西.再观察一下原本<code>next</code>主题的icon名.<a href="https://fontawesome.dashgame.com/" target="_blank" rel="noopener"><code>Font Awesome icon</code></a>的官方网站在这里.里面有许多的图标以及使用他们对应的铭恒.我们直选哟调换一个好康的然后在<code>||</code>后面换上我们自己喜欢的icon就好了.同理,导航栏其他的图标如果看的不顺眼了我们也可以用相同的方法进行替换.修改名字的事而已.</p>
+<p>更多<code>Font Awesome icon</code>字体的使用可以参考<a href="http://masikkk.com/article/hexo-17-FontAwesome/" target="_blank" rel="noopener">这篇Blog</a></p>
+<h3 id="编写对应页面的Markdown"><a href="#编写对应页面的Markdown" class="headerlink" title="编写对应页面的Markdown"></a>编写对应页面的Markdown</h3><p>最后一步来辣.打开我们的git bash.在博客目录下面输入<code>hexo new pages title</code>.title是你的导航栏的名字.然后hexo会自动在<code>source/title</code>文件夹下生成一个名字为<code>index</code>的Markdown.注意这里生成的并不是以title名字命名的Markdown.然后<code>hexo clean&amp;&amp;hexo g&amp;&amp;hexo d</code>部署到我们的博客就大功告成了.最后的效果就像这样ヾ(•ω•`)o 完结撒花</p>
+<p><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C.png" alt=""></p>
+<p>如果觉得还不错的话就去留言板灌灌水吧(☞ﾟヮﾟ)☞</p>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://fontawesome.dashgame.com/" target="_blank" rel="noopener">Font Awesome</a><br><a href="http://masikkk.com/article/hexo-17-FontAwesome/" target="_blank" rel="noopener">Hexo博客使用FontAwesome字体图标</a><br><a href="https://www.dazhuanlan.com/2019/09/25/5d8b46019b218/?__cf_chl_jschl_tk__=766d3742af7c818f0336dfb67556abd3ea6e50ff-1584062596-0-AY5m5ilRK1fYdcrAawA_l54dqDIhhP1dJHNcFosS71ijE--n-5QJ1VVcv7wvvaRT3M_ixcHQDBj4zmsN4gk9ChzJesRzwm9ioZY7z0XDHkDb2u2T4IGQm0u2_RQU2YonIzoS6h8bzQ2hCm0-YsdU-rI_8LlqeyFe9ll0_x_JROHHGA-5fRkkPlUo9e-a5eVxOMrAeZyQXMrt1Cou4Xd9T_gMwPYbW7evNirisX4FeOLuMDGFFflyGBcUpih1A5jRsONFHY58UFFrF2IPDfbU3GJKZtvsL7dZNqDWEBXERwLJsYfVnxbzBBH4_FYcRatYkQ" target="_blank" rel="noopener">hexo菜单栏添加留言板-Valine</a><br><a href="https://bestzuo.cn/messageboard/" target="_blank" rel="noopener">Sanarous的Blog</a></p>
+]]></content>
+      <tags>
+        <tag>hexo</tag>
+        <tag>valine</tag>
+        <tag>Blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>图论算法复习</title>
+    <url>/2020/03/29/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h1 id="图论算法"><a href="#图论算法" class="headerlink" title="图论算法"></a>图论算法</h1><h4 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h4><ul>
+<li>G = (V, E)用来表示图,其中</li>
+<li>V 是顶点集合(vertices)</li>
+<li>E 是边的集合(edges)</li>
+</ul>
+<p>连接图: 任何两个顶点之间存在一个通路<br>邻接表: 存储每个顶点与之直接相关联的一条边.长度和等于边的数目</p>
+<a id="more"></a>
+<h2 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h2><h3 id="BFS-广度优先"><a href="#BFS-广度优先" class="headerlink" title="BFS(广度优先)"></a>BFS(广度优先)</h3><ul>
+<li>input: G = (V, E), 搜索<strong>源顶点s</strong></li>
+<li>Output: 从源顶点到图中其他顶点的最短距离; 一棵广度优先树<br>算法思想:<br>用<strong>白色</strong>表示初始状态,即还未搜索到,<strong>灰色</strong>表示刚刚搜索到,<strong>黑色</strong>表示所有邻接顶点被搜索完.用一个FIFO保存灰色顶点</li>
+</ul>
+<h4 id="BFS附加数据结构"><a href="#BFS附加数据结构" class="headerlink" title="BFS附加数据结构:"></a>BFS附加数据结构:</h4><ol>
+<li>color[u] 表示顶点颜色</li>
+<li>$\pi$[u] 表示顶点u的父节点</li>
+<li>d[u] 表示顶点u到源顶点s的距离</li>
+<li>FIFO Q 存储灰色顶点</li>
+</ol>
+<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p><img src="https://s1.ax1x.com/2020/03/28/GAr7tg.png" alt="GAr7tg.png"></p>
+<p>前面一张是对数据结构进行初始化,后一张负责搜索过程,当$Q \neq \emptyset$ 时,即所有顶点都不是<strong>灰色</strong>,搜索结束.</p>
+<p>时间复杂度为 O(V + E).相比于DFS,BFS可以提供源节点到其他所有节点的最短距离和最小边数目(以上都是在无向无权图的情况下讨论)</p>
+<h3 id="DFS-深度优先"><a href="#DFS-深度优先" class="headerlink" title="DFS(深度优先)"></a>DFS(深度优先)</h3><ul>
+<li>Input: G = (V , E),没有源顶点.</li>
+<li>Output: 每个顶点有两个时间标记,一个<strong>发现时间</strong>,一个结束时间 ; 深度优先森林</li>
+</ul>
+<h4 id="DFS-附加数据结构"><a href="#DFS-附加数据结构" class="headerlink" title="DFS 附加数据结构"></a>DFS 附加数据结构</h4><ul>
+<li>$\pi$[u]: 顶点u的父节点</li>
+<li>d[u], f[u]: 发现(discovery time),完成(finish time)时间</li>
+<li>color[u]: 发现前: <strong>白色</strong>; 发现处理中: <strong>灰色</strong>; 处理完后: <strong>黑色</strong></li>
+<li>time-step: 时间步骤, 在顶点发现和搜索完成时增加</li>
+</ul>
+<h4 id="算法-1"><a href="#算法-1" class="headerlink" title="算法"></a>算法</h4><p><a href="https://imgchr.com/i/GAyzYF" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/28/GAyzYF.png" alt="GAyzYF.png" style="zoom:80%;" /></a></p>
+<p><img src="https://s1.ax1x.com/2020/03/28/GA6eYD.png" alt="GA6eYD.png" style="zoom:80%;" /></p>
+<p>第一张图的1-4行仍是对算法的初始化,5-7行则是循环过程.时间复杂度也是O( V + E)</p>
+<h4 id="边的分类"><a href="#边的分类" class="headerlink" title="边的分类"></a>边的分类</h4><ul>
+<li>树边: 抵达白色顶点的边</li>
+<li>回边: 抵达灰色顶点.有向图中的<strong>自回路</strong>也算是回边</li>
+<li>前向边: 抵达黑色顶点的边,且满足d[u] &lt; d[v],可以理解为连接顶点u和它的后裔节点的一条边</li>
+<li>横跨边: 抵达黑色顶点,且满足d[u] &gt; d[v],可以横跨不同深度优先树的顶点或者同一深度优先树的不同顶点之间</li>
+</ul>
+<h4 id="括号定理"><a href="#括号定理" class="headerlink" title="括号定理"></a>括号定理</h4><p>在DFS中还有一个括号定理,虽然我觉得这个似乎是很显而易见的事情,不过还是提一句.<br>对任意两个顶点集V中的节点u,v;下列情况有且只有一种成立</p>
+<ol>
+<li>u,v互不为后裔</li>
+<li>v是u的后裔</li>
+<li>u是v的后裔</li>
+</ol>
+<p>没了….</p>
+<h3 id="强连通分支"><a href="#强连通分支" class="headerlink" title="强连通分支"></a>强连通分支</h3><p>这里引入强连通分支的概念. 强连通分支指的是图G = (V , E)的一个极大集,这个集合中所有的顶点都可以<strong>相互到达</strong>,是一种很强的性质,比如下图<br><img src="https://s1.ax1x.com/2020/03/28/GAqF8s.png" alt="GAqF8s.png"></p>
+<h4 id="图的转置"><a href="#图的转置" class="headerlink" title="图的转置"></a>图的转置</h4><p>G<sup>T</sup> 是G的一个转置,将G中所有边<strong>转向</strong>.</p>
+<h4 id="确定强连通分支"><a href="#确定强连通分支" class="headerlink" title="确定强连通分支"></a>确定强连通分支</h4><p>首先需要知道G<sup>T</sup>和G拥有<strong>相同的SCC</strong>.</p>
+<ol>
+<li>在图G上执行DFS,记录每个节点的<strong>完成时间f[u]</strong></li>
+<li>将图G转置成图G<sup>T</sup> .从<strong>具有最大的f[u]</strong>的节点开始.在G<sup>T</sup> 上执行DFS.如果不能到达所有的顶点则执行下一个的DFS</li>
+<li>在最终得到的森林每一棵树就是一个SCC<br>下图是一个例子.<br><img src="https://s1.ax1x.com/2020/03/28/GAL8YQ.png" alt="GAL8YQ.png"></li>
+</ol>
+<h2 id="最小生成树-MinimumSpanning-Trees"><a href="#最小生成树-MinimumSpanning-Trees" class="headerlink" title="最小生成树(MinimumSpanning Trees)"></a>最小生成树(MinimumSpanning Trees)</h2><p>连通无向图.</p>
+<ul>
+<li>Goal: 每两个顶点之间保持联通,权重之和最小</li>
+</ul>
+<h4 id="MST的一些特性"><a href="#MST的一些特性" class="headerlink" title="MST的一些特性"></a>MST的一些特性</h4><ul>
+<li>非唯一</li>
+<li>无回路(与最小且联通相冲突0</li>
+<li>边数等于顶点数减一</li>
+</ul>
+<h4 id="MST一般算法"><a href="#MST一般算法" class="headerlink" title="MST一般算法"></a>MST一般算法</h4><p><img src="https://s1.ax1x.com/2020/03/29/GEyo34.png" alt="GEyo34.png"></p>
+<p>这里其实有一个问题没有说明,如何证明安全的边的集合一定是MST呢?<br>不过我们先来看一下安全边的定义和一些概念.</p>
+<ul>
+<li>切割: 将图的顶点分为两个互斥子集S和V - S</li>
+<li>一个边的两个端点分别在切割的两个集合 S和V - S中.就说该边横跨该切割.</li>
+<li>切割的轻边(light edge): 横跨切割的边中<strong>权值最小</strong>的边.可以不唯一</li>
+<li>干预: 集合A中没有边和该切割相交,就说一个切割不干预集合A.</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/03/29/GE6bRg.png" alt="GE6bRg.png"><br>下面介绍Kruskal和Prim算法</p>
+<h4 id="Kruskal"><a href="#Kruskal" class="headerlink" title="Kruskal"></a>Kruskal</h4><p><img src="https://s1.ax1x.com/2020/03/29/GEgZcQ.png" alt="GEgZcQ.png"><br>简单的来说就是</p>
+<ol>
+<li>将所有边按照权重由低到高排序,从最小的边出发</li>
+<li>检查后面的边是不是安全边,如果是就添加到当前这个集合里面.<br>在离散数学中上面这些操作可以直接用图示法表示出来,在算法中需要用到<strong>不相关集合的操作</strong></li>
+</ol>
+<ul>
+<li>MAKE-SET(u):创建集合</li>
+<li>FIND-SET(u): 对于同一个集合中的不同元素,FIND-SET返回的值都是一样的.</li>
+<li>UNION(u,v): 将两个集合合并</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/03/29/GERdfK.png" alt="GERdfK.png"></p>
+<p>上图给出了Kruskal算法描述和实例.</p>
+<h4 id="Prim"><a href="#Prim" class="headerlink" title="Prim"></a>Prim</h4><p>Prim算法的核心是他的贪婪策略.从任意一个给定的节点都可以开始.模式有点像一棵树生长的过程.每次加入一条轻边.直到包含所有的顶点为止.</p>
+<p><img src="https://s1.ax1x.com/2020/03/29/GER41S.png" alt="GER41S.png"></p>
+<p><img src="https://s1.ax1x.com/2020/03/29/GERjpT.png" alt="GERjpT.png"></p>
+<p>需要注意的是Prim算法采用了数据结构中的<strong>优先队列</strong>来存储尚未在MST中的顶点.排序的条件是当前正在生成MST的集合到其他点的距离</p>
+<h2 id="单源最短路径"><a href="#单源最短路径" class="headerlink" title="单源最短路径"></a>单源最短路径</h2><p>从给定<strong>源顶点</strong>s到图中其他顶点$v \in V$的最短路径</p>
+<ul>
+<li>Input: G = (V, E) ; 权</li>
+<li>如果从点u不能到达点v,则$\delta(u,v) = \infty$</li>
+</ul>
+<p>最短路径优化的基础: 如果一条路径是最短路径,那么它的<strong>部分路径</strong>也是最短路径.由<strong>反证法</strong>可知.<br>当图中存在回路的时候,那么从<strong>源顶点s</strong>到另一个顶点v可能就存在非唯一路径.那么这个时候我们称从s到v权值之和最小的路径是它的最短路径.这个情况常常发生在有权值为负的边的情况下<br>当然也可能存在 <strong>不存在最短路径</strong>的情况.如下图所示.<br><img src="https://s1.ax1x.com/2020/03/29/GV1NQg.png" alt="GV1NQg.png"><br>因为回路权值之和<strong>为负</strong>,根据定义最短路径也就不存在.另外,在最短路径中也不应该存在回路,无论是<strong>正权回路</strong>,还是<strong>负权回路</strong>,又或者是<strong>权为0的回路</strong>.</p>
+<h3 id="最短路径数据结构"><a href="#最短路径数据结构" class="headerlink" title="最短路径数据结构"></a>最短路径数据结构</h3><ul>
+<li>d[v]: 等于$\delta(s.v)$,初始情况d[v]是无穷大,在算法的过程中逐步减少.类似于BFS</li>
+<li>$\pi$[v]: 从源顶点s到顶点v最短路径上的父节点,如果没有父节点就置为<strong>NIL</strong>.</li>
+<li>最短路径和最短路径树不唯一<h3 id="算法-2"><a href="#算法-2" class="headerlink" title="算法"></a>算法</h3>首先对所有顶点的数据结构进行初始化.d[v]置无穷,$\pi$置NIL. 源顶点s的d[s]置0.<h4 id="缩短法-RELAX"><a href="#缩短法-RELAX" class="headerlink" title="缩短法(RELAX)"></a>缩短法(RELAX)</h4>对边(u.v)的缩短就是: 检查源顶点<strong>直接到v的距离</strong>是否会比<strong>通过顶点u到v的距离</strong>更长.如果满足的话就更新一下d[u]和d[v]的值.操作之后应该满足 $ d[v] \leq d[u] + w(u,v)$,两边之和大于第三边2333<br><img src="https://s1.ax1x.com/2020/03/29/GV8mbd.png" alt="GV8mbd.png"><h4 id="Bellman-Ford算法"><a href="#Bellman-Ford算法" class="headerlink" title="Bellman-Ford算法"></a>Bellman-Ford算法</h4></li>
+<li>允许负权边.</li>
+<li>返回值: 如果从源顶点s没有可抵达的负权值回路,返回真,其余返回假.</li>
+<li>思想: 遍历所有的边| V - 1 | 次,每次对每条边执行一次缩短运算.</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/03/29/GVwdIg.png" alt="GVwdIg.png"><br>算法前半部分在不断的遍历.后半部分则在检测是否存在回路.如果存在回路则返回FALSE<br>检查回路的算法:<br><img src="https://s1.ax1x.com/2020/03/29/GVICCR.png" alt="GVICCR.png"><br>如果图中出现了负权回路.那么就会有上图的情况.整个算法的时间复杂度为O(VE)</p>
+<h4 id="DAG"><a href="#DAG" class="headerlink" title="DAG"></a>DAG</h4><p>思想: 对图进行<strong>拓扑排序</strong>,依据拓扑排序对边进行缩短操作..因为DAG中没有<strong>负权边</strong>,所以最短路径一定存在</p>
+<h4 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h4><p>不存在负权值边界.包含两类顶点的集合: </p>
+<ol>
+<li>已知最短路径的点集合S</li>
+<li>未知最短路径的点集合Q, Q = V -S.Q是一个极小优先队列.</li>
+</ol>
+<p>重复地从Q中选取具有最短估计距离的顶点进行处理.对从Q中提出出来的顶点u,每一个邻接顶底v都执行RELAX操作.然后把提出出来的顶点u加入到已知最短路径的集合S中去.<br><img src="https://s1.ax1x.com/2020/03/29/GZPsOS.png" alt="GZPsOS.png"></p>
+<h2 id="全成对最短路径"><a href="#全成对最短路径" class="headerlink" title="全成对最短路径"></a>全成对最短路径</h2><ul>
+<li>Input: G = (V, E) , 权</li>
+<li>Output: 任何点对之间的最短距离 ; 一个n * n的矩阵,元素是对应点对之间的最短距离,$\delta(u,v)$</li>
+</ul>
+<p>如果对每一个顶点使用单源最短路径,那么时间开销会很大.根据在单源最短路径中我们的讨论,一个最短路径的一部分也必然是最短路径.因此可以考虑使用动态规划来解决.<br>假定<strong>p是从i到j至多含有m条边的最短路径</strong>,对于这条路径上的任意一点,如果i = j,即出发点和终点是同一点,那么w(p) = 0,权之和显然为0.如果 i $\leq$ j,设在j前面一点为p,易得从i到p的最短路径最多含有m-1条边,我们可以得到$\delta(i,j) = \delta(i,p) + w_{kj}$</p>
+<p>设$l_{ij}^{(m)}$为从i到j至多含有m条边的最短路径的权.</p>
+<p>m = 0时,</p>
+<script type="math/tex; mode=display">
+l_{ij}^{(0)} = \left\{
+\begin{aligned}
+0 & &if m = 0 \\
+\infty if i \neq j
+\end{aligned}
+\right.</script><p>i = j 说明这两个点就是同一个点,所以距离是0, 如果i $\neq$j的话说明这两点不是同一点,而且之间的距离是0,所以必然不存在,返回正无穷.<br>m &gt; 1 时 </p>
+<script type="math/tex; mode=display">
+l_{ij}^{(m)} = min_{1 \leq k \leq }{l_{ij}^{(m-1)} + w_{kj}}</script><p>当m不等于0时,说明这两点之间一定有边相连.就像之前一样,对每一个之前的节点执行<strong>Relax</strong>操作,然后选其中最小的.<br>m = 1 时, </p>
+<script type="math/tex; mode=display">
+l_{ij}^{(1)} = w_{ij}</script><p>显而易见,只有一条边最小值就是这条边的权重.</p>
+<h3 id="Floyd-Warshall算法"><a href="#Floyd-Warshall算法" class="headerlink" title="Floyd-Warshall算法"></a>Floyd-Warshall算法</h3><ul>
+<li>有向有权图</li>
+<li>可以存在<strong>负权边</strong>,无<strong>负权回路</strong></li>
+</ul>
+<h4 id="最短路径需要用到的数据结构"><a href="#最短路径需要用到的数据结构" class="headerlink" title="最短路径需要用到的数据结构"></a>最短路径需要用到的数据结构</h4><ul>
+<li>路径p = <v<sub>1&lt;/sub&gt;,v<sub>2</sub>,v<sub>3</sub>,v<sub>4</sub>…,v<sub>l</sub>&gt;,p的<strong>中间顶点的集合</strong>是指{v<sub>2</sub>,v<sub>3</sub>,v<sub>4</sub>…,v<sub>l-1</sub>}中的点</li>
+<li>$d_{ij}^{(k)}$ : 从i到j最小的权值,其中间节点来自集合{1,2,…k}</li>
+</ul>
+<p>现在我们假设有一顶点k</p>
+<ol>
+<li>k是路径p的中间顶点.<br>所以</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>算法</tag>
+        <tag>学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>聚类</title>
+    <url>/2020/03/24/%E8%81%9A%E7%B1%BB/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h1 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h1><h2 id="聚类试图完成的任务"><a href="#聚类试图完成的任务" class="headerlink" title="聚类试图完成的任务"></a>聚类试图完成的任务</h2><p>面对一个样本集<strong>D</strong> = {x<sub>1</sub>,x<sub>2</sub>, x<sub>3</sub>, … , x<sub>m</sub>},聚类试图将D中的样本划分成若干个<strong>不相交的子集</strong>,每一个子集成为之一个<strong>簇</strong>(cluster).通过这样的划分,也许可以找出每个簇对应的一些潜在规律,例如第一个簇里面的样本都是”浅色瓜”,第二个簇里面的样本都是”深色瓜”,诸如此类.但是这些概念对于聚类算法而言是<strong>事先未知的</strong>.</p>
+<a id="more"></a>
+<h2 id="聚类用到的概念"><a href="#聚类用到的概念" class="headerlink" title="聚类用到的概念"></a>聚类用到的概念</h2><p>假定样本集<strong>D</strong>中包含m个无标记样本.每一个样本<strong>x<sub>i</sub></strong> = {x<sub>i1</sub>,x<sub>i2</sub>,x<sub>i3</sub>, … x<sub>in</sub>}都是一个<strong>n维特征向量</strong>,</p>
+<p>算法划分成的簇用<strong>C<sub>l</sub></strong>表示.假定划分成了k个簇,那么这k个簇两两之间的交集为空集,k个簇的并集为样本集<strong>D</strong>.</p>
+<p>用&lambda;<sub>j</sub> &isin; { 1, 2, 3, … k } 表示D中的样本x<sub>j</sub>的簇标记.即x<sub>j</sub> &isin; $C_{\lambda_j}$  </p>
+<h2 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h2><p>我们希望聚类结果的<strong>簇内相似度高</strong>,<strong>簇间相似度低</strong>.这一点其实很好理解,如果簇内的相似度太低则可能将无关样本也划分进来,如果簇间相似度高了则有可能将原本是一个簇的样本强行划分成了两个簇.</p>
+<p>评价一个聚类的性能度量大概有两类.</p>
+<ol>
+<li>将结果与某个参考模型进行比较,称为<strong>外部指标</strong></li>
+<li>直接考察聚类结果而不利用任何参考模型,称为<strong>内部指标</strong></li>
+</ol>
+<p>下面我们来考虑用外部指标进行性能度量的情况</p>
+<h3 id="外部指标"><a href="#外部指标" class="headerlink" title="外部指标"></a>外部指标</h3><p>假定对于上述给定的数据集<strong>D</strong>,通过<strong>聚类</strong>划分出的簇一共有k个,<strong>参考模型</strong>给出的簇一共有s个.将D中的样本两两配对考虑,且有如下定义:</p>
+<p>a = |SS|,|SS| = {(x<sub>i</sub>,x<sub>j</sub>) | &lambda;<sub>i</sub> = &lambda;<sub>j</sub>, &lambda;<sup>‘</sup> <sub>i</sub>= &lambda;<sup>‘</sup> <sub>j</sub>}<br>b = |SD|,|SD| = {(x<sub>i</sub>,x<sub>j</sub>) | &lambda;<sub>i</sub> = &lambda;<sub>j</sub>, &lambda;<sup>‘</sup> <sub>i</sub> &ne; &lambda;<sup>‘</sup> <sub>j</sub>}<br>c = |DS|,|DS| = {(x<sub>i</sub>,x<sub>j</sub>) | &lambda;<sub>i</sub> &ne; &lambda;<sub>j</sub>, &lambda;<sup>‘</sup> <sub>i</sub>= &lambda;<sup>‘</sup> <sub>j</sub>}<br>d = |DD|,|DD| = {(x<sub>i</sub>,x<sub>j</sub>) | &lambda;<sub>i</sub> &ne; &lambda;<sub>j</sub>, &lambda;<sup>‘</sup> <sub>i</sub>&ne; &lambda;<sup>‘</sup> <sub>j</sub>}</p>
+<p>基于上述定义我们导出如下的一些指标(虽然我并没有看懂它到底是怎么推出来的)</p>
+<ul>
+<li>Jaccard系数: JC = $ \frac{a}{a+b+c}$</li>
+<li>FM指数: FMI = $ \sqrt{\frac{a}{a+b}  \times \frac{a}{a+c} }$</li>
+<li>Rand指数: RI =  $ \frac {2(a+d)}{m(m-1)}$</li>
+</ul>
+<p>上述性能度量的结果在区间[0,1]内,越接近1越好,下面我们考虑聚类结果的簇划分$C$ = {C<sub>1</sub>, C<sub>2</sub>,C<sub>3</sub>…C<sub>k</sub>},定义如下概念:</p>
+<ul>
+<li>avg(C) = $ \frac{2}{|C|(|C| - 1)} \sum _{1 \leq i \le j \leq |C|} dist(x_i,x_j)$</li>
+<li>diam (C) = $max_{1 \leq i \le j \leq |C|} dist(x_i,x_j)$</li>
+<li>d$<em>{min}$($C_i,C_j$) = $min</em>{x_i \in C_i, x_j \in C_j} dist(x_i,x_j)$</li>
+<li>$d_{cen}{(C_i,C_j)} = dist( \mu_i, \mu_j)$</li>
+</ul>
+<p>其中dist用于计算两个样本之间的距离, $ \mu$ 代表簇$C$的中心点$ \mu = \frac{1}{|C|} \sum<em>{1 \leq i \leq |C|} x_i$.显然可以知道avg(C)对应的含义是簇C内样本的平均距离(当然我们希望avg的值越小越好).$d</em>{min}(C<em>i,C_j)$ 对应于簇$C_i$和簇$C_j$<strong>最近样本</strong>间的距离,$d</em>{cen}(C_i,C_j)$对应于簇$C_i$和簇$C_j$ <strong>中心点之间</strong>的距离.<br>同样的,根据以上定义我们可以导出下面常用的性能度量的内部指标</p>
+<ul>
+<li>DB指数: DBI = $ \frac{1}{k} \sum<em>{i = 1}^{k} max</em>{j \neq i}( \frac{avg(C<em>i) + avg(C_j)}{d</em>{cen}(\mu_i\mu_j)} $</li>
+<li>Dunn指数: DI = $min<em>{1 \leq i \leq k}{ min</em>{i \neq j}(\frac {d<em>{min}(C_i,C_j)}{max</em>{1 \leq l \leq k}diam(C_l)})}$</li>
+</ul>
+<p>显然DBI的值越小越好(对应簇内部样本距离越小,簇之间的中心距离越大),DI的值越大越好,这里就不再赘述</p>
+<h2 id="原型聚类"><a href="#原型聚类" class="headerlink" title="原型聚类"></a>原型聚类</h2><h3 id="k均值算法"><a href="#k均值算法" class="headerlink" title="k均值算法"></a>k均值算法</h3><p>给定样本集D=$ \left{ x_1, x_2, x_3…x_m \right}$,k均值算法针对聚类算法所得到的簇划分C = $ \left{C_1,C_2,C_3..C_k \right}$最小化平方误差</p>
+<script type="math/tex; mode=display">
+E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$是簇$C_i$的均值向量,从直观上来看E刻画的是簇内样本对簇$C_i$的围绕紧密程度.E值越小说明簇内样本相似度越高.最小化这个式子我们现在采用的是贪心策略,通过迭代优化来近似求解.</p>
+<p><img src="https://s1.ax1x.com/2020/03/25/8XkUEj.png" alt="8XkUEj.png"></p>
+<p>不过需要注意的是,在最开始初始化的过程中是<strong>随机选取</strong>样本作为初始的均值向量.</p>
+<ul>
+<li><p>对于每一个样本$x_j$,其中$j = 1, 2, 3, …m$</p>
+<ul>
+<li>计算样本与各个簇之间的距离</li>
+<li>根据距离最近的均值确定样本$x_j$的簇标记</li>
+<li>将样本$x<em>j$划入对应的簇:$C</em>{\lambda<em>j} = C</em>{\lambda_j} \cup \left{x_j \right}$</li>
+</ul>
+</li>
+<li><p>对于每一个簇$\mu_i$,其中$i = 1,2,3, … k$</p>
+<ul>
+<li>计算每一个簇内<strong>新的均值向量$\mu’$</strong></li>
+<li>如果新的均值向量$\mu’$和原有的均值向量$\mu$不相等,则将均值向量更新为新的均值向量$\mu’$.否则均值向量不更新</li>
+</ul>
+<p>重复上述操作,直到当前均值向量都未更新或者到达了最大运行轮次</p>
+</li>
+</ul>
+<h3 id="学习向量化-Learning-Vector-Quantization"><a href="#学习向量化-Learning-Vector-Quantization" class="headerlink" title="学习向量化(Learning Vector Quantization)"></a>学习向量化(Learning Vector Quantization)</h3><ul>
+<li>LVQ假设数据样本带有标记,学习过程利用这些监督信息辅助聚类</li>
+</ul>
+<p>给定样本集$D = \left{(x<em>1,y_1),(x_2,y_2),…,(x_m,y_m)\right}$.每个样本$x_j$是由n个属性描述的特征向量$(x</em>{j1} ;x<em>{j2};x</em>{j3}…x_{jn})$.LVQ的目标是<strong>$学习到一组n维原型向量\left{p_1,p_2,p_3…p_n\right}$</strong> ,每一个原型向量代表一个聚类簇.</p>
+<h4 id="学习向量化算法"><a href="#学习向量化算法" class="headerlink" title="学习向量化算法"></a>学习向量化算法</h4><ul>
+<li>初始化一组原型向量(这个西瓜书上并没有写的很清楚具体的初始化过程,只有很简单的一句话)</li>
+<li>从D中随机选取一个有标记的样本$(x_j,y_j)$,计算样本与每一个聚类簇$p_j$的距离.</li>
+<li>找出与样本最近的聚类簇$ p<em>{i’} $ ,如果样本的标记和聚类簇相等,则令原型向量向$x_j$的方向靠拢,$p’ = p</em>{i’} + \eta (x<em>j - p</em>{i’})$</li>
+<li>如果标记和聚类簇不相等,则令原型向量远离$x<em>j$,$p’ = p</em>{i’} + \eta (x<em>j - p</em>{i’})$</li>
+<li>将原型向量$p_{i’}$更新为$p’$,不断迭代,直到达到停止条件</li>
+</ul>
+<p>新的原型向量$p’$与原来样本$x<em>j$的距离为$||p’ - x_j|| = (1- \eta ) || p</em>{i’} - x_j||_2$ .令学习率 $\eta \in (0,1)$ .在更新为$p’$之后将更接近$x_j$.<br>当标记不同的时候也是类似.</p>
+<h2 id="密度聚类"><a href="#密度聚类" class="headerlink" title="密度聚类"></a>密度聚类</h2><p>假定聚类结构能够通过样本分布的紧密程度决定.基于<strong>可连接样本</strong>不断扩展聚类簇获得最终结果.</p>
+<ul>
+<li>$\epsilon$-邻域,对$x<em>j \in D$,其$\epsilon$-邻域包含样本集D中与$x_j$距离不大于$\epsilon$的样本,即 $N</em>{\epsilon}(x_j) = \left{x_i \in D |dist(x_i,x_j) \leq \epsilon \right}$</li>
+<li>核心对象,若$x_i$的$\epsilon$-邻域至少包含 MinPts个样本(具体数值由我们手动设置),则$x_i$是一个核心对象</li>
+<li>密度直达: 若$x_j$位于$x_i$的$\epsilon$-邻域中,且$x_i$是核心对象,则称$x_j$由$x_i$密度直达</li>
+<li>密度可达: 对$x<em>j$和$x_i$,如果存在样本序列$p_1$,$p_2$,$p_3$,…$p_n$,其中p=$p_1 = x_i,p_n = x_j,$,且$p</em>{i+1}$由$p_i$密度直达,则称$x_j$由$x_i$密度可达</li>
+<li>密度相连: 对$x_j$和$x_i$,如果存在$x_k$,使得$x_i$和$x_j$均由$x_k$密度可达,则称$x_i$与$x_j$密度相连</li>
+</ul>
+<p><a href="https://imgchr.com/i/8XUHOS" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/25/8XUHOS.png" alt="8XUHOS.png"></a></p>
+<p>基于以上概念,DBSCAN将<strong>簇</strong>定义为由密度可达关系导出的最大密度相连样本集合.</p>
+<h4 id="DBSCAN算法"><a href="#DBSCAN算法" class="headerlink" title="DBSCAN算法"></a>DBSCAN算法</h4><ul>
+<li>初始化核心对象集合$\Omega$为空集</li>
+<li>对于样本集D中的每一个样本$x_j$,确定它是否满足<strong>核心对象</strong>的条件如果满足,将该样本加入核心对象集合$\Omega$中</li>
+<li>记录当前未访问样本集合$\Gamma_{old} = \Gamma$ .</li>
+<li>初始化聚类簇数为0,未访问样本数集合$\Gamma$ = D</li>
+<li>当$\Omega$不为空集时,随机选取一个$\Omega$中的元素o,初始化队列Q = &lt; o &gt;</li>
+<li>将未访问样本集合$\Gamma$更新为$\Gamma$ \ { o }</li>
+<li>当Q不为空时,提出Q中的首个样本$q$,如果$q$是核心对象,令$\Delta$为$q$的$\epsilon$-邻域中的样本和未访问集合$\Gamma$中的交集</li>
+<li>将$\Delta$中的元素加入队列Q中.更新$\Gamma$为 $\Gamma = \Gamma \backslash \Delta$</li>
+<li>当Q中所有元素都被取出来之后, k自增一,生成聚类簇$C<em>k$     = $\Gamma</em>{old} \backslash \Gamma$, 更新核心对象集合$\Omega = \Omega \backslash C_k$</li>
+</ul>
+<h2 id="层次聚类"><a href="#层次聚类" class="headerlink" title="层次聚类"></a>层次聚类</h2><ul>
+<li>在不同层次对数据集进行划分,形成<strong>树形</strong>的聚类结构.可以采用自底向上的聚合策略,也可以采用自顶向下的分拆策略.<h3 id="AGNES"><a href="#AGNES" class="headerlink" title="AGNES"></a>AGNES</h3>将数据集中的每一个样本看作一个<strong>初始聚类簇</strong>,在算法运行的每一步找出距离最近的两个聚类簇进行合并.重复过程直到达到预设的簇的个数.</li>
+<li>簇之间距离的计算:</li>
+</ul>
+<ol>
+<li>最小距离: $d<em>{min}(C_i,C_j) = min</em>{x \in C_i, y \in C_j}dist(x,y)$</li>
+<li>最大距离: $d<em>{max}(C_i,C_j) = max</em>{x \in C_i, y \in C_j}dist(x,y)$</li>
+<li><p>平均距离: $d<em>{avg}(C_i,C_j) = \frac {1}{|C_i||C_j|} \sum</em>{x \in C<em>i} \sum</em>{y \in C_j}dist(x,y)$</p>
+<p><img src="https://s1.ax1x.com/2020/03/25/8vEA7F.png" alt="8vEA7F.png"></p>
+</li>
+</ol>
+<p>算法的1-9行对仅含一个样本的<strong>初始聚类簇</strong>和<strong>距离矩阵</strong>进行初始化.所以这也是为什么第七行会有$M(j,i) = M(i,j)$ .<br>第11-23行则是对这个矩阵不断进行更新操作.矩阵合并之后相应的距离矩阵也需要更新.</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>在自己的博客中插入BGM</title>
+    <url>/2020/03/09/%E5%9C%A8%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%8F%92%E5%85%A5BGM/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>前几天心血来潮,觉得自己的博客应该加一点背景音乐.<del>于是程序员他说”要有music”,便有了music</del> 事情怎么可能这么美好!.不出意外的在插入背景音乐的过程中又遇到了许多问题,最后的解决方式也是和之前一样的<strong>玄学</strong>,不过还是开个帖子记录一下🤔<br><a id="more"></a><br>从这几天在网络上找到的资料来看插入背景音乐的方法大概分三类</p>
+<ol>
+<li>利用音乐平台的”外链生成器”,然后插入到网页当中</li>
+<li>利用<code>hexo-tag-aplayer</code>插件,在写博客的时候把歌曲插入到对应的博文之中</li>
+<li>使用<code>Aplayer</code>,全局的生成背景音乐播放器.</li>
+</ol>
+<h2 id="外链生成器"><a href="#外链生成器" class="headerlink" title="外链生成器"></a>外链生成器</h2><p>这个方法的优点是<strong>简单,高效</strong>,不像其他的两种方法又是安装插件又是自己设置音乐的<code>url</code>,<code>歌词</code>等等,但是很致命的问题是并不是音乐平台上所有的歌曲都支持外链生成.比如:<br>更不要提啥时候这首歌在网易云就会变灰….所以这种依赖音乐平台自身的插入BGM的方法在这里并不适合我<br>所以接下来我们考虑第二种</p>
+<h2 id="hexo-tag-player插件"><a href="#hexo-tag-player插件" class="headerlink" title="hexo-tag-player插件"></a>hexo-tag-player插件</h2><p><code>hexo-tag-player</code>本质上就是我们第三种方法的一个插件,<a href="https://github.com/MoePlayer/hexo-tag-aplayer" target="_blank" rel="noopener">GitHub项目地址</a>送上.<br>首先我们要在博客的目录下面打开<code>git bash</code>,输入<code>npm install --save hexo-tag-aplayer</code>指令来安装这款插件,如果是在Linux系统下面就应该是要打开终端了.不过使用这个功能的前提是<code>Aplayer.js</code>的版本要高于<code>1.8.0</code>,<code>Meting.js</code>的版本要高于<code>1.1.1</code>.(Meting属于后面的扩展内容.不是必须项).然后就可以在<strong>博客的正文的markdown里面</strong>,插入下面的神奇代码,来实现背景音乐播放<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% aplayer title author url [picture_url, narrow, autoplay, width:xxx, lrc:xxx] %&#125;</span><br></pre></td></tr></table></figure><br>这里稍稍解释下标签参数,GitHub文档中都有很详细的描述.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td>曲目标题</td>
+</tr>
+<tr>
+<td><code>author</code></td>
+<td>曲目作者</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>音乐文件 URL 地址</td>
+</tr>
+<tr>
+<td><code>picture_url</code></td>
+<td>(可选) 音乐对应的图片地址</td>
+</tr>
+<tr>
+<td><code>narrow</code></td>
+<td>(可选) 播放器袖珍风格</td>
+</tr>
+<tr>
+<td><code>autoplay</code></td>
+<td>(可选) 自动播放，移动端浏览器暂时不支持此功能</td>
+</tr>
+<tr>
+<td><code>width:xxx</code></td>
+<td>(可选) 播放器宽度 (默认: 100%)</td>
+</tr>
+<tr>
+<td><code>lrc:xxx</code></td>
+<td>(可选)歌词文件 URL 地址</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>同样,歌词标签和播放列表GitHub的<a href="https://github.com/MoePlayer/hexo-tag-aplayer/blob/master/docs/README-zh_cn.md" target="_blank" rel="noopener">文档</a>里都有写.不过这个地方我真的要吐槽一下.文档虽然写的很翔实各种参数都给你标注出来了但是你<sup>TM</sup> 都不告诉我在那里插入这段神奇代码的吗?不说谁知道是插入在布局的swig文件还是markdown还是别的啥地方啊.(来自一个一点都不会前端的菜鸡深深的怨念).<br>不过这种方法也有缺点,就是必须在写文章的时候插入.这就不符合我的全局的要求.所以我们转向它的本尊-Aplayer</p>
+<h2 id="APlayer"><a href="#APlayer" class="headerlink" title="APlayer"></a>APlayer</h2><p>同样,还是先贴<a href="https://github.com/MoePlayer/APlayer" target="_blank" rel="noopener">GitHub项目地址</a>.要使用Aplayer首先需要<code>npm install aplayer --save</code>安装.<a href="https://aplayer.js.org/#/zh-Hans/" target="_blank" rel="noopener">中文文档</a>在这里.然后从它的仓库clone下来它的代码,把其中的<code>dist</code>文件夹拷贝到<code>themes\next\source</code> 下面,再在<code>dist</code>文件夹中新建一个<code>music.js</code>.然后把这段代码拷贝进去<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> ap = <span class="keyword">new</span> APlayer(&#123;</span><br><span class="line">    container: <span class="built_in">document</span>.getElementById(<span class="string">'aplayer'</span>),</span><br><span class="line">    audio: [&#123;</span><br><span class="line">        name: <span class="string">'name'</span>,</span><br><span class="line">        artist: <span class="string">'artist'</span>,</span><br><span class="line">        url: <span class="string">'url.mp3'</span>,</span><br><span class="line">        cover: <span class="string">'cover.jpg'</span></span><br><span class="line">    &#125;]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这里就不一一列举参数了,就捡几个主要的说</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>container</code></td>
+<td>document.querySelector(‘.aplayer’)</td>
+<td>播放器容器元素</td>
+</tr>
+<tr>
+<td><code>fixed</code></td>
+<td>false</td>
+<td>开启吸底模式</td>
+</tr>
+<tr>
+<td><code>mini</code></td>
+<td>false</td>
+<td>开启迷你模式</td>
+</tr>
+<tr>
+<td><code>autoplay</code></td>
+<td>false</td>
+<td>音频自动播放</td>
+</tr>
+<tr>
+<td><code>theme</code></td>
+<td>‘#b7daff’</td>
+<td>主题色</td>
+</tr>
+<tr>
+<td><code>loop</code></td>
+<td>‘all’</td>
+<td>音频循环播放, 可选值: ‘all’, ‘one’, ‘none’</td>
+</tr>
+<tr>
+<td><code>order</code></td>
+<td>‘list’</td>
+<td>音频循环顺序, 可选值: ‘list’, ‘random’</td>
+</tr>
+<tr>
+<td><code>preload</code></td>
+<td>‘auto’</td>
+<td>预加载，可选值: ‘none’, ‘metadata’, ‘auto’</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>一段成熟的代码应该像下面这个亚子</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> ap = <span class="keyword">new</span> APlayer(&#123;</span><br><span class="line">    container: <span class="built_in">document</span>.getElementById(<span class="string">'player'</span>),</span><br><span class="line">    mini: <span class="literal">false</span>,</span><br><span class="line">    autoplay: <span class="literal">false</span>,</span><br><span class="line">    theme: <span class="string">'#FADFA3'</span>,</span><br><span class="line">    loop: <span class="string">'all'</span>,</span><br><span class="line">    order: <span class="string">'random'</span>,</span><br><span class="line">    preload: <span class="string">'auto'</span>,</span><br><span class="line">    volume: <span class="number">0.7</span>,</span><br><span class="line">    mutex: <span class="literal">true</span>,</span><br><span class="line">    listFolded: <span class="literal">false</span>,</span><br><span class="line">    listMaxHeight: <span class="number">90</span>,</span><br><span class="line">    lrcType: <span class="number">3</span>,</span><br><span class="line">    audio: [</span><br><span class="line">        &#123;</span><br><span class="line">            name: <span class="string">'name1'</span>,</span><br><span class="line">            artist: <span class="string">'artist1'</span>,</span><br><span class="line">            url: <span class="string">'url1.mp3'</span>,</span><br><span class="line">            cover: <span class="string">'cover1.jpg'</span>,</span><br><span class="line">            lrc: <span class="string">'lrc1.lrc'</span>,</span><br><span class="line">            theme: <span class="string">'#ebd0c2'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            name: <span class="string">'name2'</span>,</span><br><span class="line">            artist: <span class="string">'artist2'</span>,</span><br><span class="line">            url: <span class="string">'url2.mp3'</span>,</span><br><span class="line">            cover: <span class="string">'cover2.jpg'</span>,</span><br><span class="line">            lrc: <span class="string">'lrc2.lrc'</span>,</span><br><span class="line">            theme: <span class="string">'#46718b'</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>将上面这段完整的代码写进<code>music.js</code>,其他的选项可以自己设定.提一下,在Aplayer的官方文档中似乎没有提到可以利用资源文件夹的操作,所以在填写url链接的时候需要注意.有兴趣的小伙伴可以试一试利用本地资源的方法.在我自己的代码我是采用外链的方法.虽然我觉得这个外链的获取方式堪称奇技淫巧,但它偏偏就是有效(摊手).<br>还是到网易云,找到想听的歌.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/InsertBGM/%E7%BD%91%E6%98%93%E4%BA%91%E6%89%BE%E6%AD%8C.png" alt=""></p>
+<p>然后复制地址栏中的链接，粘贴到上面的<code>url</code>字段,然后修改一下.让我来举个🍒.</p>
+<p>从网易云音乐上复制下来的<code>Skylark</code>的链接为<code>https://music.163.com/#/song?id=32320830</code>,只需要把它魔改成<code>https://music.163.com/song/media/outer/url?id=32320830.mp3</code>.一个有效的url链接就诞生了.</p>
+<p>别问我原理是啥….我也不清楚.But it does work.所以对于任何网易云音乐上的歌(只要它收录了),我们都可以采用这种方式来获取它的<code>url</code>.至于其他的音乐平台,如QQ,虾米,这种方式我还没有试过.欢迎试过的同学在评论区讨论一下吼~.至于如何获取专辑的图片.只需要在网页专辑右键,然后选择<code>检查</code>项.找到其中的后缀为<code>png</code>或者<code>jpg</code>的链接即可.就像下面这样.<img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/InsertBGM/%E8%8E%B7%E5%8F%96%E4%B8%93%E8%BE%91%E5%B0%81%E9%9D%A2.png" alt=""></p>
+<p>右上角第一个箭头和第二个箭头指向的路径其实是一个(<del>那你画两个箭头干嘛</del>),只不过第一个路径相比第二个路径在他的jpg后面多了一串代码.至此我们的准备工作就差不多结束了.万事俱备,只欠东风.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"/dist/APlayer.min.css"</span>&gt;</span><br><span class="line">&lt;div id=<span class="string">"aplayer"</span>&gt;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;script type="text/</span>javascript<span class="string">" src="</span>/dist/APlayer.min.js<span class="string">"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;script type="</span>text/javascript<span class="string">" src="</span>/dist/music.js<span class="string">"&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>打开<br><code>theme/next/layout</code>路径下面的<code>_layout.swig</code>文件.<img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/InsertBGM/_layout.swig%E6%96%87%E4%BB%B6.png" alt="">.把上面那段代码插入到<code>&lt;body itemscope...&gt;</code>之后,<code>&lt;/body&gt;</code>之前即可(<code>&lt;/body&gt;</code>没有在截图中显示出来).我是直接插入在了第13行.然后重新部署我们的博客,重启,大功告成!在博客的左下角即可看到我们附底模式的Aplayer<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/InsertBGM/%E5%A4%A7%E5%8A%9F%E5%91%8A%E6%88%90.png" alt=""></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://helloblack2017.github.io/2018/04/22/use-hexo-tag-aplayer/" target="_blank" rel="noopener">Hugo Black的Blog</a><br><a href="https://mackvord.github.io/aplayer-dplayer/547187035.html" target="_blank" rel="noopener">Mackvord’s Blog</a><br><a href="https://hakurei.red/2019/11/25/%E4%B8%BAHexo%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E5%85%A8%E5%B1%80APlayer%E6%92%AD%E6%94%BE%E5%99%A8/" target="_blank" rel="noopener">博丽吹笛分社 - 为Hexo博客添加全局APlayer播放器 </a></p>
+]]></content>
+      <tags>
+        <tag>hexo</tag>
+        <tag>Blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>评论系统Valine的使用</title>
+    <url>/2020/03/07/%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9FValine%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h1 id="评论系统Valine的使用"><a href="#评论系统Valine的使用" class="headerlink" title="评论系统Valine的使用"></a>评论系统Valine的使用</h1><p><a href="https://ioliu.cn/2017/add-valine-comments-to-your-blog/" target="_blank" rel="noopener">@云淡风轻</a> 开发了一款轻量级的Blog评论应用,这里记录下Valine的使用和自定义过程</p>
+<a id="more"></a>
+<h2 id="获取App-ID和App-Key"><a href="#获取App-ID和App-Key" class="headerlink" title="获取App ID和App Key"></a>获取App ID和App Key</h2><p>在<a href="https://leancloud.cn/dashboard/applist.html#/apps" target="_blank" rel="noopener">LeanCloud的官网</a>上注册一个帐号,实名并邮箱验证通过之后可以<a href="https://leancloud.cn/dashboard/applist.html#/apps" target="_blank" rel="noopener">这里</a>创建一个应用.应用名可以随便取.</p>
+<p>在刚刚创建的应用的设置中选择<strong>应用Key</strong>,就可以看到这个应用的App ID和App Key了.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/TIM%E6%88%AA%E5%9B%BE20200307120352.png" alt="TIM截图20200307120352"></p>
+<h2 id="设置安全域名"><a href="#设置安全域名" class="headerlink" title="设置安全域名"></a>设置安全域名</h2><p>然后打开设置中的<strong>安全中心</strong>,在下面的<strong>Web安全域名</strong>中填入我们网站的域名,如下图<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E5%A1%AB%E5%86%99Web%E5%AE%89%E5%85%A8%E5%9F%9F%E5%90%8D.png" alt="填写Web安全域名"></p>
+<h2 id="在主题配置文件中填入相应字段"><a href="#在主题配置文件中填入相应字段" class="headerlink" title="在主题配置文件中填入相应字段"></a>在主题配置文件中填入相应字段</h2><p>打开博客所在目录,找到<strong>主题</strong>的配置文件,不是整个博客的.在文本中搜索”valine”,把刚才获取到的App ID和App Key填入进去.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png" alt="修改配置文件"><br>这里提一个坑,在复制App ID和App Key的时候注意不要<strong>激活了后面的注释</strong>,如果注释被视为了代码的一部分就会报一个</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Code : undefined [410 GET https:&#x2F;&#x2F;avoscloud.com&#x2F;1.1&#x2F;classes&#x2F;Comment]</span><br></pre></td></tr></table></figure>
+<p>的错误,这个时候就应该检查一下是否配置文件中的注释出现了问题<br>另外在这个过程中还可能出现其他的问题,比如<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Code 403: 访问被api域名白名单拒绝，请检查你的安全域名设置</span><br></pre></td></tr></table></figure><br>就要检查在第二步<strong>设置安全域名</strong>的过程中是否漏掉了网址最后的”/“,比如原来的网址是<code>https://godlowd.github.io/</code>,但是填写进去的时候是<code>https://godlowd.github.io</code>.建议还是直接复制浏览器地址栏中的地址,再粘贴进去,就可以避免类似问题<br>重新部署我们的Blog之后打开就可以看到评论功能了.不过这个时候还处于一个比较基本的状态.要进行更深层次的定制还需要进一步优化.</p>
+<h2 id="打开评论邮件提醒系统"><a href="#打开评论邮件提醒系统" class="headerlink" title="打开评论邮件提醒系统"></a>打开评论邮件提醒系统</h2><p>首先贴一下<a href="https://github.com/zhaojun1998/Valine-Admin" target="_blank" rel="noopener">大佬的GitHub项目地址</a>,这是一个Valine的拓展应用,可以用来通知站长新评论,而且支持自定义邮件主题(有一说一,彩虹色的还蛮好康的嗷).下面就让我来康康这个玩意是怎么整的</p>
+<h3 id="设置代码库"><a href="#设置代码库" class="headerlink" title="设置代码库"></a>设置代码库</h3><p>首先我们需要在Lean Cloud的<strong>云引擎</strong>的<strong>设置</strong>中把上面大佬的项目地址添加进去并保存<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%A0%81%E5%BA%93.png" alt="设置代码库"></p>
+<h3 id="自定义环境变量"><a href="#自定义环境变量" class="headerlink" title="自定义环境变量"></a>自定义环境变量</h3><p>光有了大佬的代码还不够,我们还需要知道有了新评论如何登录一个邮箱并且把通知发送到站长的邮箱不是?,所以我们需要在<strong>环境变量</strong>这个地方设置好这些东西</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>环境变量名</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SITE_NAME</td>
+<td>网站名称,就是在博客的配置文件中的<strong>title</strong>项</td>
+</tr>
+<tr>
+<td>SITE_URL</td>
+<td>网站的地址,<strong>最后不要加 / </strong>,和上面的安全域名略有不同</td>
+</tr>
+<tr>
+<td>SMTP_USER</td>
+<td>SMTP 服务用户名，一般为邮箱地址。</td>
+</tr>
+<tr>
+<td>SMTP_PASS</td>
+<td>SMTP密码,这个可以自行查询对应邮件服务商的获取方式,不是登录密码</td>
+</tr>
+<tr>
+<td>SMTP_SERVICE</td>
+<td>邮件服务提供商,支持<code>QQ</code>、<code>163</code>、<code>126</code>、<code>Gmail</code>、<code>Yahoo</code></td>
+</tr>
+<tr>
+<td>SENDER_NAME</td>
+<td>寄件人名称</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png" alt="SENDER_NAME"></p>
+<p>另外还有一些环境变量是这样子的:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>环境变量名</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TO_EMAIL</td>
+<td>指定<strong>收信信箱</strong>,默认为SITE_USER.用于SITE_USER发件人和收件人不一致的情况下使用</td>
+</tr>
+<tr>
+<td>TEMPLATE_NAME</td>
+<td>提醒邮件的模板,默认为default,目前支持rainbow</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>切换到<strong>部署</strong>页面,选择中间的Git源码部署,下面的分支或版本号填写<strong>master</strong>,,然后等待大概7-8分钟.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E9%83%A8%E7%BD%B2.png" alt="部署"><br>部署完成之后的页面应该是这个样子<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E9%83%A8%E7%BD%B22.png" alt="部署2"></p>
+<p>不过很奇怪的是部署完成之后我的web组栏下面并没有和<a href="https://11.tt/posts/2018/add-valine-to-your-blog/" target="_blank" rel="noopener">其他博主一样</a>出现实例的字样.这也导致了他们的重启实例我不知道在哪里运行.如果有知道的兄弟萌欢迎在评论区指出.</p>
+<p>不过困难总是可以克服的嘛.既然不能在实例里面重启,那我就在部署的生产环境里重启.反正都是重启不是?(此处手动贴吧滑稽).</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>上述工作完成之后,我们在主题的配置文件中选择将它的<code>notify</code>项设为<code>true</code>来打开邮件提醒,同时在评论区输入一条评论来测试一下.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C.PNG" alt="测试结果"><br>就测试结果来看.确实我收到了自己给自己发的邮件(因为之前在设置环境变量的时候设置的是这样子的嘛).而且发送邮件的主题也和我们在环境变量中定义的<code>rainbow</code>相同.我们可以认为Valine的邮件提醒功能算是成功启动了.</p>
+<p><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E5%A6%99%E5%95%8A.jpg" alt="妙啊"></p>
+<h2 id="Valine的其他功能"><a href="#Valine的其他功能" class="headerlink" title="Valine的其他功能"></a>Valine的其他功能</h2><p>时间关系,本人还需要苦逼的干活,所以不能一次性整完Valine的全部功能,目前在日程表上的计划(日程表: 我不是我没有你别瞎说)有更换自定义表情包,开辟专门的留言板页面.取消显示OS和浏览器型号,支持游客的留言被回复也可被通知,等等.辣么就下次再见啦</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://deserts.io/valine-admin-document/" target="_blank" rel="noopener">https://deserts.io/valine-admin-document/</a><br><a href="https://bestzuo.cn/posts/3307440964.html" target="_blank" rel="noopener">https://bestzuo.cn/posts/3307440964.html</a><br><a href="https://deserts.io/diy-a-comment-system/" target="_blank" rel="noopener">https://deserts.io/diy-a-comment-system/</a><br><a href="https://rightofriver.github.io/2019/10/30/ValineBug1/#fnref:3" target="_blank" rel="noopener">https://rightofriver.github.io/2019/10/30/ValineBug1/#fnref:3</a></p>
+]]></content>
+      <tags>
+        <tag>Blog</tag>
       </tags>
   </entry>
   <entry>
@@ -1595,470 +2059,6 @@ MA = BA + VA</script><ul>
 ]]></content>
       <tags>
         <tag>Notes</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>图论算法复习</title>
-    <url>/2020/03/29/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h1 id="图论算法"><a href="#图论算法" class="headerlink" title="图论算法"></a>图论算法</h1><h4 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h4><ul>
-<li>G = (V, E)用来表示图,其中</li>
-<li>V 是顶点集合(vertices)</li>
-<li>E 是边的集合(edges)</li>
-</ul>
-<p>连接图: 任何两个顶点之间存在一个通路<br>邻接表: 存储每个顶点与之直接相关联的一条边.长度和等于边的数目</p>
-<a id="more"></a>
-<h2 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h2><h3 id="BFS-广度优先"><a href="#BFS-广度优先" class="headerlink" title="BFS(广度优先)"></a>BFS(广度优先)</h3><ul>
-<li>input: G = (V, E), 搜索<strong>源顶点s</strong></li>
-<li>Output: 从源顶点到图中其他顶点的最短距离; 一棵广度优先树<br>算法思想:<br>用<strong>白色</strong>表示初始状态,即还未搜索到,<strong>灰色</strong>表示刚刚搜索到,<strong>黑色</strong>表示所有邻接顶点被搜索完.用一个FIFO保存灰色顶点</li>
-</ul>
-<h4 id="BFS附加数据结构"><a href="#BFS附加数据结构" class="headerlink" title="BFS附加数据结构:"></a>BFS附加数据结构:</h4><ol>
-<li>color[u] 表示顶点颜色</li>
-<li>$\pi$[u] 表示顶点u的父节点</li>
-<li>d[u] 表示顶点u到源顶点s的距离</li>
-<li>FIFO Q 存储灰色顶点</li>
-</ol>
-<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p><img src="https://s1.ax1x.com/2020/03/28/GAr7tg.png" alt="GAr7tg.png"></p>
-<p>前面一张是对数据结构进行初始化,后一张负责搜索过程,当$Q \neq \emptyset$ 时,即所有顶点都不是<strong>灰色</strong>,搜索结束.</p>
-<p>时间复杂度为 O(V + E).相比于DFS,BFS可以提供源节点到其他所有节点的最短距离和最小边数目(以上都是在无向无权图的情况下讨论)</p>
-<h3 id="DFS-深度优先"><a href="#DFS-深度优先" class="headerlink" title="DFS(深度优先)"></a>DFS(深度优先)</h3><ul>
-<li>Input: G = (V , E),没有源顶点.</li>
-<li>Output: 每个顶点有两个时间标记,一个<strong>发现时间</strong>,一个结束时间 ; 深度优先森林</li>
-</ul>
-<h4 id="DFS-附加数据结构"><a href="#DFS-附加数据结构" class="headerlink" title="DFS 附加数据结构"></a>DFS 附加数据结构</h4><ul>
-<li>$\pi$[u]: 顶点u的父节点</li>
-<li>d[u], f[u]: 发现(discovery time),完成(finish time)时间</li>
-<li>color[u]: 发现前: <strong>白色</strong>; 发现处理中: <strong>灰色</strong>; 处理完后: <strong>黑色</strong></li>
-<li>time-step: 时间步骤, 在顶点发现和搜索完成时增加</li>
-</ul>
-<h4 id="算法-1"><a href="#算法-1" class="headerlink" title="算法"></a>算法</h4><p><a href="https://imgchr.com/i/GAyzYF" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/28/GAyzYF.png" alt="GAyzYF.png" style="zoom:80%;" /></a></p>
-<p><img src="https://s1.ax1x.com/2020/03/28/GA6eYD.png" alt="GA6eYD.png" style="zoom:80%;" /></p>
-<p>第一张图的1-4行仍是对算法的初始化,5-7行则是循环过程.时间复杂度也是O( V + E)</p>
-<h4 id="边的分类"><a href="#边的分类" class="headerlink" title="边的分类"></a>边的分类</h4><ul>
-<li>树边: 抵达白色顶点的边</li>
-<li>回边: 抵达灰色顶点.有向图中的<strong>自回路</strong>也算是回边</li>
-<li>前向边: 抵达黑色顶点的边,且满足d[u] &lt; d[v],可以理解为连接顶点u和它的后裔节点的一条边</li>
-<li>横跨边: 抵达黑色顶点,且满足d[u] &gt; d[v],可以横跨不同深度优先树的顶点或者同一深度优先树的不同顶点之间</li>
-</ul>
-<h4 id="括号定理"><a href="#括号定理" class="headerlink" title="括号定理"></a>括号定理</h4><p>在DFS中还有一个括号定理,虽然我觉得这个似乎是很显而易见的事情,不过还是提一句.<br>对任意两个顶点集V中的节点u,v;下列情况有且只有一种成立</p>
-<ol>
-<li>u,v互不为后裔</li>
-<li>v是u的后裔</li>
-<li>u是v的后裔</li>
-</ol>
-<p>没了….</p>
-<h3 id="强连通分支"><a href="#强连通分支" class="headerlink" title="强连通分支"></a>强连通分支</h3><p>这里引入强连通分支的概念. 强连通分支指的是图G = (V , E)的一个极大集,这个集合中所有的顶点都可以<strong>相互到达</strong>,是一种很强的性质,比如下图<br><img src="https://s1.ax1x.com/2020/03/28/GAqF8s.png" alt="GAqF8s.png"></p>
-<h4 id="图的转置"><a href="#图的转置" class="headerlink" title="图的转置"></a>图的转置</h4><p>G<sup>T</sup> 是G的一个转置,将G中所有边<strong>转向</strong>.</p>
-<h4 id="确定强连通分支"><a href="#确定强连通分支" class="headerlink" title="确定强连通分支"></a>确定强连通分支</h4><p>首先需要知道G<sup>T</sup>和G拥有<strong>相同的SCC</strong>.</p>
-<ol>
-<li>在图G上执行DFS,记录每个节点的<strong>完成时间f[u]</strong></li>
-<li>将图G转置成图G<sup>T</sup> .从<strong>具有最大的f[u]</strong>的节点开始.在G<sup>T</sup> 上执行DFS.如果不能到达所有的顶点则执行下一个的DFS</li>
-<li>在最终得到的森林每一棵树就是一个SCC<br>下图是一个例子.<br><img src="https://s1.ax1x.com/2020/03/28/GAL8YQ.png" alt="GAL8YQ.png"></li>
-</ol>
-<h2 id="最小生成树-MinimumSpanning-Trees"><a href="#最小生成树-MinimumSpanning-Trees" class="headerlink" title="最小生成树(MinimumSpanning Trees)"></a>最小生成树(MinimumSpanning Trees)</h2><p>连通无向图.</p>
-<ul>
-<li>Goal: 每两个顶点之间保持联通,权重之和最小</li>
-</ul>
-<h4 id="MST的一些特性"><a href="#MST的一些特性" class="headerlink" title="MST的一些特性"></a>MST的一些特性</h4><ul>
-<li>非唯一</li>
-<li>无回路(与最小且联通相冲突0</li>
-<li>边数等于顶点数减一</li>
-</ul>
-<h4 id="MST一般算法"><a href="#MST一般算法" class="headerlink" title="MST一般算法"></a>MST一般算法</h4><p><img src="https://s1.ax1x.com/2020/03/29/GEyo34.png" alt="GEyo34.png"></p>
-<p>这里其实有一个问题没有说明,如何证明安全的边的集合一定是MST呢?<br>不过我们先来看一下安全边的定义和一些概念.</p>
-<ul>
-<li>切割: 将图的顶点分为两个互斥子集S和V - S</li>
-<li>一个边的两个端点分别在切割的两个集合 S和V - S中.就说该边横跨该切割.</li>
-<li>切割的轻边(light edge): 横跨切割的边中<strong>权值最小</strong>的边.可以不唯一</li>
-<li>干预: 集合A中没有边和该切割相交,就说一个切割不干预集合A.</li>
-</ul>
-<p><img src="https://s1.ax1x.com/2020/03/29/GE6bRg.png" alt="GE6bRg.png"><br>下面介绍Kruskal和Prim算法</p>
-<h4 id="Kruskal"><a href="#Kruskal" class="headerlink" title="Kruskal"></a>Kruskal</h4><p><img src="https://s1.ax1x.com/2020/03/29/GEgZcQ.png" alt="GEgZcQ.png"><br>简单的来说就是</p>
-<ol>
-<li>将所有边按照权重由低到高排序,从最小的边出发</li>
-<li>检查后面的边是不是安全边,如果是就添加到当前这个集合里面.<br>在离散数学中上面这些操作可以直接用图示法表示出来,在算法中需要用到<strong>不相关集合的操作</strong></li>
-</ol>
-<ul>
-<li>MAKE-SET(u):创建集合</li>
-<li>FIND-SET(u): 对于同一个集合中的不同元素,FIND-SET返回的值都是一样的.</li>
-<li>UNION(u,v): 将两个集合合并</li>
-</ul>
-<p><img src="https://s1.ax1x.com/2020/03/29/GERdfK.png" alt="GERdfK.png"></p>
-<p>上图给出了Kruskal算法描述和实例.</p>
-<h4 id="Prim"><a href="#Prim" class="headerlink" title="Prim"></a>Prim</h4><p>Prim算法的核心是他的贪婪策略.从任意一个给定的节点都可以开始.模式有点像一棵树生长的过程.每次加入一条轻边.直到包含所有的顶点为止.</p>
-<p><img src="https://s1.ax1x.com/2020/03/29/GER41S.png" alt="GER41S.png"></p>
-<p><img src="https://s1.ax1x.com/2020/03/29/GERjpT.png" alt="GERjpT.png"></p>
-<p>需要注意的是Prim算法采用了数据结构中的<strong>优先队列</strong>来存储尚未在MST中的顶点.排序的条件是当前正在生成MST的集合到其他点的距离</p>
-<h2 id="单源最短路径"><a href="#单源最短路径" class="headerlink" title="单源最短路径"></a>单源最短路径</h2><p>从给定<strong>源顶点</strong>s到图中其他顶点$v \in V$的最短路径</p>
-<ul>
-<li>Input: G = (V, E) ; 权</li>
-<li>如果从点u不能到达点v,则$\delta(u,v) = \infty$</li>
-</ul>
-<p>最短路径优化的基础: 如果一条路径是最短路径,那么它的<strong>部分路径</strong>也是最短路径.由<strong>反证法</strong>可知.<br>当图中存在回路的时候,那么从<strong>源顶点s</strong>到另一个顶点v可能就存在非唯一路径.那么这个时候我们称从s到v权值之和最小的路径是它的最短路径.这个情况常常发生在有权值为负的边的情况下<br>当然也可能存在 <strong>不存在最短路径</strong>的情况.如下图所示.<br><img src="https://s1.ax1x.com/2020/03/29/GV1NQg.png" alt="GV1NQg.png"><br>因为回路权值之和<strong>为负</strong>,根据定义最短路径也就不存在.另外,在最短路径中也不应该存在回路,无论是<strong>正权回路</strong>,还是<strong>负权回路</strong>,又或者是<strong>权为0的回路</strong>.</p>
-<h3 id="最短路径数据结构"><a href="#最短路径数据结构" class="headerlink" title="最短路径数据结构"></a>最短路径数据结构</h3><ul>
-<li>d[v]: 等于$\delta(s.v)$,初始情况d[v]是无穷大,在算法的过程中逐步减少.类似于BFS</li>
-<li>$\pi$[v]: 从源顶点s到顶点v最短路径上的父节点,如果没有父节点就置为<strong>NIL</strong>.</li>
-<li>最短路径和最短路径树不唯一<h3 id="算法-2"><a href="#算法-2" class="headerlink" title="算法"></a>算法</h3>首先对所有顶点的数据结构进行初始化.d[v]置无穷,$\pi$置NIL. 源顶点s的d[s]置0.<h4 id="缩短法-RELAX"><a href="#缩短法-RELAX" class="headerlink" title="缩短法(RELAX)"></a>缩短法(RELAX)</h4>对边(u.v)的缩短就是: 检查源顶点<strong>直接到v的距离</strong>是否会比<strong>通过顶点u到v的距离</strong>更长.如果满足的话就更新一下d[u]和d[v]的值.操作之后应该满足 $ d[v] \leq d[u] + w(u,v)$,两边之和大于第三边2333<br><img src="https://s1.ax1x.com/2020/03/29/GV8mbd.png" alt="GV8mbd.png"><h4 id="Bellman-Ford算法"><a href="#Bellman-Ford算法" class="headerlink" title="Bellman-Ford算法"></a>Bellman-Ford算法</h4></li>
-<li>允许负权边.</li>
-<li>返回值: 如果从源顶点s没有可抵达的负权值回路,返回真,其余返回假.</li>
-<li>思想: 遍历所有的边| V - 1 | 次,每次对每条边执行一次缩短运算.</li>
-</ul>
-<p><img src="https://s1.ax1x.com/2020/03/29/GVwdIg.png" alt="GVwdIg.png"><br>算法前半部分在不断的遍历.后半部分则在检测是否存在回路.如果存在回路则返回FALSE<br>检查回路的算法:<br><img src="https://s1.ax1x.com/2020/03/29/GVICCR.png" alt="GVICCR.png"><br>如果图中出现了负权回路.那么就会有上图的情况.整个算法的时间复杂度为O(VE)</p>
-<h4 id="DAG"><a href="#DAG" class="headerlink" title="DAG"></a>DAG</h4><p>思想: 对图进行<strong>拓扑排序</strong>,依据拓扑排序对边进行缩短操作..因为DAG中没有<strong>负权边</strong>,所以最短路径一定存在</p>
-<h4 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h4><p>不存在负权值边界.包含两类顶点的集合: </p>
-<ol>
-<li>已知最短路径的点集合S</li>
-<li>未知最短路径的点集合Q, Q = V -S.Q是一个极小优先队列.</li>
-</ol>
-<p>重复地从Q中选取具有最短估计距离的顶点进行处理.对从Q中提出出来的顶点u,每一个邻接顶底v都执行RELAX操作.然后把提出出来的顶点u加入到已知最短路径的集合S中去.<br><img src="https://s1.ax1x.com/2020/03/29/GZPsOS.png" alt="GZPsOS.png"></p>
-<h2 id="全成对最短路径"><a href="#全成对最短路径" class="headerlink" title="全成对最短路径"></a>全成对最短路径</h2><ul>
-<li>Input: G = (V, E) , 权</li>
-<li>Output: 任何点对之间的最短距离 ; 一个n * n的矩阵,元素是对应点对之间的最短距离,$\delta(u,v)$</li>
-</ul>
-<p>如果对每一个顶点使用单源最短路径,那么时间开销会很大.根据在单源最短路径中我们的讨论,一个最短路径的一部分也必然是最短路径.因此可以考虑使用动态规划来解决.<br>假定<strong>p是从i到j至多含有m条边的最短路径</strong>,对于这条路径上的任意一点,如果i = j,即出发点和终点是同一点,那么w(p) = 0,权之和显然为0.如果 i $\leq$ j,设在j前面一点为p,易得从i到p的最短路径最多含有m-1条边,我们可以得到$\delta(i,j) = \delta(i,p) + w_{kj}$</p>
-<p>设$l_{ij}^{(m)}$为从i到j至多含有m条边的最短路径的权.</p>
-<p>m = 0时,</p>
-<script type="math/tex; mode=display">
-l_{ij}^{(0)} = \left\{
-\begin{aligned}
-0 & &if m = 0 \\
-\infty if i \neq j
-\end{aligned}
-\right.</script><p>i = j 说明这两个点就是同一个点,所以距离是0, 如果i $\neq$j的话说明这两点不是同一点,而且之间的距离是0,所以必然不存在,返回正无穷.<br>m &gt; 1 时 </p>
-<script type="math/tex; mode=display">
-l_{ij}^{(m)} = min_{1 \leq k \leq }{l_{ij}^{(m-1)} + w_{kj}}</script><p>当m不等于0时,说明这两点之间一定有边相连.就像之前一样,对每一个之前的节点执行<strong>Relax</strong>操作,然后选其中最小的.<br>m = 1 时, </p>
-<script type="math/tex; mode=display">
-l_{ij}^{(1)} = w_{ij}</script><p>显而易见,只有一条边最小值就是这条边的权重.</p>
-<h3 id="Floyd-Warshall算法"><a href="#Floyd-Warshall算法" class="headerlink" title="Floyd-Warshall算法"></a>Floyd-Warshall算法</h3><ul>
-<li>有向有权图</li>
-<li>可以存在<strong>负权边</strong>,无<strong>负权回路</strong></li>
-</ul>
-<h4 id="最短路径需要用到的数据结构"><a href="#最短路径需要用到的数据结构" class="headerlink" title="最短路径需要用到的数据结构"></a>最短路径需要用到的数据结构</h4><ul>
-<li>路径p = <v<sub>1&lt;/sub&gt;,v<sub>2</sub>,v<sub>3</sub>,v<sub>4</sub>…,v<sub>l</sub>&gt;,p的<strong>中间顶点的集合</strong>是指{v<sub>2</sub>,v<sub>3</sub>,v<sub>4</sub>…,v<sub>l-1</sub>}中的点</li>
-<li>$d_{ij}^{(k)}$ : 从i到j最小的权值,其中间节点来自集合{1,2,…k}</li>
-</ul>
-<p>现在我们假设有一顶点k</p>
-<ol>
-<li>k是路径p的中间顶点.<br>所以</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>算法</tag>
-        <tag>学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在自己的博客中插入BGM</title>
-    <url>/2020/03/09/%E5%9C%A8%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%8F%92%E5%85%A5BGM/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><p>前几天心血来潮,觉得自己的博客应该加一点背景音乐.<del>于是程序员他说”要有music”,便有了music</del> 事情怎么可能这么美好!.不出意外的在插入背景音乐的过程中又遇到了许多问题,最后的解决方式也是和之前一样的<strong>玄学</strong>,不过还是开个帖子记录一下🤔<br><a id="more"></a><br>从这几天在网络上找到的资料来看插入背景音乐的方法大概分三类</p>
-<ol>
-<li>利用音乐平台的”外链生成器”,然后插入到网页当中</li>
-<li>利用<code>hexo-tag-aplayer</code>插件,在写博客的时候把歌曲插入到对应的博文之中</li>
-<li>使用<code>Aplayer</code>,全局的生成背景音乐播放器.</li>
-</ol>
-<h2 id="外链生成器"><a href="#外链生成器" class="headerlink" title="外链生成器"></a>外链生成器</h2><p>这个方法的优点是<strong>简单,高效</strong>,不像其他的两种方法又是安装插件又是自己设置音乐的<code>url</code>,<code>歌词</code>等等,但是很致命的问题是并不是音乐平台上所有的歌曲都支持外链生成.比如:<br>更不要提啥时候这首歌在网易云就会变灰….所以这种依赖音乐平台自身的插入BGM的方法在这里并不适合我<br>所以接下来我们考虑第二种</p>
-<h2 id="hexo-tag-player插件"><a href="#hexo-tag-player插件" class="headerlink" title="hexo-tag-player插件"></a>hexo-tag-player插件</h2><p><code>hexo-tag-player</code>本质上就是我们第三种方法的一个插件,<a href="https://github.com/MoePlayer/hexo-tag-aplayer" target="_blank" rel="noopener">GitHub项目地址</a>送上.<br>首先我们要在博客的目录下面打开<code>git bash</code>,输入<code>npm install --save hexo-tag-aplayer</code>指令来安装这款插件,如果是在Linux系统下面就应该是要打开终端了.不过使用这个功能的前提是<code>Aplayer.js</code>的版本要高于<code>1.8.0</code>,<code>Meting.js</code>的版本要高于<code>1.1.1</code>.(Meting属于后面的扩展内容.不是必须项).然后就可以在<strong>博客的正文的markdown里面</strong>,插入下面的神奇代码,来实现背景音乐播放<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% aplayer title author url [picture_url, narrow, autoplay, width:xxx, lrc:xxx] %&#125;</span><br></pre></td></tr></table></figure><br>这里稍稍解释下标签参数,GitHub文档中都有很详细的描述.</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>标签</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>title</code></td>
-<td>曲目标题</td>
-</tr>
-<tr>
-<td><code>author</code></td>
-<td>曲目作者</td>
-</tr>
-<tr>
-<td><code>url</code></td>
-<td>音乐文件 URL 地址</td>
-</tr>
-<tr>
-<td><code>picture_url</code></td>
-<td>(可选) 音乐对应的图片地址</td>
-</tr>
-<tr>
-<td><code>narrow</code></td>
-<td>(可选) 播放器袖珍风格</td>
-</tr>
-<tr>
-<td><code>autoplay</code></td>
-<td>(可选) 自动播放，移动端浏览器暂时不支持此功能</td>
-</tr>
-<tr>
-<td><code>width:xxx</code></td>
-<td>(可选) 播放器宽度 (默认: 100%)</td>
-</tr>
-<tr>
-<td><code>lrc:xxx</code></td>
-<td>(可选)歌词文件 URL 地址</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>同样,歌词标签和播放列表GitHub的<a href="https://github.com/MoePlayer/hexo-tag-aplayer/blob/master/docs/README-zh_cn.md" target="_blank" rel="noopener">文档</a>里都有写.不过这个地方我真的要吐槽一下.文档虽然写的很翔实各种参数都给你标注出来了但是你<sup>TM</sup> 都不告诉我在那里插入这段神奇代码的吗?不说谁知道是插入在布局的swig文件还是markdown还是别的啥地方啊.(来自一个一点都不会前端的菜鸡深深的怨念).<br>不过这种方法也有缺点,就是必须在写文章的时候插入.这就不符合我的全局的要求.所以我们转向它的本尊-Aplayer</p>
-<h2 id="APlayer"><a href="#APlayer" class="headerlink" title="APlayer"></a>APlayer</h2><p>同样,还是先贴<a href="https://github.com/MoePlayer/APlayer" target="_blank" rel="noopener">GitHub项目地址</a>.要使用Aplayer首先需要<code>npm install aplayer --save</code>安装.<a href="https://aplayer.js.org/#/zh-Hans/" target="_blank" rel="noopener">中文文档</a>在这里.然后从它的仓库clone下来它的代码,把其中的<code>dist</code>文件夹拷贝到<code>themes\next\source</code> 下面,再在<code>dist</code>文件夹中新建一个<code>music.js</code>.然后把这段代码拷贝进去<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> ap = <span class="keyword">new</span> APlayer(&#123;</span><br><span class="line">    container: <span class="built_in">document</span>.getElementById(<span class="string">'aplayer'</span>),</span><br><span class="line">    audio: [&#123;</span><br><span class="line">        name: <span class="string">'name'</span>,</span><br><span class="line">        artist: <span class="string">'artist'</span>,</span><br><span class="line">        url: <span class="string">'url.mp3'</span>,</span><br><span class="line">        cover: <span class="string">'cover.jpg'</span></span><br><span class="line">    &#125;]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>这里就不一一列举参数了,就捡几个主要的说</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>默认值</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>container</code></td>
-<td>document.querySelector(‘.aplayer’)</td>
-<td>播放器容器元素</td>
-</tr>
-<tr>
-<td><code>fixed</code></td>
-<td>false</td>
-<td>开启吸底模式</td>
-</tr>
-<tr>
-<td><code>mini</code></td>
-<td>false</td>
-<td>开启迷你模式</td>
-</tr>
-<tr>
-<td><code>autoplay</code></td>
-<td>false</td>
-<td>音频自动播放</td>
-</tr>
-<tr>
-<td><code>theme</code></td>
-<td>‘#b7daff’</td>
-<td>主题色</td>
-</tr>
-<tr>
-<td><code>loop</code></td>
-<td>‘all’</td>
-<td>音频循环播放, 可选值: ‘all’, ‘one’, ‘none’</td>
-</tr>
-<tr>
-<td><code>order</code></td>
-<td>‘list’</td>
-<td>音频循环顺序, 可选值: ‘list’, ‘random’</td>
-</tr>
-<tr>
-<td><code>preload</code></td>
-<td>‘auto’</td>
-<td>预加载，可选值: ‘none’, ‘metadata’, ‘auto’</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>一段成熟的代码应该像下面这个亚子</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> ap = <span class="keyword">new</span> APlayer(&#123;</span><br><span class="line">    container: <span class="built_in">document</span>.getElementById(<span class="string">'player'</span>),</span><br><span class="line">    mini: <span class="literal">false</span>,</span><br><span class="line">    autoplay: <span class="literal">false</span>,</span><br><span class="line">    theme: <span class="string">'#FADFA3'</span>,</span><br><span class="line">    loop: <span class="string">'all'</span>,</span><br><span class="line">    order: <span class="string">'random'</span>,</span><br><span class="line">    preload: <span class="string">'auto'</span>,</span><br><span class="line">    volume: <span class="number">0.7</span>,</span><br><span class="line">    mutex: <span class="literal">true</span>,</span><br><span class="line">    listFolded: <span class="literal">false</span>,</span><br><span class="line">    listMaxHeight: <span class="number">90</span>,</span><br><span class="line">    lrcType: <span class="number">3</span>,</span><br><span class="line">    audio: [</span><br><span class="line">        &#123;</span><br><span class="line">            name: <span class="string">'name1'</span>,</span><br><span class="line">            artist: <span class="string">'artist1'</span>,</span><br><span class="line">            url: <span class="string">'url1.mp3'</span>,</span><br><span class="line">            cover: <span class="string">'cover1.jpg'</span>,</span><br><span class="line">            lrc: <span class="string">'lrc1.lrc'</span>,</span><br><span class="line">            theme: <span class="string">'#ebd0c2'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            name: <span class="string">'name2'</span>,</span><br><span class="line">            artist: <span class="string">'artist2'</span>,</span><br><span class="line">            url: <span class="string">'url2.mp3'</span>,</span><br><span class="line">            cover: <span class="string">'cover2.jpg'</span>,</span><br><span class="line">            lrc: <span class="string">'lrc2.lrc'</span>,</span><br><span class="line">            theme: <span class="string">'#46718b'</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>将上面这段完整的代码写进<code>music.js</code>,其他的选项可以自己设定.提一下,在Aplayer的官方文档中似乎没有提到可以利用资源文件夹的操作,所以在填写url链接的时候需要注意.有兴趣的小伙伴可以试一试利用本地资源的方法.在我自己的代码我是采用外链的方法.虽然我觉得这个外链的获取方式堪称奇技淫巧,但它偏偏就是有效(摊手).<br>还是到网易云,找到想听的歌.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/InsertBGM/%E7%BD%91%E6%98%93%E4%BA%91%E6%89%BE%E6%AD%8C.png" alt=""></p>
-<p>然后复制地址栏中的链接，粘贴到上面的<code>url</code>字段,然后修改一下.让我来举个🍒.</p>
-<p>从网易云音乐上复制下来的<code>Skylark</code>的链接为<code>https://music.163.com/#/song?id=32320830</code>,只需要把它魔改成<code>https://music.163.com/song/media/outer/url?id=32320830.mp3</code>.一个有效的url链接就诞生了.</p>
-<p>别问我原理是啥….我也不清楚.But it does work.所以对于任何网易云音乐上的歌(只要它收录了),我们都可以采用这种方式来获取它的<code>url</code>.至于其他的音乐平台,如QQ,虾米,这种方式我还没有试过.欢迎试过的同学在评论区讨论一下吼~.至于如何获取专辑的图片.只需要在网页专辑右键,然后选择<code>检查</code>项.找到其中的后缀为<code>png</code>或者<code>jpg</code>的链接即可.就像下面这样.<img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/InsertBGM/%E8%8E%B7%E5%8F%96%E4%B8%93%E8%BE%91%E5%B0%81%E9%9D%A2.png" alt=""></p>
-<p>右上角第一个箭头和第二个箭头指向的路径其实是一个(<del>那你画两个箭头干嘛</del>),只不过第一个路径相比第二个路径在他的jpg后面多了一串代码.至此我们的准备工作就差不多结束了.万事俱备,只欠东风.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"/dist/APlayer.min.css"</span>&gt;</span><br><span class="line">&lt;div id=<span class="string">"aplayer"</span>&gt;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;script type="text/</span>javascript<span class="string">" src="</span>/dist/APlayer.min.js<span class="string">"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;script type="</span>text/javascript<span class="string">" src="</span>/dist/music.js<span class="string">"&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
-<p>打开<br><code>theme/next/layout</code>路径下面的<code>_layout.swig</code>文件.<img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/InsertBGM/_layout.swig%E6%96%87%E4%BB%B6.png" alt="">.把上面那段代码插入到<code>&lt;body itemscope...&gt;</code>之后,<code>&lt;/body&gt;</code>之前即可(<code>&lt;/body&gt;</code>没有在截图中显示出来).我是直接插入在了第13行.然后重新部署我们的博客,重启,大功告成!在博客的左下角即可看到我们附底模式的Aplayer<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/InsertBGM/%E5%A4%A7%E5%8A%9F%E5%91%8A%E6%88%90.png" alt=""></p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://helloblack2017.github.io/2018/04/22/use-hexo-tag-aplayer/" target="_blank" rel="noopener">Hugo Black的Blog</a><br><a href="https://mackvord.github.io/aplayer-dplayer/547187035.html" target="_blank" rel="noopener">Mackvord’s Blog</a><br><a href="https://hakurei.red/2019/11/25/%E4%B8%BAHexo%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E5%85%A8%E5%B1%80APlayer%E6%92%AD%E6%94%BE%E5%99%A8/" target="_blank" rel="noopener">博丽吹笛分社 - 为Hexo博客添加全局APlayer播放器 </a></p>
-]]></content>
-      <tags>
-        <tag>hexo</tag>
-        <tag>Blog</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>聚类</title>
-    <url>/2020/03/24/%E8%81%9A%E7%B1%BB/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h1 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h1><h2 id="聚类试图完成的任务"><a href="#聚类试图完成的任务" class="headerlink" title="聚类试图完成的任务"></a>聚类试图完成的任务</h2><p>面对一个样本集<strong>D</strong> = {x<sub>1</sub>,x<sub>2</sub>, x<sub>3</sub>, … , x<sub>m</sub>},聚类试图将D中的样本划分成若干个<strong>不相交的子集</strong>,每一个子集成为之一个<strong>簇</strong>(cluster).通过这样的划分,也许可以找出每个簇对应的一些潜在规律,例如第一个簇里面的样本都是”浅色瓜”,第二个簇里面的样本都是”深色瓜”,诸如此类.但是这些概念对于聚类算法而言是<strong>事先未知的</strong>.</p>
-<a id="more"></a>
-<h2 id="聚类用到的概念"><a href="#聚类用到的概念" class="headerlink" title="聚类用到的概念"></a>聚类用到的概念</h2><p>假定样本集<strong>D</strong>中包含m个无标记样本.每一个样本<strong>x<sub>i</sub></strong> = {x<sub>i1</sub>,x<sub>i2</sub>,x<sub>i3</sub>, … x<sub>in</sub>}都是一个<strong>n维特征向量</strong>,</p>
-<p>算法划分成的簇用<strong>C<sub>l</sub></strong>表示.假定划分成了k个簇,那么这k个簇两两之间的交集为空集,k个簇的并集为样本集<strong>D</strong>.</p>
-<p>用&lambda;<sub>j</sub> &isin; { 1, 2, 3, … k } 表示D中的样本x<sub>j</sub>的簇标记.即x<sub>j</sub> &isin; $C_{\lambda_j}$  </p>
-<h2 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h2><p>我们希望聚类结果的<strong>簇内相似度高</strong>,<strong>簇间相似度低</strong>.这一点其实很好理解,如果簇内的相似度太低则可能将无关样本也划分进来,如果簇间相似度高了则有可能将原本是一个簇的样本强行划分成了两个簇.</p>
-<p>评价一个聚类的性能度量大概有两类.</p>
-<ol>
-<li>将结果与某个参考模型进行比较,称为<strong>外部指标</strong></li>
-<li>直接考察聚类结果而不利用任何参考模型,称为<strong>内部指标</strong></li>
-</ol>
-<p>下面我们来考虑用外部指标进行性能度量的情况</p>
-<h3 id="外部指标"><a href="#外部指标" class="headerlink" title="外部指标"></a>外部指标</h3><p>假定对于上述给定的数据集<strong>D</strong>,通过<strong>聚类</strong>划分出的簇一共有k个,<strong>参考模型</strong>给出的簇一共有s个.将D中的样本两两配对考虑,且有如下定义:</p>
-<p>a = |SS|,|SS| = {(x<sub>i</sub>,x<sub>j</sub>) | &lambda;<sub>i</sub> = &lambda;<sub>j</sub>, &lambda;<sup>‘</sup> <sub>i</sub>= &lambda;<sup>‘</sup> <sub>j</sub>}<br>b = |SD|,|SD| = {(x<sub>i</sub>,x<sub>j</sub>) | &lambda;<sub>i</sub> = &lambda;<sub>j</sub>, &lambda;<sup>‘</sup> <sub>i</sub> &ne; &lambda;<sup>‘</sup> <sub>j</sub>}<br>c = |DS|,|DS| = {(x<sub>i</sub>,x<sub>j</sub>) | &lambda;<sub>i</sub> &ne; &lambda;<sub>j</sub>, &lambda;<sup>‘</sup> <sub>i</sub>= &lambda;<sup>‘</sup> <sub>j</sub>}<br>d = |DD|,|DD| = {(x<sub>i</sub>,x<sub>j</sub>) | &lambda;<sub>i</sub> &ne; &lambda;<sub>j</sub>, &lambda;<sup>‘</sup> <sub>i</sub>&ne; &lambda;<sup>‘</sup> <sub>j</sub>}</p>
-<p>基于上述定义我们导出如下的一些指标(虽然我并没有看懂它到底是怎么推出来的)</p>
-<ul>
-<li>Jaccard系数: JC = $ \frac{a}{a+b+c}$</li>
-<li>FM指数: FMI = $ \sqrt{\frac{a}{a+b}  \times \frac{a}{a+c} }$</li>
-<li>Rand指数: RI =  $ \frac {2(a+d)}{m(m-1)}$</li>
-</ul>
-<p>上述性能度量的结果在区间[0,1]内,越接近1越好,下面我们考虑聚类结果的簇划分$C$ = {C<sub>1</sub>, C<sub>2</sub>,C<sub>3</sub>…C<sub>k</sub>},定义如下概念:</p>
-<ul>
-<li>avg(C) = $ \frac{2}{|C|(|C| - 1)} \sum _{1 \leq i \le j \leq |C|} dist(x_i,x_j)$</li>
-<li>diam (C) = $max_{1 \leq i \le j \leq |C|} dist(x_i,x_j)$</li>
-<li>d$<em>{min}$($C_i,C_j$) = $min</em>{x_i \in C_i, x_j \in C_j} dist(x_i,x_j)$</li>
-<li>$d_{cen}{(C_i,C_j)} = dist( \mu_i, \mu_j)$</li>
-</ul>
-<p>其中dist用于计算两个样本之间的距离, $ \mu$ 代表簇$C$的中心点$ \mu = \frac{1}{|C|} \sum<em>{1 \leq i \leq |C|} x_i$.显然可以知道avg(C)对应的含义是簇C内样本的平均距离(当然我们希望avg的值越小越好).$d</em>{min}(C<em>i,C_j)$ 对应于簇$C_i$和簇$C_j$<strong>最近样本</strong>间的距离,$d</em>{cen}(C_i,C_j)$对应于簇$C_i$和簇$C_j$ <strong>中心点之间</strong>的距离.<br>同样的,根据以上定义我们可以导出下面常用的性能度量的内部指标</p>
-<ul>
-<li>DB指数: DBI = $ \frac{1}{k} \sum<em>{i = 1}^{k} max</em>{j \neq i}( \frac{avg(C<em>i) + avg(C_j)}{d</em>{cen}(\mu_i\mu_j)} $</li>
-<li>Dunn指数: DI = $min<em>{1 \leq i \leq k}{ min</em>{i \neq j}(\frac {d<em>{min}(C_i,C_j)}{max</em>{1 \leq l \leq k}diam(C_l)})}$</li>
-</ul>
-<p>显然DBI的值越小越好(对应簇内部样本距离越小,簇之间的中心距离越大),DI的值越大越好,这里就不再赘述</p>
-<h2 id="原型聚类"><a href="#原型聚类" class="headerlink" title="原型聚类"></a>原型聚类</h2><h3 id="k均值算法"><a href="#k均值算法" class="headerlink" title="k均值算法"></a>k均值算法</h3><p>给定样本集D=$ \left{ x_1, x_2, x_3…x_m \right}$,k均值算法针对聚类算法所得到的簇划分C = $ \left{C_1,C_2,C_3..C_k \right}$最小化平方误差</p>
-<script type="math/tex; mode=display">
-E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$是簇$C_i$的均值向量,从直观上来看E刻画的是簇内样本对簇$C_i$的围绕紧密程度.E值越小说明簇内样本相似度越高.最小化这个式子我们现在采用的是贪心策略,通过迭代优化来近似求解.</p>
-<p><img src="https://s1.ax1x.com/2020/03/25/8XkUEj.png" alt="8XkUEj.png"></p>
-<p>不过需要注意的是,在最开始初始化的过程中是<strong>随机选取</strong>样本作为初始的均值向量.</p>
-<ul>
-<li><p>对于每一个样本$x_j$,其中$j = 1, 2, 3, …m$</p>
-<ul>
-<li>计算样本与各个簇之间的距离</li>
-<li>根据距离最近的均值确定样本$x_j$的簇标记</li>
-<li>将样本$x<em>j$划入对应的簇:$C</em>{\lambda<em>j} = C</em>{\lambda_j} \cup \left{x_j \right}$</li>
-</ul>
-</li>
-<li><p>对于每一个簇$\mu_i$,其中$i = 1,2,3, … k$</p>
-<ul>
-<li>计算每一个簇内<strong>新的均值向量$\mu’$</strong></li>
-<li>如果新的均值向量$\mu’$和原有的均值向量$\mu$不相等,则将均值向量更新为新的均值向量$\mu’$.否则均值向量不更新</li>
-</ul>
-<p>重复上述操作,直到当前均值向量都未更新或者到达了最大运行轮次</p>
-</li>
-</ul>
-<h3 id="学习向量化-Learning-Vector-Quantization"><a href="#学习向量化-Learning-Vector-Quantization" class="headerlink" title="学习向量化(Learning Vector Quantization)"></a>学习向量化(Learning Vector Quantization)</h3><ul>
-<li>LVQ假设数据样本带有标记,学习过程利用这些监督信息辅助聚类</li>
-</ul>
-<p>给定样本集$D = \left{(x<em>1,y_1),(x_2,y_2),…,(x_m,y_m)\right}$.每个样本$x_j$是由n个属性描述的特征向量$(x</em>{j1} ;x<em>{j2};x</em>{j3}…x_{jn})$.LVQ的目标是<strong>$学习到一组n维原型向量\left{p_1,p_2,p_3…p_n\right}$</strong> ,每一个原型向量代表一个聚类簇.</p>
-<h4 id="学习向量化算法"><a href="#学习向量化算法" class="headerlink" title="学习向量化算法"></a>学习向量化算法</h4><ul>
-<li>初始化一组原型向量(这个西瓜书上并没有写的很清楚具体的初始化过程,只有很简单的一句话)</li>
-<li>从D中随机选取一个有标记的样本$(x_j,y_j)$,计算样本与每一个聚类簇$p_j$的距离.</li>
-<li>找出与样本最近的聚类簇$ p<em>{i’} $ ,如果样本的标记和聚类簇相等,则令原型向量向$x_j$的方向靠拢,$p’ = p</em>{i’} + \eta (x<em>j - p</em>{i’})$</li>
-<li>如果标记和聚类簇不相等,则令原型向量远离$x<em>j$,$p’ = p</em>{i’} + \eta (x<em>j - p</em>{i’})$</li>
-<li>将原型向量$p_{i’}$更新为$p’$,不断迭代,直到达到停止条件</li>
-</ul>
-<p>新的原型向量$p’$与原来样本$x<em>j$的距离为$||p’ - x_j|| = (1- \eta ) || p</em>{i’} - x_j||_2$ .令学习率 $\eta \in (0,1)$ .在更新为$p’$之后将更接近$x_j$.<br>当标记不同的时候也是类似.</p>
-<h2 id="密度聚类"><a href="#密度聚类" class="headerlink" title="密度聚类"></a>密度聚类</h2><p>假定聚类结构能够通过样本分布的紧密程度决定.基于<strong>可连接样本</strong>不断扩展聚类簇获得最终结果.</p>
-<ul>
-<li>$\epsilon$-邻域,对$x<em>j \in D$,其$\epsilon$-邻域包含样本集D中与$x_j$距离不大于$\epsilon$的样本,即 $N</em>{\epsilon}(x_j) = \left{x_i \in D |dist(x_i,x_j) \leq \epsilon \right}$</li>
-<li>核心对象,若$x_i$的$\epsilon$-邻域至少包含 MinPts个样本(具体数值由我们手动设置),则$x_i$是一个核心对象</li>
-<li>密度直达: 若$x_j$位于$x_i$的$\epsilon$-邻域中,且$x_i$是核心对象,则称$x_j$由$x_i$密度直达</li>
-<li>密度可达: 对$x<em>j$和$x_i$,如果存在样本序列$p_1$,$p_2$,$p_3$,…$p_n$,其中p=$p_1 = x_i,p_n = x_j,$,且$p</em>{i+1}$由$p_i$密度直达,则称$x_j$由$x_i$密度可达</li>
-<li>密度相连: 对$x_j$和$x_i$,如果存在$x_k$,使得$x_i$和$x_j$均由$x_k$密度可达,则称$x_i$与$x_j$密度相连</li>
-</ul>
-<p><a href="https://imgchr.com/i/8XUHOS" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/25/8XUHOS.png" alt="8XUHOS.png"></a></p>
-<p>基于以上概念,DBSCAN将<strong>簇</strong>定义为由密度可达关系导出的最大密度相连样本集合.</p>
-<h4 id="DBSCAN算法"><a href="#DBSCAN算法" class="headerlink" title="DBSCAN算法"></a>DBSCAN算法</h4><ul>
-<li>初始化核心对象集合$\Omega$为空集</li>
-<li>对于样本集D中的每一个样本$x_j$,确定它是否满足<strong>核心对象</strong>的条件如果满足,将该样本加入核心对象集合$\Omega$中</li>
-<li>记录当前未访问样本集合$\Gamma_{old} = \Gamma$ .</li>
-<li>初始化聚类簇数为0,未访问样本数集合$\Gamma$ = D</li>
-<li>当$\Omega$不为空集时,随机选取一个$\Omega$中的元素o,初始化队列Q = &lt; o &gt;</li>
-<li>将未访问样本集合$\Gamma$更新为$\Gamma$ \ { o }</li>
-<li>当Q不为空时,提出Q中的首个样本$q$,如果$q$是核心对象,令$\Delta$为$q$的$\epsilon$-邻域中的样本和未访问集合$\Gamma$中的交集</li>
-<li>将$\Delta$中的元素加入队列Q中.更新$\Gamma$为 $\Gamma = \Gamma \backslash \Delta$</li>
-<li>当Q中所有元素都被取出来之后, k自增一,生成聚类簇$C<em>k$     = $\Gamma</em>{old} \backslash \Gamma$, 更新核心对象集合$\Omega = \Omega \backslash C_k$</li>
-</ul>
-<h2 id="层次聚类"><a href="#层次聚类" class="headerlink" title="层次聚类"></a>层次聚类</h2><ul>
-<li>在不同层次对数据集进行划分,形成<strong>树形</strong>的聚类结构.可以采用自底向上的聚合策略,也可以采用自顶向下的分拆策略.<h3 id="AGNES"><a href="#AGNES" class="headerlink" title="AGNES"></a>AGNES</h3>将数据集中的每一个样本看作一个<strong>初始聚类簇</strong>,在算法运行的每一步找出距离最近的两个聚类簇进行合并.重复过程直到达到预设的簇的个数.</li>
-<li>簇之间距离的计算:</li>
-</ul>
-<ol>
-<li>最小距离: $d<em>{min}(C_i,C_j) = min</em>{x \in C_i, y \in C_j}dist(x,y)$</li>
-<li>最大距离: $d<em>{max}(C_i,C_j) = max</em>{x \in C_i, y \in C_j}dist(x,y)$</li>
-<li><p>平均距离: $d<em>{avg}(C_i,C_j) = \frac {1}{|C_i||C_j|} \sum</em>{x \in C<em>i} \sum</em>{y \in C_j}dist(x,y)$</p>
-<p><img src="https://s1.ax1x.com/2020/03/25/8vEA7F.png" alt="8vEA7F.png"></p>
-</li>
-</ol>
-<p>算法的1-9行对仅含一个样本的<strong>初始聚类簇</strong>和<strong>距离矩阵</strong>进行初始化.所以这也是为什么第七行会有$M(j,i) = M(i,j)$ .<br>第11-23行则是对这个矩阵不断进行更新操作.矩阵合并之后相应的距离矩阵也需要更新.</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>评论系统Valine的使用</title>
-    <url>/2020/03/07/%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9FValine%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script><h1 id="评论系统Valine的使用"><a href="#评论系统Valine的使用" class="headerlink" title="评论系统Valine的使用"></a>评论系统Valine的使用</h1><p><a href="https://ioliu.cn/2017/add-valine-comments-to-your-blog/" target="_blank" rel="noopener">@云淡风轻</a> 开发了一款轻量级的Blog评论应用,这里记录下Valine的使用和自定义过程</p>
-<a id="more"></a>
-<h2 id="获取App-ID和App-Key"><a href="#获取App-ID和App-Key" class="headerlink" title="获取App ID和App Key"></a>获取App ID和App Key</h2><p>在<a href="https://leancloud.cn/dashboard/applist.html#/apps" target="_blank" rel="noopener">LeanCloud的官网</a>上注册一个帐号,实名并邮箱验证通过之后可以<a href="https://leancloud.cn/dashboard/applist.html#/apps" target="_blank" rel="noopener">这里</a>创建一个应用.应用名可以随便取.</p>
-<p>在刚刚创建的应用的设置中选择<strong>应用Key</strong>,就可以看到这个应用的App ID和App Key了.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/TIM%E6%88%AA%E5%9B%BE20200307120352.png" alt="TIM截图20200307120352"></p>
-<h2 id="设置安全域名"><a href="#设置安全域名" class="headerlink" title="设置安全域名"></a>设置安全域名</h2><p>然后打开设置中的<strong>安全中心</strong>,在下面的<strong>Web安全域名</strong>中填入我们网站的域名,如下图<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E5%A1%AB%E5%86%99Web%E5%AE%89%E5%85%A8%E5%9F%9F%E5%90%8D.png" alt="填写Web安全域名"></p>
-<h2 id="在主题配置文件中填入相应字段"><a href="#在主题配置文件中填入相应字段" class="headerlink" title="在主题配置文件中填入相应字段"></a>在主题配置文件中填入相应字段</h2><p>打开博客所在目录,找到<strong>主题</strong>的配置文件,不是整个博客的.在文本中搜索”valine”,把刚才获取到的App ID和App Key填入进去.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png" alt="修改配置文件"><br>这里提一个坑,在复制App ID和App Key的时候注意不要<strong>激活了后面的注释</strong>,如果注释被视为了代码的一部分就会报一个</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Code : undefined [410 GET https:&#x2F;&#x2F;avoscloud.com&#x2F;1.1&#x2F;classes&#x2F;Comment]</span><br></pre></td></tr></table></figure>
-<p>的错误,这个时候就应该检查一下是否配置文件中的注释出现了问题<br>另外在这个过程中还可能出现其他的问题,比如<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Code 403: 访问被api域名白名单拒绝，请检查你的安全域名设置</span><br></pre></td></tr></table></figure><br>就要检查在第二步<strong>设置安全域名</strong>的过程中是否漏掉了网址最后的”/“,比如原来的网址是<code>https://godlowd.github.io/</code>,但是填写进去的时候是<code>https://godlowd.github.io</code>.建议还是直接复制浏览器地址栏中的地址,再粘贴进去,就可以避免类似问题<br>重新部署我们的Blog之后打开就可以看到评论功能了.不过这个时候还处于一个比较基本的状态.要进行更深层次的定制还需要进一步优化.</p>
-<h2 id="打开评论邮件提醒系统"><a href="#打开评论邮件提醒系统" class="headerlink" title="打开评论邮件提醒系统"></a>打开评论邮件提醒系统</h2><p>首先贴一下<a href="https://github.com/zhaojun1998/Valine-Admin" target="_blank" rel="noopener">大佬的GitHub项目地址</a>,这是一个Valine的拓展应用,可以用来通知站长新评论,而且支持自定义邮件主题(有一说一,彩虹色的还蛮好康的嗷).下面就让我来康康这个玩意是怎么整的</p>
-<h3 id="设置代码库"><a href="#设置代码库" class="headerlink" title="设置代码库"></a>设置代码库</h3><p>首先我们需要在Lean Cloud的<strong>云引擎</strong>的<strong>设置</strong>中把上面大佬的项目地址添加进去并保存<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%A0%81%E5%BA%93.png" alt="设置代码库"></p>
-<h3 id="自定义环境变量"><a href="#自定义环境变量" class="headerlink" title="自定义环境变量"></a>自定义环境变量</h3><p>光有了大佬的代码还不够,我们还需要知道有了新评论如何登录一个邮箱并且把通知发送到站长的邮箱不是?,所以我们需要在<strong>环境变量</strong>这个地方设置好这些东西</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>环境变量名</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>SITE_NAME</td>
-<td>网站名称,就是在博客的配置文件中的<strong>title</strong>项</td>
-</tr>
-<tr>
-<td>SITE_URL</td>
-<td>网站的地址,<strong>最后不要加 / </strong>,和上面的安全域名略有不同</td>
-</tr>
-<tr>
-<td>SMTP_USER</td>
-<td>SMTP 服务用户名，一般为邮箱地址。</td>
-</tr>
-<tr>
-<td>SMTP_PASS</td>
-<td>SMTP密码,这个可以自行查询对应邮件服务商的获取方式,不是登录密码</td>
-</tr>
-<tr>
-<td>SMTP_SERVICE</td>
-<td>邮件服务提供商,支持<code>QQ</code>、<code>163</code>、<code>126</code>、<code>Gmail</code>、<code>Yahoo</code></td>
-</tr>
-<tr>
-<td>SENDER_NAME</td>
-<td>寄件人名称</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png" alt="SENDER_NAME"></p>
-<p>另外还有一些环境变量是这样子的:</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>环境变量名</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>TO_EMAIL</td>
-<td>指定<strong>收信信箱</strong>,默认为SITE_USER.用于SITE_USER发件人和收件人不一致的情况下使用</td>
-</tr>
-<tr>
-<td>TEMPLATE_NAME</td>
-<td>提醒邮件的模板,默认为default,目前支持rainbow</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>切换到<strong>部署</strong>页面,选择中间的Git源码部署,下面的分支或版本号填写<strong>master</strong>,,然后等待大概7-8分钟.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E9%83%A8%E7%BD%B2.png" alt="部署"><br>部署完成之后的页面应该是这个样子<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E9%83%A8%E7%BD%B22.png" alt="部署2"></p>
-<p>不过很奇怪的是部署完成之后我的web组栏下面并没有和<a href="https://11.tt/posts/2018/add-valine-to-your-blog/" target="_blank" rel="noopener">其他博主一样</a>出现实例的字样.这也导致了他们的重启实例我不知道在哪里运行.如果有知道的兄弟萌欢迎在评论区指出.</p>
-<p>不过困难总是可以克服的嘛.既然不能在实例里面重启,那我就在部署的生产环境里重启.反正都是重启不是?(此处手动贴吧滑稽).</p>
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>上述工作完成之后,我们在主题的配置文件中选择将它的<code>notify</code>项设为<code>true</code>来打开邮件提醒,同时在评论区输入一条评论来测试一下.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C.PNG" alt="测试结果"><br>就测试结果来看.确实我收到了自己给自己发的邮件(因为之前在设置环境变量的时候设置的是这样子的嘛).而且发送邮件的主题也和我们在环境变量中定义的<code>rainbow</code>相同.我们可以认为Valine的邮件提醒功能算是成功启动了.</p>
-<p><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E5%A6%99%E5%95%8A.jpg" alt="妙啊"></p>
-<h2 id="Valine的其他功能"><a href="#Valine的其他功能" class="headerlink" title="Valine的其他功能"></a>Valine的其他功能</h2><p>时间关系,本人还需要苦逼的干活,所以不能一次性整完Valine的全部功能,目前在日程表上的计划(日程表: 我不是我没有你别瞎说)有更换自定义表情包,开辟专门的留言板页面.取消显示OS和浏览器型号,支持游客的留言被回复也可被通知,等等.辣么就下次再见啦</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://deserts.io/valine-admin-document/" target="_blank" rel="noopener">https://deserts.io/valine-admin-document/</a><br><a href="https://bestzuo.cn/posts/3307440964.html" target="_blank" rel="noopener">https://bestzuo.cn/posts/3307440964.html</a><br><a href="https://deserts.io/diy-a-comment-system/" target="_blank" rel="noopener">https://deserts.io/diy-a-comment-system/</a><br><a href="https://rightofriver.github.io/2019/10/30/ValineBug1/#fnref:3" target="_blank" rel="noopener">https://rightofriver.github.io/2019/10/30/ValineBug1/#fnref:3</a></p>
-]]></content>
-      <tags>
-        <tag>Blog</tag>
       </tags>
   </entry>
   <entry>
