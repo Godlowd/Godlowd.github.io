@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -71,12 +71,12 @@
   .use-motion .logo-line-before i { left: initial; }
   .use-motion .logo-line-after i { right: initial; }
   </style>
-</noscript>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <link rel="stylesheet" href="/dist/APlayer.min.css">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/dist/APlayer.min.css">
 <div id="aplayer"></div>
 <script type="text/javascript" src="/dist/APlayer.min.js"></script>
 <script type="text/javascript" src="/dist/music.js"></script>
@@ -353,7 +353,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>277</span>
+              <span>273</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -372,7 +372,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="贝叶斯分类"><a href="#贝叶斯分类" class="headerlink" title="贝叶斯分类"></a>贝叶斯分类</h1><p>假设有N种可能的类别标记,即$\Upsilon = \left\{c_1,c_2, … ,c_N\right\}$ ,$\lambda_{ij}$是将一个<strong>真实标记为$c_j$ 的样本</strong>误分类为$c_i$所产生的损失.根据后验概率(应该指的就是常说的条件概率),可以获得样本x分类产生的期望损失,也称为<strong>条件风险</strong></p>
+          <h1 id="贝叶斯分类"><a href="#贝叶斯分类" class="headerlink" title="贝叶斯分类"></a>贝叶斯分类</h1><p>假设有N种可能的类别标记,即$\Upsilon = \left{c<em>1,c_2, … ,c_N\right}$ ,$\lambda</em>{ij}$是将一个<strong>真实标记为$c_j$ 的样本</strong>误分类为$c_i$所产生的损失.根据后验概率(应该指的就是常说的条件概率),可以获得样本x分类产生的期望损失,也称为<strong>条件风险</strong></p>
 <script type="math/tex; mode=display">
 R(c_i|x) = \sum_{j = 1}^{N}\lambda_{ij}P(c_j|x)</script><p>我们的目标是找到一个判定准则h来将这个条件风险最小化.显然,如果对于<strong>每一个样本</strong>,h都能最小化条件风险$R(h(x)|x)$,那么总体风险$R(h)$也将会被最小化.</p>
 
@@ -448,7 +448,7 @@ R(c_i|x) = \sum_{j = 1}^{N}\lambda_{ij}P(c_j|x)</script><p>我们的目标是找
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.4k</span>
+              <span>4.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -996,8 +996,8 @@ R(c_i|x) = \sum_{j = 1}^{N}\lambda_{ij}P(c_j|x)</script><p>我们的目标是找
 
 <div class="copyright">
   
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1185,5 +1185,5 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
       <script type="text/javascript" src="/dist/APlayer.min.js"></script>
       <script type="text/javascript" src="/dist/music.js"></script>
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

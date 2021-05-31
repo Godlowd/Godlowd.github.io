@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -79,12 +79,12 @@
   .use-motion .logo-line-before i { left: initial; }
   .use-motion .logo-line-after i { right: initial; }
   </style>
-</noscript>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <link rel="stylesheet" href="/dist/APlayer.min.css">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/dist/APlayer.min.css">
 <div id="aplayer"></div>
 <script type="text/javascript" src="/dist/APlayer.min.js"></script>
 <script type="text/javascript" src="/dist/music.js"></script>
@@ -262,7 +262,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.4k</span>
+              <span>4.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -305,16 +305,16 @@
 <ul>
 <li>avg(C) = $ \frac{2}{|C|(|C| - 1)} \sum _{1 \leq i \le j \leq |C|} dist(x_i,x_j)$</li>
 <li>diam (C) = $max_{1 \leq i \le j \leq |C|} dist(x_i,x_j)$</li>
-<li>d$_{min}$($C_i,C_j$) = $min_{x_i \in C_i, x_j \in C_j} dist(x_i,x_j)$</li>
+<li>d$<em>{min}$($C_i,C_j$) = $min</em>{x_i \in C_i, x_j \in C_j} dist(x_i,x_j)$</li>
 <li>$d_{cen}{(C_i,C_j)} = dist( \mu_i, \mu_j)$</li>
 </ul>
-<p>其中dist用于计算两个样本之间的距离, $ \mu$ 代表簇$C$的中心点$ \mu = \frac{1}{|C|} \sum_{1 \leq i \leq |C|} x_i$.显然可以知道avg(C)对应的含义是簇C内样本的平均距离(当然我们希望avg的值越小越好).$d_{min}(C_i,C_j)$ 对应于簇$C_i$和簇$C_j$<strong>最近样本</strong>间的距离,$d_{cen}(C_i,C_j)$对应于簇$C_i$和簇$C_j$ <strong>中心点之间</strong>的距离.<br>同样的,根据以上定义我们可以导出下面常用的性能度量的内部指标</p>
+<p>其中dist用于计算两个样本之间的距离, $ \mu$ 代表簇$C$的中心点$ \mu = \frac{1}{|C|} \sum<em>{1 \leq i \leq |C|} x_i$.显然可以知道avg(C)对应的含义是簇C内样本的平均距离(当然我们希望avg的值越小越好).$d</em>{min}(C<em>i,C_j)$ 对应于簇$C_i$和簇$C_j$<strong>最近样本</strong>间的距离,$d</em>{cen}(C_i,C_j)$对应于簇$C_i$和簇$C_j$ <strong>中心点之间</strong>的距离.<br>同样的,根据以上定义我们可以导出下面常用的性能度量的内部指标</p>
 <ul>
-<li>DB指数: DBI = $ \frac{1}{k} \sum_{i = 1}^{k} max_{j \neq i}( \frac{avg(C_i) + avg(C_j)}{d_{cen}(\mu_i\mu_j)} $</li>
-<li>Dunn指数: DI = $min_{1 \leq i \leq k}{ min_{i \neq j}(\frac {d_{min}(C_i,C_j)}{max_{1 \leq l \leq k}diam(C_l)})}$</li>
+<li>DB指数: DBI = $ \frac{1}{k} \sum<em>{i = 1}^{k} max</em>{j \neq i}( \frac{avg(C<em>i) + avg(C_j)}{d</em>{cen}(\mu_i\mu_j)} $</li>
+<li>Dunn指数: DI = $min<em>{1 \leq i \leq k}{ min</em>{i \neq j}(\frac {d<em>{min}(C_i,C_j)}{max</em>{1 \leq l \leq k}diam(C_l)})}$</li>
 </ul>
 <p>显然DBI的值越小越好(对应簇内部样本距离越小,簇之间的中心距离越大),DI的值越大越好,这里就不再赘述</p>
-<h2 id="原型聚类"><a href="#原型聚类" class="headerlink" title="原型聚类"></a>原型聚类</h2><h3 id="k均值算法"><a href="#k均值算法" class="headerlink" title="k均值算法"></a>k均值算法</h3><p>给定样本集D=$ \left\{ x_1, x_2, x_3…x_m \right\}$,k均值算法针对聚类算法所得到的簇划分C = $ \left\{C_1,C_2,C_3..C_k \right\}$最小化平方误差</p>
+<h2 id="原型聚类"><a href="#原型聚类" class="headerlink" title="原型聚类"></a>原型聚类</h2><h3 id="k均值算法"><a href="#k均值算法" class="headerlink" title="k均值算法"></a>k均值算法</h3><p>给定样本集D=$ \left{ x_1, x_2, x_3…x_m \right}$,k均值算法针对聚类算法所得到的簇划分C = $ \left{C_1,C_2,C_3..C_k \right}$最小化平方误差</p>
 <script type="math/tex; mode=display">
 E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$是簇$C_i$的均值向量,从直观上来看E刻画的是簇内样本对簇$C_i$的围绕紧密程度.E值越小说明簇内样本相似度越高.最小化这个式子我们现在采用的是贪心策略,通过迭代优化来近似求解.</p>
 <p><img src="https://s1.ax1x.com/2020/03/25/8XkUEj.png" alt="8XkUEj.png"></p>
@@ -324,7 +324,7 @@ E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$
 <ul>
 <li>计算样本与各个簇之间的距离</li>
 <li>根据距离最近的均值确定样本$x_j$的簇标记</li>
-<li>将样本$x_j$划入对应的簇:$C_{\lambda_j} = C_{\lambda_j} \cup \left\{x_j \right\}$</li>
+<li>将样本$x<em>j$划入对应的簇:$C</em>{\lambda<em>j} = C</em>{\lambda_j} \cup \left{x_j \right}$</li>
 </ul>
 </li>
 <li><p>对于每一个簇$\mu_i$,其中$i = 1,2,3, … k$</p>
@@ -338,21 +338,21 @@ E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$
 <h3 id="学习向量化-Learning-Vector-Quantization"><a href="#学习向量化-Learning-Vector-Quantization" class="headerlink" title="学习向量化(Learning Vector Quantization)"></a>学习向量化(Learning Vector Quantization)</h3><ul>
 <li>LVQ假设数据样本带有标记,学习过程利用这些监督信息辅助聚类</li>
 </ul>
-<p>给定样本集$D = \left\{(x_1,y_1),(x_2,y_2),…,(x_m,y_m)\right\}$.每个样本$x_j$是由n个属性描述的特征向量$(x_{j1} ;x_{j2};x_{j3}…x_{jn})$.LVQ的目标是<strong>$学习到一组n维原型向量\left\{p_1,p_2,p_3…p_n\right\}$</strong> ,每一个原型向量代表一个聚类簇.</p>
+<p>给定样本集$D = \left{(x<em>1,y_1),(x_2,y_2),…,(x_m,y_m)\right}$.每个样本$x_j$是由n个属性描述的特征向量$(x</em>{j1} ;x<em>{j2};x</em>{j3}…x_{jn})$.LVQ的目标是<strong>$学习到一组n维原型向量\left{p_1,p_2,p_3…p_n\right}$</strong> ,每一个原型向量代表一个聚类簇.</p>
 <h4 id="学习向量化算法"><a href="#学习向量化算法" class="headerlink" title="学习向量化算法"></a>学习向量化算法</h4><ul>
 <li>初始化一组原型向量(这个西瓜书上并没有写的很清楚具体的初始化过程,只有很简单的一句话)</li>
 <li>从D中随机选取一个有标记的样本$(x_j,y_j)$,计算样本与每一个聚类簇$p_j$的距离.</li>
-<li>找出与样本最近的聚类簇$ p_{i’} $ ,如果样本的标记和聚类簇相等,则令原型向量向$x_j$的方向靠拢,$p’ = p_{i’} + \eta (x_j - p_{i’})$</li>
-<li>如果标记和聚类簇不相等,则令原型向量远离$x_j$,$p’ = p_{i’} + \eta (x_j - p_{i’})$</li>
+<li>找出与样本最近的聚类簇$ p<em>{i’} $ ,如果样本的标记和聚类簇相等,则令原型向量向$x_j$的方向靠拢,$p’ = p</em>{i’} + \eta (x<em>j - p</em>{i’})$</li>
+<li>如果标记和聚类簇不相等,则令原型向量远离$x<em>j$,$p’ = p</em>{i’} + \eta (x<em>j - p</em>{i’})$</li>
 <li>将原型向量$p_{i’}$更新为$p’$,不断迭代,直到达到停止条件</li>
 </ul>
-<p>新的原型向量$p’$与原来样本$x_j$的距离为$||p’ - x_j|| = (1- \eta ) || p_{i’} - x_j||_2$ .令学习率 $\eta \in (0,1)$ .在更新为$p’$之后将更接近$x_j$.<br>当标记不同的时候也是类似.</p>
+<p>新的原型向量$p’$与原来样本$x<em>j$的距离为$||p’ - x_j|| = (1- \eta ) || p</em>{i’} - x_j||_2$ .令学习率 $\eta \in (0,1)$ .在更新为$p’$之后将更接近$x_j$.<br>当标记不同的时候也是类似.</p>
 <h2 id="密度聚类"><a href="#密度聚类" class="headerlink" title="密度聚类"></a>密度聚类</h2><p>假定聚类结构能够通过样本分布的紧密程度决定.基于<strong>可连接样本</strong>不断扩展聚类簇获得最终结果.</p>
 <ul>
-<li>$\epsilon$-邻域,对$x_j \in D$,其$\epsilon$-邻域包含样本集D中与$x_j$距离不大于$\epsilon$的样本,即 $N_{\epsilon}(x_j) = \left\{x_i \in D |dist(x_i,x_j) \leq \epsilon \right\}$</li>
+<li>$\epsilon$-邻域,对$x<em>j \in D$,其$\epsilon$-邻域包含样本集D中与$x_j$距离不大于$\epsilon$的样本,即 $N</em>{\epsilon}(x_j) = \left{x_i \in D |dist(x_i,x_j) \leq \epsilon \right}$</li>
 <li>核心对象,若$x_i$的$\epsilon$-邻域至少包含 MinPts个样本(具体数值由我们手动设置),则$x_i$是一个核心对象</li>
 <li>密度直达: 若$x_j$位于$x_i$的$\epsilon$-邻域中,且$x_i$是核心对象,则称$x_j$由$x_i$密度直达</li>
-<li>密度可达: 对$x_j$和$x_i$,如果存在样本序列$p_1$,$p_2$,$p_3$,…$p_n$,其中p=$p_1 = x_i,p_n = x_j,$,且$p_{i+1}$由$p_i$密度直达,则称$x_j$由$x_i$密度可达</li>
+<li>密度可达: 对$x<em>j$和$x_i$,如果存在样本序列$p_1$,$p_2$,$p_3$,…$p_n$,其中p=$p_1 = x_i,p_n = x_j,$,且$p</em>{i+1}$由$p_i$密度直达,则称$x_j$由$x_i$密度可达</li>
 <li>密度相连: 对$x_j$和$x_i$,如果存在$x_k$,使得$x_i$和$x_j$均由$x_k$密度可达,则称$x_i$与$x_j$密度相连</li>
 </ul>
 <p><a href="https://imgchr.com/i/8XUHOS" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/25/8XUHOS.png" alt="8XUHOS.png"></a></p>
@@ -366,16 +366,16 @@ E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$
 <li>将未访问样本集合$\Gamma$更新为$\Gamma$ \ { o }</li>
 <li>当Q不为空时,提出Q中的首个样本$q$,如果$q$是核心对象,令$\Delta$为$q$的$\epsilon$-邻域中的样本和未访问集合$\Gamma$中的交集</li>
 <li>将$\Delta$中的元素加入队列Q中.更新$\Gamma$为 $\Gamma = \Gamma \backslash \Delta$</li>
-<li>当Q中所有元素都被取出来之后, k自增一,生成聚类簇$C_k$     = $\Gamma_{old} \backslash \Gamma$, 更新核心对象集合$\Omega = \Omega \backslash C_k$</li>
+<li>当Q中所有元素都被取出来之后, k自增一,生成聚类簇$C<em>k$     = $\Gamma</em>{old} \backslash \Gamma$, 更新核心对象集合$\Omega = \Omega \backslash C_k$</li>
 </ul>
 <h2 id="层次聚类"><a href="#层次聚类" class="headerlink" title="层次聚类"></a>层次聚类</h2><ul>
 <li>在不同层次对数据集进行划分,形成<strong>树形</strong>的聚类结构.可以采用自底向上的聚合策略,也可以采用自顶向下的分拆策略.<h3 id="AGNES"><a href="#AGNES" class="headerlink" title="AGNES"></a>AGNES</h3>将数据集中的每一个样本看作一个<strong>初始聚类簇</strong>,在算法运行的每一步找出距离最近的两个聚类簇进行合并.重复过程直到达到预设的簇的个数.</li>
 <li>簇之间距离的计算:</li>
 </ul>
 <ol>
-<li>最小距离: $d_{min}(C_i,C_j) = min_{x \in C_i, y \in C_j}dist(x,y)$</li>
-<li>最大距离: $d_{max}(C_i,C_j) = max_{x \in C_i, y \in C_j}dist(x,y)$</li>
-<li><p>平均距离: $d_{avg}(C_i,C_j) = \frac {1}{|C_i||C_j|} \sum_{x \in C_i} \sum_{y \in C_j}dist(x,y)$</p>
+<li>最小距离: $d<em>{min}(C_i,C_j) = min</em>{x \in C_i, y \in C_j}dist(x,y)$</li>
+<li>最大距离: $d<em>{max}(C_i,C_j) = max</em>{x \in C_i, y \in C_j}dist(x,y)$</li>
+<li><p>平均距离: $d<em>{avg}(C_i,C_j) = \frac {1}{|C_i||C_j|} \sum</em>{x \in C<em>i} \sum</em>{y \in C_j}dist(x,y)$</p>
 <p><img src="https://s1.ax1x.com/2020/03/25/8vEA7F.png" alt="8vEA7F.png"></p>
 </li>
 </ol>
@@ -512,8 +512,8 @@ E = \sum_{i = 1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2_2</script><p>其中$\mu_i$
 
 <div class="copyright">
   
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -701,5 +701,5 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
       <script type="text/javascript" src="/dist/APlayer.min.js"></script>
       <script type="text/javascript" src="/dist/music.js"></script>
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>
