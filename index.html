@@ -132,7 +132,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">9</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">10</span></a>
 
   </li>
         <li class="menu-item menu-item-messages">
@@ -190,6 +190,107 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/06/01/os-unfair-lock-lock%E4%B8%8EOSSpinLock/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nullptr">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Island">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/06/01/os-unfair-lock-lock%E4%B8%8EOSSpinLock/" class="post-title-link" itemprop="url">os_unfair_lock_lock与OSSpinLock</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-06-01 14:31:31" itemprop="dateCreated datePublished" datetime="2021-06-01T14:31:31+08:00">2021-06-01</time>
+            </span>
+
+          
+            <span id="/2021/06/01/os-unfair-lock-lock%E4%B8%8EOSSpinLock/" class="post-meta-item leancloud_visitors" data-flag-title="os_unfair_lock_lock与OSSpinLock" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/06/01/os-unfair-lock-lock%E4%B8%8EOSSpinLock/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/06/01/os-unfair-lock-lock%E4%B8%8EOSSpinLock/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>之前在阅读<a href="">GCD源码</a>时遇到了一些之前没有见过的锁,<code>FUTEX</code>,<code>UL_UNFAIR_LOCK</code>。这里开篇文章讲一讲。</p>
+<h2 id="OSSpinLock"><a href="#OSSpinLock" class="headerlink" title="OSSpinLock"></a>OSSpinLock</h2><p>在聊<code>UL_UNFAIR_LOCK</code>之前我们先来聊一聊<code>OSSpinLock</code>。在操作系统中，有多线程的地方就有锁，锁的方式有多种多样，<code>mutex</code>，递归锁等等。自旋锁(<code>SpinLock</code>)就是其中一种。当一个线程想要访问已经被另一个线程上锁的资源时，通常情况下操作系统会将线程的状态切换到<strong>等待</strong>，当锁被释放时则再次运行。但是如果从线程开始请求锁到锁释放的时间间隔很短，采用<strong>让线程持续请求锁</strong>的策略就能比切换线程状态节省更多的资源。这就是自旋锁的基本思想。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/06/01/os-unfair-lock-lock%E4%B8%8EOSSpinLock/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1163,7 +1264,7 @@ R(c_i|x) = \sum_{j = 1}^{N}\lambda_{ij}P(c_j|x)</script><p>我们的目标是找
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1207,12 +1308,12 @@ R(c_i|x) = \sum_{j = 1}^{N}\lambda_{ij}P(c_j|x)</script><p>我们的目标是找
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">64k</span>
+    <span title="站点总字数">68k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">58 分钟</span>
+    <span title="站点阅读时长">1:01</span>
 </div>
 
 <link rel="stylesheet" href="/dist/APlayer.min.css">

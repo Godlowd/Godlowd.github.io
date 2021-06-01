@@ -22,26 +22,20 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="最近几天闲来无事逛别人的博客的时候发现增加一个留言板的功能好像还蛮有意思的.于是就想自己也整一个.再把导航栏的图标换他一换">
+  <meta name="description" content="之前在阅读GCD源码时遇到了一些之前没有见过的锁,FUTEX,UL_UNFAIR_LOCK。这里开篇文章讲一讲。 OSSpinLock在聊UL_UNFAIR_LOCK之前我们先来聊一聊OSSpinLock。在操作系统中，有多线程的地方就有锁，锁的方式有多种多样，mutex，递归锁等等。自旋锁(SpinLock)就是其中一种。当一个线程想要访问已经被另一个线程上锁的资源时，通常情况下操作系统会将线程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo博客导航栏美化与自定义">
-<meta property="og:url" content="http://yoursite.com/2020/03/13/Hexo%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%BE%8E%E5%8C%96%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89/index.html">
+<meta property="og:title" content="os_unfair_lock_lock与OSSpinLock">
+<meta property="og:url" content="http://yoursite.com/2021/06/01/os-unfair-lock-lock%E4%B8%8EOSSpinLock/index.html">
 <meta property="og:site_name" content="Island">
-<meta property="og:description" content="最近几天闲来无事逛别人的博客的时候发现增加一个留言板的功能好像还蛮有意思的.于是就想自己也整一个.再把导航栏的图标换他一换">
+<meta property="og:description" content="之前在阅读GCD源码时遇到了一些之前没有见过的锁,FUTEX,UL_UNFAIR_LOCK。这里开篇文章讲一讲。 OSSpinLock在聊UL_UNFAIR_LOCK之前我们先来聊一聊OSSpinLock。在操作系统中，有多线程的地方就有锁，锁的方式有多种多样，mutex，递归锁等等。自旋锁(SpinLock)就是其中一种。当一个线程想要访问已经被另一个线程上锁的资源时，通常情况下操作系统会将线程">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/menu.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%AF%AD%E8%A8%80.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C.png">
-<meta property="article:published_time" content="2020-03-13T00:01:29.000Z">
-<meta property="article:modified_time" content="2020-03-13T01:54:18.573Z">
+<meta property="article:published_time" content="2021-06-01T06:31:31.000Z">
+<meta property="article:modified_time" content="2021-06-01T08:03:14.962Z">
 <meta property="article:author" content="nullptr">
-<meta property="article:tag" content="hexo">
-<meta property="article:tag" content="valine">
-<meta property="article:tag" content="Blog">
+<meta property="article:tag" content="iOS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/menu.png">
 
-<link rel="canonical" href="http://yoursite.com/2020/03/13/Hexo%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%BE%8E%E5%8C%96%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89/">
+<link rel="canonical" href="http://yoursite.com/2021/06/01/os-unfair-lock-lock%E4%B8%8EOSSpinLock/">
 
 
 <script id="page-configurations">
@@ -53,7 +47,7 @@
   };
 </script>
 
-  <title>Hexo博客导航栏美化与自定义 | Island</title>
+  <title>os_unfair_lock_lock与OSSpinLock | Island</title>
   
 
 
@@ -205,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/13/Hexo%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%BE%8E%E5%8C%96%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/06/01/os-unfair-lock-lock%E4%B8%8EOSSpinLock/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -218,7 +212,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hexo博客导航栏美化与自定义
+          os_unfair_lock_lock与OSSpinLock
         </h1>
 
         <div class="post-meta">
@@ -228,11 +222,11 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-03-13 08:01:29" itemprop="dateCreated datePublished" datetime="2020-03-13T08:01:29+08:00">2020-03-13</time>
+              <time title="创建时间：2021-06-01 14:31:31" itemprop="dateCreated datePublished" datetime="2021-06-01T14:31:31+08:00">2021-06-01</time>
             </span>
 
           
-            <span id="/2020/03/13/Hexo%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%BE%8E%E5%8C%96%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89/" class="post-meta-item leancloud_visitors" data-flag-title="Hexo博客导航栏美化与自定义" title="阅读次数">
+            <span id="/2021/06/01/os-unfair-lock-lock%E4%B8%8EOSSpinLock/" class="post-meta-item leancloud_visitors" data-flag-title="os_unfair_lock_lock与OSSpinLock" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -254,8 +248,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/03/13/Hexo%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%BE%8E%E5%8C%96%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/13/Hexo%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%BE%8E%E5%8C%96%E4%B8%8E%E8%87%AA%E5%AE%9A%E4%B9%89/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/06/01/os-unfair-lock-lock%E4%B8%8EOSSpinLock/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/06/01/os-unfair-lock-lock%E4%B8%8EOSSpinLock/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -265,14 +259,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
+              <span>3.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -284,17 +278,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>最近几天闲来无事逛<a href="https://bestzuo.cn/" target="_blank" rel="noopener">别人的博客</a>的时候发现增加一个留言板的功能好像还蛮有意思的.于是就想自己也整一个.再把导航栏的图标换他一换<br><a id="more"></a><br>自己自定义导航栏其实还蛮简单的,相比之前在网页里面插入播放器而言.🤣🤣</p>
-<h3 id="打开主题配置文件"><a href="#打开主题配置文件" class="headerlink" title="打开主题配置文件"></a>打开主题配置文件</h3><p>我们首先打开位于<code>themes/next</code>文件夹下面的<code>_config.yml</code>配置文件.然后在其中搜索一下<code>menu</code>.定位到下图这个地方.<br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/menu.png" alt=""></p>
-<p>可以看到注释很详细的解释了<code>menu</code>自定义项的用法.前面的<font color="red">红字</font>部分就是导航栏的<strong>标题</strong>了.注释后面还提到<code>if the translation for this item is available, the translated text will be loaded, otherwise the Key name will be used.</code>这句话的意思就是如果红字部分有对应的翻译,那么对应的翻译就会在网页上自动加载,否则红字就是你的导航栏的名字.那么这个所谓的<code>translation</code>在什么地方呢.</p>
-<h3 id="添加对应的翻译"><a href="#添加对应的翻译" class="headerlink" title="添加对应的翻译"></a>添加对应的翻译</h3><p>打开<code>themes/next/language</code>文件夹.可以看到一排以语言名命名的文件夹.然后打开<code>zh-CN.yml</code><br><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E8%AF%AD%E8%A8%80.png" alt=""></p>
-<p>添加对应的<code>Key</code>值和其翻译.注意翻译和冒号之间有一个空格.</p>
-<h3 id="选择好康的图标"><a href="#选择好康的图标" class="headerlink" title="选择好康的图标"></a>选择好康的图标</h3><p>再研读一下主题配置文件的注释.发现<code>next</code>主题的图标来自于一个叫做<code>Font Awesome icon</code>的东西.再观察一下原本<code>next</code>主题的icon名.<a href="https://fontawesome.dashgame.com/" target="_blank" rel="noopener"><code>Font Awesome icon</code></a>的官方网站在这里.里面有许多的图标以及使用他们对应的铭恒.我们直选哟调换一个好康的然后在<code>||</code>后面换上我们自己喜欢的icon就好了.同理,导航栏其他的图标如果看的不顺眼了我们也可以用相同的方法进行替换.修改名字的事而已.</p>
-<p>更多<code>Font Awesome icon</code>字体的使用可以参考<a href="http://masikkk.com/article/hexo-17-FontAwesome/" target="_blank" rel="noopener">这篇Blog</a></p>
-<h3 id="编写对应页面的Markdown"><a href="#编写对应页面的Markdown" class="headerlink" title="编写对应页面的Markdown"></a>编写对应页面的Markdown</h3><p>最后一步来辣.打开我们的git bash.在博客目录下面输入<code>hexo new pages title</code>.title是你的导航栏的名字.然后hexo会自动在<code>source/title</code>文件夹下生成一个名字为<code>index</code>的Markdown.注意这里生成的并不是以title名字命名的Markdown.然后<code>hexo clean&amp;&amp;hexo g&amp;&amp;hexo d</code>部署到我们的博客就大功告成了.最后的效果就像这样ヾ(•ω•`)o 完结撒花</p>
-<p><img src="https://raw.githubusercontent.com/Godlowd/MarkdownPhoto/master/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C.png" alt=""></p>
-<p>如果觉得还不错的话就去留言板灌灌水吧(☞ﾟヮﾟ)☞</p>
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://fontawesome.dashgame.com/" target="_blank" rel="noopener">Font Awesome</a><br><a href="http://masikkk.com/article/hexo-17-FontAwesome/" target="_blank" rel="noopener">Hexo博客使用FontAwesome字体图标</a><br><a href="https://www.dazhuanlan.com/2019/09/25/5d8b46019b218/?__cf_chl_jschl_tk__=766d3742af7c818f0336dfb67556abd3ea6e50ff-1584062596-0-AY5m5ilRK1fYdcrAawA_l54dqDIhhP1dJHNcFosS71ijE--n-5QJ1VVcv7wvvaRT3M_ixcHQDBj4zmsN4gk9ChzJesRzwm9ioZY7z0XDHkDb2u2T4IGQm0u2_RQU2YonIzoS6h8bzQ2hCm0-YsdU-rI_8LlqeyFe9ll0_x_JROHHGA-5fRkkPlUo9e-a5eVxOMrAeZyQXMrt1Cou4Xd9T_gMwPYbW7evNirisX4FeOLuMDGFFflyGBcUpih1A5jRsONFHY58UFFrF2IPDfbU3GJKZtvsL7dZNqDWEBXERwLJsYfVnxbzBBH4_FYcRatYkQ" target="_blank" rel="noopener">hexo菜单栏添加留言板-Valine</a><br><a href="https://bestzuo.cn/messageboard/" target="_blank" rel="noopener">Sanarous的Blog</a></p>
+        <p>之前在阅读<a href="">GCD源码</a>时遇到了一些之前没有见过的锁,<code>FUTEX</code>,<code>UL_UNFAIR_LOCK</code>。这里开篇文章讲一讲。</p>
+<h2 id="OSSpinLock"><a href="#OSSpinLock" class="headerlink" title="OSSpinLock"></a>OSSpinLock</h2><p>在聊<code>UL_UNFAIR_LOCK</code>之前我们先来聊一聊<code>OSSpinLock</code>。在操作系统中，有多线程的地方就有锁，锁的方式有多种多样，<code>mutex</code>，递归锁等等。自旋锁(<code>SpinLock</code>)就是其中一种。当一个线程想要访问已经被另一个线程上锁的资源时，通常情况下操作系统会将线程的状态切换到<strong>等待</strong>，当锁被释放时则再次运行。但是如果从线程开始请求锁到锁释放的时间间隔很短，采用<strong>让线程持续请求锁</strong>的策略就能比切换线程状态节省更多的资源。这就是自旋锁的基本思想。</p>
+<a id="more"></a>
+<p>那么是不是应该在任何可能的地方都使用自旋锁呢？自然不是，当从线程请求锁到锁释放的时间足够长时，线程的反复请求反而会给操作系统带来更大的压力。</p>
+<p>但是在iOS10以后这个自旋锁已经被弃用了，为什么呢？在<a href="https://blog.ibireme.com/2016/01/16/spinlock_is_unsafe_in_ios/" target="_blank" rel="noopener">不再安全的 OSSpinLock</a>一文中提到</p>
+<blockquote>
+<p>新版 iOS 中，系统维护了 5 个不同的线程优先级/QoS: background，utility，default，user-initiated，user-interactive。高优先级线程始终会在低优先级线程前执行，一个线程不会受到比它更低优先级线程的干扰。这种线程调度算法会产生潜在的优先级反转问题，从而破坏了 spin lock。</p>
+<p>具体来说，如果一个低优先级的线程获得锁并访问共享资源，这时一个高优先级的线程也尝试获得这个锁，它会处于 spin lock 的忙等状态从而占用大量 CPU。此时低优先级线程无法与高优先级线程争夺 CPU 时间，从而导致任务迟迟完不成、无法释放 lock。这并不只是理论上的问题，libobjc 已经遇到了很多次这个问题了，于是苹果的工程师停用了 OSSpinLock。</p>
+</blockquote>
+<p>基于优先级反转的前提下，Apple启用了自旋锁，并推荐<code>UNFAIR_LOCK</code>来代替它。</p>
+<h2 id="os-unfair-lock"><a href="#os-unfair-lock" class="headerlink" title="os_unfair_lock"></a>os_unfair_lock</h2><p>首先来看下最基本的上锁操作是如何实现的:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span></span><br><span class="line">os_unfair_lock_lock(<span class="keyword">os_unfair_lock_t</span> lock)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">_os_unfair_lock_t</span> l = (<span class="keyword">_os_unfair_lock_t</span>)lock;</span><br><span class="line">	<span class="keyword">os_lock_owner_t</span> self = _os_lock_owner_get_self();</span><br><span class="line">  <span class="comment">//判断是否没有上锁，如果没有上锁，把自己变成上锁者</span></span><br><span class="line">	<span class="keyword">bool</span> r = os_atomic_cmpxchg(&amp;l-&gt;oul_value, OS_LOCK_NO_OWNER, self, acquire);</span><br><span class="line">  <span class="comment">//如果没有上锁直接返回</span></span><br><span class="line">	<span class="keyword">if</span> (likely(r)) <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">return</span> _os_unfair_lock_lock_slow(l, OS_UNFAIR_LOCK_NONE, self);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中<code>os_unfair_lock_t</code>和<code>_os_unfair_lock_t</code>的定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">os_unfair_lock_s</span> &#123;</span></span><br><span class="line">	<span class="keyword">uint32_t</span> _os_unfair_lock_opaque;</span><br><span class="line">&#125; os_unfair_lock, *<span class="keyword">os_unfair_lock_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">os_unfair_lock_s</span> &#123;</span></span><br><span class="line">	<span class="keyword">os_ulock_value_t</span> oul_value;</span><br><span class="line">&#125; *<span class="keyword">_os_unfair_lock_t</span>;</span><br></pre></td></tr></table></figure>
+<p>而函数<code>t</code> 的实现如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">OS_NOINLINE</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span></span><br><span class="line">_os_unfair_lock_lock_slow(<span class="keyword">_os_unfair_lock_t</span> l,</span><br><span class="line">		<span class="keyword">os_unfair_lock_options_t</span> options, <span class="keyword">os_lock_owner_t</span> self)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">os_unfair_lock_options_t</span> allow_anonymous_owner =</span><br><span class="line">			options &amp; OS_UNFAIR_LOCK_ALLOW_ANONYMOUS_OWNER;</span><br><span class="line">	options &amp;= ~OS_UNFAIR_LOCK_ALLOW_ANONYMOUS_OWNER;</span><br><span class="line">  <span class="comment">//判断传入option是否有效</span></span><br><span class="line">	<span class="keyword">if</span> (unlikely(options &amp; ~OS_UNFAIR_LOCK_OPTIONS_MASK)) &#123;</span><br><span class="line">		__LIBPLATFORM_CLIENT_CRASH__(options, <span class="string">"Invalid options"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">os_ulock_value_t</span> current, <span class="keyword">new</span>, waiters_mask = <span class="number">0</span>;</span><br><span class="line">  <span class="comment">//while中条件取出l的oul_value并判断是否还有锁，利用unlikely来优化</span></span><br><span class="line">	<span class="keyword">while</span> (unlikely((current = os_atomic_load(&amp;l-&gt;oul_value, relaxed)) !=</span><br><span class="line">			OS_LOCK_NO_OWNER)) &#123;</span><br><span class="line">_retry:</span><br><span class="line">    <span class="comment">//中止递归锁情况</span></span><br><span class="line">		<span class="keyword">if</span> (unlikely(OS_ULOCK_IS_OWNER(current, self, allow_anonymous_owner))) &#123;</span><br><span class="line">			<span class="keyword">return</span> _os_unfair_lock_recursive_abort(self);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">new</span> = current &amp; ~OS_ULOCK_NOWAITERS_BIT;</span><br><span class="line">		<span class="keyword">if</span> (current != <span class="keyword">new</span>) &#123;</span><br><span class="line">			<span class="comment">// Clear nowaiters bit in lock value before waiting</span></span><br><span class="line">			<span class="keyword">if</span> (!os_atomic_cmpxchgv(&amp;l-&gt;oul_value, current, <span class="keyword">new</span>, &amp;current,</span><br><span class="line">					relaxed))&#123;</span><br><span class="line">				<span class="keyword">continue</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			current = <span class="keyword">new</span>;</span><br><span class="line">		&#125;</span><br><span class="line">    <span class="comment">//__unlock_wait函数让当前线程进入休眠状态，等待内核唤醒</span></span><br><span class="line">		<span class="keyword">int</span> ret = __ulock_wait(UL_UNFAIR_LOCK | ULF_NO_ERRNO | options,</span><br><span class="line">				l, current, <span class="number">0</span>);</span><br><span class="line">		<span class="keyword">if</span> (unlikely(ret &lt; <span class="number">0</span>)) &#123;</span><br><span class="line">			<span class="keyword">switch</span> (-ret) &#123;</span><br><span class="line">			<span class="keyword">case</span> EINTR:</span><br><span class="line">			<span class="keyword">case</span> EFAULT:</span><br><span class="line">				<span class="keyword">continue</span>;</span><br><span class="line">			<span class="keyword">case</span> EOWNERDEAD:</span><br><span class="line">				_os_unfair_lock_corruption_abort(current);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">default</span>:</span><br><span class="line">				__LIBPLATFORM_INTERNAL_CRASH__(-ret, <span class="string">"ulock_wait failure"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (ret &gt; <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="comment">// If there are more waiters, unset nowaiters bit when acquiring lock</span></span><br><span class="line">			waiters_mask = OS_ULOCK_NOWAITERS_BIT;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">new</span> = self &amp; ~waiters_mask;</span><br><span class="line">  <span class="comment">//防止中途又被上锁</span></span><br><span class="line">	<span class="keyword">bool</span> r = os_atomic_cmpxchgv(&amp;l-&gt;oul_value, OS_LOCK_NO_OWNER, <span class="keyword">new</span>,</span><br><span class="line">			&amp;current, acquire);</span><br><span class="line">	<span class="keyword">if</span> (unlikely(!r)) <span class="keyword">goto</span> _retry;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从<code>_os_unfair_lock_lock_slow</code>的源代码中可以看到，<code>os_unfair_lock</code>和<code>OSSpinLock</code>还是有一定区别的，比如从自选锁变成了互斥锁，本质上请求锁的过程还是一个大循环。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://developer.apple.com/documentation/os/1646466-os_unfair_lock_lock" target="_blank" rel="noopener">os_unfair_lock_lock</a><br><a href="https://xuyunan.github.io/posts/ios-lock-osspinlock/" target="_blank" rel="noopener">iOS中的锁(五)-OSSpinLock, os_unfair_lock</a><br><a href="https://blog.ibireme.com/2016/01/16/spinlock_is_unsafe_in_ios/" target="_blank" rel="noopener">不再安全的 OSSpinLock</a><br><a href="https://stackoverflow.com/questions/1957398/what-exactly-are-spin-locks" target="_blank" rel="noopener">What exactly are “spin-locks”?</a></p>
 
     </div>
 
@@ -305,9 +306,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/hexo/" rel="tag"><i class="fa fa-tag"></i> hexo</a>
-              <a href="/tags/valine/" rel="tag"><i class="fa fa-tag"></i> valine</a>
-              <a href="/tags/Blog/" rel="tag"><i class="fa fa-tag"></i> Blog</a>
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
           </div>
 
         
@@ -316,13 +315,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/03/09/%E5%9C%A8%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%8F%92%E5%85%A5BGM/" rel="prev" title="在自己的博客中插入BGM">
-      <i class="fa fa-chevron-left"></i> 在自己的博客中插入BGM
+    <a href="/2021/06/01/GCD%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0-ONCE%E7%AF%87/" rel="prev" title="GCD源码阅读笔记-ONCE篇">
+      <i class="fa fa-chevron-left"></i> GCD源码阅读笔记-ONCE篇
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/03/24/%E8%81%9A%E7%B1%BB/" rel="next" title="聚类">
-      聚类 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -383,7 +379,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开主题配置文件"><span class="nav-number">1.</span> <span class="nav-text">打开主题配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加对应的翻译"><span class="nav-number">2.</span> <span class="nav-text">添加对应的翻译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择好康的图标"><span class="nav-number">3.</span> <span class="nav-text">选择好康的图标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写对应页面的Markdown"><span class="nav-number">4.</span> <span class="nav-text">编写对应页面的Markdown</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#OSSpinLock"><span class="nav-number">1.</span> <span class="nav-text">OSSpinLock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#os-unfair-lock"><span class="nav-number">2.</span> <span class="nav-text">os_unfair_lock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">3.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
